@@ -62,7 +62,7 @@
     [cell.textLabel setText:url.lastPathComponent];
     [cell.imageView setImage:self.image];
     
-    [self.thumbnailManager addThumbnailOperationForURL:url size:CGSizeMake(self.tableView.rowHeight, self.tableView.rowHeight) page:0 time:5.0 completion:^(NSURL *url, UIImage *image,METhumbnailManagerCacheType cacheType) {
+    [self.thumbnailManager addThumbnailOperationForURL:url size:CGSizeMake(self.tableView.rowHeight, self.tableView.rowHeight) page:1 time:5.0 completion:^(NSURL *url, UIImage *image,METhumbnailManagerCacheType cacheType) {
         [cell.imageView setImage:image];
     }];
     

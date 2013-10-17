@@ -10,10 +10,8 @@
 
 @interface UIImage (METKExtensions)
 
-+ (UIImage *)METK_coreImageThumbnailOfImage:(UIImage *)image size:(CGSize)size;
-+ (UIImage *)METK_accelerateThumbnailOfImage:(UIImage *)image size:(CGSize)size;
++ (UIImage *)METK_thumbnailOfImage:(UIImage *)image size:(CGSize)size;
 
-- (UIImage *)METK_coreImageThumbnailOfSize:(CGSize)size;
-- (UIImage *)METK_accelerateThumbnailOfSize:(CGSize)size;
+- (UIImage *)METK_thumbnailOfSize:(CGSize)size;
 
 @end

@@ -19,7 +19,7 @@
 
 - (void)main {
     UIImage *image = [UIImage imageWithContentsOfFile:self.url.path];
-    UIImage *retval = [image METK_accelerateThumbnailOfSize:self.size];
+    UIImage *retval = [image METK_thumbnailOfSize:self.size];
     
     self.completion(self.url,retval);
 }

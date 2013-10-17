@@ -29,7 +29,7 @@
     int32_t const kPreferredTimeScale = 1;
     CGImageRef imageRef = [assetImageGenerator copyCGImageAtTime:CMTimeMakeWithSeconds(self.time, kPreferredTimeScale) actualTime:NULL error:NULL];
     UIImage *image = [UIImage imageWithCGImage:imageRef];
-    UIImage *retval = [image METK_accelerateThumbnailOfSize:self.size];
+    UIImage *retval = [image METK_thumbnailOfSize:self.size];
     
     self.completion(self.url,retval);
 }

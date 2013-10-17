@@ -9,6 +9,7 @@
 #import "METhumbnailManager.h"
 #import "MEImageThumbnailOperation.h"
 #import "MEMovieThumbnailOperation.h"
+#import "MEPDFThumbnailOperation.h"
 
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -62,10 +63,12 @@
 }
 
 - (void)clearFileCache; {
-    [self.memoryCache removeAllObjects];
+    NSError *outError;
+    if (![[NSFileManager defaultManager] removeItemAtURL:self.fileCacheDirectoryURL error:&outError])
+        NSLog(@"%@",outError);
 }
 - (void)clearMemoryCache; {
-    [[NSFileManager defaultManager] removeItemAtURL:self.fileCacheDirectoryURL error:NULL];
+    [self.memoryCache removeAllObjects];
 }
 
 - (NSURL *)fileCacheURLForMemoryCacheKey:(NSString *)key; {
@@ -111,6 +114,8 @@
         operationClass = [MEImageThumbnailOperation class];
     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeMovie))
         operationClass = [MEMovieThumbnailOperation class];
+    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePDF))
+        operationClass = [MEPDFThumbnailOperation class];
     
     if (operationClass) {
         operation = [[operationClass alloc] initWithURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image) {
