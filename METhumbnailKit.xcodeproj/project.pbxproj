@@ -22,10 +22,28 @@
 		793344B3180F6B8300AB2C0F /* MEAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 793344B2180F6B8300AB2C0F /* MEAppDelegate.m */; };
 		793344B5180F6B8300AB2C0F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 793344B4180F6B8300AB2C0F /* Images.xcassets */; };
 		793344CF180F6C8300AB2C0F /* Files in Resources */ = {isa = PBXBuildFile; fileRef = 793344CE180F6C8300AB2C0F /* Files */; };
+		793344D2180F6E6400AB2C0F /* METhumbnailManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 793344D1180F6E6400AB2C0F /* METhumbnailManager.m */; };
+		793344D8180F749900AB2C0F /* MEImageThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 793344D7180F749900AB2C0F /* MEImageThumbnailOperation.m */; };
+		793344E1180F7DB800AB2C0F /* UIImage+METKExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 793344E0180F7DB800AB2C0F /* UIImage+METKExtensions.m */; };
+		793344E2180F8F6200AB2C0F /* libMEThumbnailKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334476180F6AEA00AB2C0F /* libMEThumbnailKit.a */; };
+		793344E6180F904D00AB2C0F /* METhumbnailKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 793344E5180F8F9500AB2C0F /* METhumbnailKit.h */; };
+		793344E7180F904D00AB2C0F /* METhumbnailManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 793344D0180F6E6400AB2C0F /* METhumbnailManager.h */; };
+		793344E8180F904D00AB2C0F /* METhumbnailOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 793344DB180F769F00AB2C0F /* METhumbnailOperation.h */; };
+		793344E9180F904D00AB2C0F /* MEImageThumbnailOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 793344D6180F749900AB2C0F /* MEImageThumbnailOperation.h */; };
+		793344EA180F904D00AB2C0F /* UIImage+METKExtensions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 793344DF180F7DB800AB2C0F /* UIImage+METKExtensions.h */; };
+		793344ED180FB19500AB2C0F /* MERootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793344EC180FB19500AB2C0F /* MERootViewController.m */; };
+		793344EF180FC38000AB2C0F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793344EE180FC38000AB2C0F /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		7933448C180F6AEA00AB2C0F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 7933446E180F6AEA00AB2C0F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79334475180F6AEA00AB2C0F;
+			remoteInfo = METhumbnailKit;
+		};
+		793344E3180F8F7E00AB2C0F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7933446E180F6AEA00AB2C0F /* Project object */;
 			proxyType = 1;
@@ -41,6 +59,11 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
+				793344E6180F904D00AB2C0F /* METhumbnailKit.h in CopyFiles */,
+				793344E7180F904D00AB2C0F /* METhumbnailManager.h in CopyFiles */,
+				793344E8180F904D00AB2C0F /* METhumbnailOperation.h in CopyFiles */,
+				793344E9180F904D00AB2C0F /* MEImageThumbnailOperation.h in CopyFiles */,
+				793344EA180F904D00AB2C0F /* UIImage+METKExtensions.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,6 +89,17 @@
 		793344B2180F6B8300AB2C0F /* MEAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEAppDelegate.m; sourceTree = "<group>"; };
 		793344B4180F6B8300AB2C0F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		793344CE180F6C8300AB2C0F /* Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Files; sourceTree = "<group>"; };
+		793344D0180F6E6400AB2C0F /* METhumbnailManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = METhumbnailManager.h; sourceTree = "<group>"; };
+		793344D1180F6E6400AB2C0F /* METhumbnailManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = METhumbnailManager.m; sourceTree = "<group>"; };
+		793344D6180F749900AB2C0F /* MEImageThumbnailOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEImageThumbnailOperation.h; sourceTree = "<group>"; };
+		793344D7180F749900AB2C0F /* MEImageThumbnailOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEImageThumbnailOperation.m; sourceTree = "<group>"; };
+		793344DB180F769F00AB2C0F /* METhumbnailOperation.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = METhumbnailOperation.h; sourceTree = "<group>"; };
+		793344DF180F7DB800AB2C0F /* UIImage+METKExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+METKExtensions.h"; sourceTree = "<group>"; };
+		793344E0180F7DB800AB2C0F /* UIImage+METKExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+METKExtensions.m"; sourceTree = "<group>"; };
+		793344E5180F8F9500AB2C0F /* METhumbnailKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = METhumbnailKit.h; sourceTree = "<group>"; };
+		793344EB180FB19500AB2C0F /* MERootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERootViewController.h; sourceTree = "<group>"; };
+		793344EC180FB19500AB2C0F /* MERootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERootViewController.m; sourceTree = "<group>"; };
+		793344EE180FC38000AB2C0F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +126,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				793344EF180FC38000AB2C0F /* MobileCoreServices.framework in Frameworks */,
+				793344E2180F8F6200AB2C0F /* libMEThumbnailKit.a in Frameworks */,
 				793344A6180F6B8300AB2C0F /* CoreGraphics.framework in Frameworks */,
 				793344A7180F6B8300AB2C0F /* UIKit.framework in Frameworks */,
 				793344A4180F6B8200AB2C0F /* Foundation.framework in Frameworks */,
@@ -125,6 +161,7 @@
 		79334478180F6AEA00AB2C0F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				793344EE180FC38000AB2C0F /* MobileCoreServices.framework */,
 				79334479180F6AEA00AB2C0F /* Foundation.framework */,
 				79334487180F6AEA00AB2C0F /* XCTest.framework */,
 				7933448A180F6AEA00AB2C0F /* UIKit.framework */,
@@ -136,6 +173,14 @@
 		7933447B180F6AEA00AB2C0F /* METhumbnailKit */ = {
 			isa = PBXGroup;
 			children = (
+				793344E5180F8F9500AB2C0F /* METhumbnailKit.h */,
+				793344D0180F6E6400AB2C0F /* METhumbnailManager.h */,
+				793344D1180F6E6400AB2C0F /* METhumbnailManager.m */,
+				793344DB180F769F00AB2C0F /* METhumbnailOperation.h */,
+				793344D6180F749900AB2C0F /* MEImageThumbnailOperation.h */,
+				793344D7180F749900AB2C0F /* MEImageThumbnailOperation.m */,
+				793344DF180F7DB800AB2C0F /* UIImage+METKExtensions.h */,
+				793344E0180F7DB800AB2C0F /* UIImage+METKExtensions.m */,
 				7933447C180F6AEA00AB2C0F /* Supporting Files */,
 			);
 			path = METhumbnailKit;
@@ -172,6 +217,8 @@
 			children = (
 				793344B1180F6B8300AB2C0F /* MEAppDelegate.h */,
 				793344B2180F6B8300AB2C0F /* MEAppDelegate.m */,
+				793344EB180FB19500AB2C0F /* MERootViewController.h */,
+				793344EC180FB19500AB2C0F /* MERootViewController.m */,
 				793344CE180F6C8300AB2C0F /* Files */,
 				793344B4180F6B8300AB2C0F /* Images.xcassets */,
 				793344A9180F6B8300AB2C0F /* Supporting Files */,
@@ -239,6 +286,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				793344E4180F8F7E00AB2C0F /* PBXTargetDependency */,
 			);
 			name = METhumbnailKitDemo;
 			productName = METhumbnailKitDemo;
@@ -304,6 +352,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				793344D8180F749900AB2C0F /* MEImageThumbnailOperation.m in Sources */,
+				793344E1180F7DB800AB2C0F /* UIImage+METKExtensions.m in Sources */,
+				793344D2180F6E6400AB2C0F /* METhumbnailManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,6 +372,7 @@
 			files = (
 				793344B3180F6B8300AB2C0F /* MEAppDelegate.m in Sources */,
 				793344AF180F6B8300AB2C0F /* main.m in Sources */,
+				793344ED180FB19500AB2C0F /* MERootViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +383,11 @@
 			isa = PBXTargetDependency;
 			target = 79334475180F6AEA00AB2C0F /* METhumbnailKit */;
 			targetProxy = 7933448C180F6AEA00AB2C0F /* PBXContainerItemProxy */;
+		};
+		793344E4180F8F7E00AB2C0F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 79334475180F6AEA00AB2C0F /* METhumbnailKit */;
+			targetProxy = 793344E3180F8F7E00AB2C0F /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -507,7 +564,16 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/include\"",
+				);
 				INFOPLIST_FILE = "METhumbnailKitDemo/METhumbnailKitDemo-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -527,7 +593,16 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "METhumbnailKitDemo/METhumbnailKitDemo-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"\"$(BUILT_PRODUCTS_DIR)/include\"",
+				);
 				INFOPLIST_FILE = "METhumbnailKitDemo/METhumbnailKitDemo-Info.plist";
+				OTHER_LDFLAGS = (
+					"-all_load",
+					"-ObjC",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
@@ -553,6 +628,7 @@
 				7933449B180F6AEA00AB2C0F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		7933449C180F6AEA00AB2C0F /* Build configuration list for PBXNativeTarget "METhumbnailKitTests" */ = {
 			isa = XCConfigurationList;
@@ -561,6 +637,7 @@
 				7933449E180F6AEA00AB2C0F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		793344C8180F6B8300AB2C0F /* Build configuration list for PBXNativeTarget "METhumbnailKitDemo" */ = {
 			isa = XCConfigurationList;
@@ -569,6 +646,7 @@
 				793344CA180F6B8300AB2C0F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
