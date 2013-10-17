@@ -1,14 +1,14 @@
 //
-//  MEImageThumbnailOperation.h
+//  MEMovieThumbnailOperation.h
 //  METhumbnailKit
 //
-//  Created by William Towe on 10/16/13.
+//  Created by William Towe on 10/17/13.
 //  Copyright (c) 2013 Maestro, LLC. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 #import "METhumbnailOperation.h"
 
-@interface MEImageThumbnailOperation : NSOperation <METhumbnailOperation>
+@interface MEMovieThumbnailOperation : NSOperation <METhumbnailOperation>
 
 @end

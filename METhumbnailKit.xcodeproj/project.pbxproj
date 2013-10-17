@@ -33,6 +33,7 @@
 		793344EA180F904D00AB2C0F /* UIImage+METKExtensions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 793344DF180F7DB800AB2C0F /* UIImage+METKExtensions.h */; };
 		793344ED180FB19500AB2C0F /* MERootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 793344EC180FB19500AB2C0F /* MERootViewController.m */; };
 		793344EF180FC38000AB2C0F /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793344EE180FC38000AB2C0F /* MobileCoreServices.framework */; };
+		79BA0BAA180FC995001CE50B /* MEMovieThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 79BA0BA9180FC995001CE50B /* MEMovieThumbnailOperation.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,8 @@
 		793344EB180FB19500AB2C0F /* MERootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERootViewController.h; sourceTree = "<group>"; };
 		793344EC180FB19500AB2C0F /* MERootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERootViewController.m; sourceTree = "<group>"; };
 		793344EE180FC38000AB2C0F /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		79BA0BA8180FC995001CE50B /* MEMovieThumbnailOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEMovieThumbnailOperation.h; sourceTree = "<group>"; };
+		79BA0BA9180FC995001CE50B /* MEMovieThumbnailOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEMovieThumbnailOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -179,6 +182,8 @@
 				793344DB180F769F00AB2C0F /* METhumbnailOperation.h */,
 				793344D6180F749900AB2C0F /* MEImageThumbnailOperation.h */,
 				793344D7180F749900AB2C0F /* MEImageThumbnailOperation.m */,
+				79BA0BA8180FC995001CE50B /* MEMovieThumbnailOperation.h */,
+				79BA0BA9180FC995001CE50B /* MEMovieThumbnailOperation.m */,
 				793344DF180F7DB800AB2C0F /* UIImage+METKExtensions.h */,
 				793344E0180F7DB800AB2C0F /* UIImage+METKExtensions.m */,
 				7933447C180F6AEA00AB2C0F /* Supporting Files */,
@@ -353,6 +358,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				793344D8180F749900AB2C0F /* MEImageThumbnailOperation.m in Sources */,
+				79BA0BAA180FC995001CE50B /* MEMovieThumbnailOperation.m in Sources */,
 				793344E1180F7DB800AB2C0F /* UIImage+METKExtensions.m in Sources */,
 				793344D2180F6E6400AB2C0F /* METhumbnailManager.m in Sources */,
 			);

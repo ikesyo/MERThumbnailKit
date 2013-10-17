@@ -1,24 +1,34 @@
 //
-//  MEImageThumbnailOperation.m
+//  MEMovieThumbnailOperation.m
 //  METhumbnailKit
 //
-//  Created by William Towe on 10/16/13.
+//  Created by William Towe on 10/17/13.
 //  Copyright (c) 2013 Maestro, LLC. All rights reserved.
 //
 
-#import "MEImageThumbnailOperation.h"
+#import "MEMovieThumbnailOperation.h"
 #import "UIImage+METKExtensions.h"
 
-@interface MEImageThumbnailOperation ()
+#import <AVFoundation/AVFoundation.h>
+
+@interface MEMovieThumbnailOperation ()
 @property (readwrite,strong,nonatomic) NSURL *url;
 @property (readwrite,assign,nonatomic) CGSize size;
+@property (assign,nonatomic) NSTimeInterval time;
 @property (copy,nonatomic) METhumbnailOperationCompletionBlock completion;
 @end
 
-@implementation MEImageThumbnailOperation
+@implementation MEMovieThumbnailOperation
 
 - (void)main {
-    UIImage *image = [UIImage imageWithContentsOfFile:self.url.path];
+    AVAsset *asset = [AVAsset assetWithURL:self.url];
+    AVAssetImageGenerator *assetImageGenerator = [AVAssetImageGenerator assetImageGeneratorWithAsset:asset];
+    
+    [assetImageGenerator setAppliesPreferredTrackTransform:YES];
+    
+    int32_t const kPreferredTimeScale = 1;
+    CGImageRef imageRef = [assetImageGenerator copyCGImageAtTime:CMTimeMakeWithSeconds(self.time, kPreferredTimeScale) actualTime:NULL error:NULL];
+    UIImage *image = [UIImage imageWithCGImage:imageRef];
     UIImage *retval = [image METK_accelerateThumbnailOfSize:self.size];
     
     self.completion(self.url,retval);
@@ -34,6 +44,7 @@
     
     [self setUrl:url];
     [self setSize:size];
+    [self setTime:time];
     [self setCompletion:completion];
     
     return self;

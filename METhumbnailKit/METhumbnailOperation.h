@@ -18,5 +18,5 @@ typedef void(^METhumbnailOperationCompletionBlock)(NSURL *url,UIImage *image);
 @property (readonly,strong,nonatomic) NSURL *url;
 @property (readonly,assign,nonatomic) CGSize size;
 
-- (instancetype)initWithURL:(NSURL *)url size:(CGSize)size completion:(METhumbnailOperationCompletionBlock)completion;
+- (instancetype)initWithURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time completion:(METhumbnailOperationCompletionBlock)completion;
 @end

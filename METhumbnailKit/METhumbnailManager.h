@@ -29,6 +29,7 @@ typedef void(^METhumbnailManagerCompletionBlock)(NSURL *url,UIImage *image,METhu
 
 - (void)cancelAllThumbnailOperations;
 
+- (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time completion:(METhumbnailManagerCompletionBlock)completion;
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time completion:(METhumbnailManagerCompletionBlock)completion;
 
 @end

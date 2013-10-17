@@ -8,6 +8,7 @@
 
 #import "METhumbnailManager.h"
 #import "MEImageThumbnailOperation.h"
+#import "MEMovieThumbnailOperation.h"
 
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -78,6 +79,9 @@
     [self.operationQueue cancelAllOperations];
 }
 
+- (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time completion:(METhumbnailManagerCompletionBlock)completion; {
+    return [self addThumbnailOperationForURL:url size:size page:0 time:time completion:completion];
+}
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time completion:(METhumbnailManagerCompletionBlock)completion; {
     NSString *key = [self memoryCacheKeyForURL:url size:size page:page time:time];
     UIImage *memoryImage = [self.memoryCache objectForKey:key];
@@ -100,9 +104,16 @@
     }
     
     NSString *uti = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)url.lastPathComponent.pathExtension, NULL);
-
-    if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeImage)) {
-        MEImageThumbnailOperation *operation = [[MEImageThumbnailOperation alloc] initWithURL:url size:size completion:^(NSURL *url, UIImage *image) {
+    NSOperation<METhumbnailOperation> *operation = nil;
+    Class operationClass = Nil;
+    
+    if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeImage))
+        operationClass = [MEImageThumbnailOperation class];
+    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeMovie))
+        operationClass = [MEMovieThumbnailOperation class];
+    
+    if (operationClass) {
+        operation = [[operationClass alloc] initWithURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image) {
             dispatch_async(self.fileCacheQueue, ^{
                 NSData *data = UIImageJPEGRepresentation(image, 1.0);
                 
@@ -117,10 +128,8 @@
         }];
         
         [self.operationQueue addOperation:operation];
-        
-        return operation;
     }
-    return nil;
+    return operation;
 }
 
 - (void)_applicationDidReceiveMemoryWarning:(NSNotification *)note {
