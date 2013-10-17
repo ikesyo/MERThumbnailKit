@@ -9,7 +9,12 @@
 #ifdef __OBJC__
 
 #import <METhumbnailKit/METhumbnailManager.h>
+
 #import <METhumbnailKit/MEImageThumbnailOperation.h>
+#import <METhumbnailKit/MEMovieThumbnailOperation.h>
+#import <METhumbnailKit/MEPDFThumbnailOperation.h>
+
 #import <METhumbnailKit/UIImage+METKExtensions.h>
+#import <METhumbnailKit/UIImageView+METKExtensions.h>
 
 #endif

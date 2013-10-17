@@ -8,6 +8,7 @@
 
 #import "MERootViewController.h"
 #import <METhumbnailKit/METhumbnailKit.h>
+#import "MERootTableViewCell.h"
 
 @interface MERootViewController () <UITableViewDataSource>
 @property (strong,nonatomic) UITableView *tableView;
@@ -51,20 +52,16 @@
     return self.urls.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@""];
+    MERootTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@""];
     
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
+        cell = [[MERootTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
     }
     
     NSURL *url = self.urls[indexPath.row];
     
     [cell.textLabel setText:url.lastPathComponent];
-    [cell.imageView setImage:self.image];
-    
-    [self.thumbnailManager addThumbnailOperationForURL:url size:CGSizeMake(self.tableView.rowHeight, self.tableView.rowHeight) page:1 time:5.0 completion:^(NSURL *url, UIImage *image,METhumbnailManagerCacheType cacheType) {
-        [cell.imageView setImage:image];
-    }];
+    [cell.imageView METK_setImageForThumbnailFromURL:url size:CGSizeMake(128, 128) placeholderImage:self.image];
     
     return cell;
 }

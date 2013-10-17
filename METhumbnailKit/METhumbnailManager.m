@@ -62,6 +62,15 @@
     NSLog(@"%@ %@",cache,obj);
 }
 
++ (instancetype)sharedManager; {
+    static METhumbnailManager *retval;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        retval = [[METhumbnailManager alloc] init];
+    });
+    return retval;
+}
+
 - (void)clearFileCache; {
     NSError *outError;
     if (![[NSFileManager defaultManager] removeItemAtURL:self.fileCacheDirectoryURL error:&outError])
@@ -82,10 +91,18 @@
     [self.operationQueue cancelAllOperations];
 }
 
+- (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page completion:(METhumbnailManagerCompletionBlock)completion; {
+    return [self addThumbnailOperationForURL:url size:size page:page time:0 completion:completion];
+}
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time completion:(METhumbnailManagerCompletionBlock)completion; {
     return [self addThumbnailOperationForURL:url size:size page:0 time:time completion:completion];
 }
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time completion:(METhumbnailManagerCompletionBlock)completion; {
+    if (!url) {
+        completion(nil,nil,METhumbnailManagerCacheTypeNone);
+        return nil;
+    }
+    
     NSString *key = [self memoryCacheKeyForURL:url size:size page:page time:time];
     UIImage *memoryImage = [self.memoryCache objectForKey:key];
     
@@ -119,9 +136,9 @@
     
     if (operationClass) {
         operation = [[operationClass alloc] initWithURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image) {
+            NSData *data = UIImageJPEGRepresentation(image, 1.0);
+            
             dispatch_async(self.fileCacheQueue, ^{
-                NSData *data = UIImageJPEGRepresentation(image, 1.0);
-                
                 [data writeToURL:fileCacheURL options:NSDataWritingAtomic error:NULL];
             });
             
