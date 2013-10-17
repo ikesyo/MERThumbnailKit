@@ -26,7 +26,6 @@
     [self setUrls:[[NSFileManager defaultManager] contentsOfDirectoryAtURL:[[NSBundle mainBundle] URLForResource:@"Files" withExtension:nil] includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsSubdirectoryDescendants|NSDirectoryEnumerationSkipsPackageDescendants|NSDirectoryEnumerationSkipsHiddenFiles error:NULL]];
     
     [self setThumbnailManager:[[METhumbnailManager alloc] init]];
-    [self.thumbnailManager clearFileCache];
     
     UIGraphicsBeginImageContext(CGSizeMake(128, 128));
     
@@ -61,7 +60,7 @@
     NSURL *url = self.urls[indexPath.row];
     
     [cell.textLabel setText:url.lastPathComponent];
-    [cell.imageView METK_setImageForThumbnailFromURL:url size:CGSizeMake(128, 128) placeholderImage:self.image];
+    [cell.imageView METK_setImageForThumbnailFromURL:url size:CGSizeMake(128, 128) time:1.0 placeholderImage:self.image];
     
     return cell;
 }

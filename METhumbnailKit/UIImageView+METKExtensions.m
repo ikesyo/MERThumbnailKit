@@ -16,6 +16,9 @@
 static void const *kMECKImageViewThumbnailOperationKey = &kMECKImageViewThumbnailOperationKey;
 
 - (void)METK_setImageForThumbnailFromURL:(NSURL *)url size:(CGSize)size placeholderImage:(UIImage *)placeholderImage; {
+    [self METK_setImageForThumbnailFromURL:url size:size time:0.0 placeholderImage:placeholderImage];
+}
+- (void)METK_setImageForThumbnailFromURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time placeholderImage:(UIImage *)placeholderImage; {
     NSOperation<METhumbnailOperation> *operation = objc_getAssociatedObject(self, kMECKImageViewThumbnailOperationKey);
     
     [operation cancel];
@@ -24,7 +27,7 @@ static void const *kMECKImageViewThumbnailOperationKey = &kMECKImageViewThumbnai
     
     __weak typeof(self) weakSelf = self;
     
-    operation = [[METhumbnailManager sharedManager] addThumbnailOperationForURL:url size:size page:0 time:0 completion:^(NSURL *url, UIImage *image, METhumbnailManagerCacheType cacheType) {
+    operation = [[METhumbnailManager sharedManager] addThumbnailOperationForURL:url size:size page:0 time:time completion:^(NSURL *url, UIImage *image, METhumbnailManagerCacheType cacheType) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         
         [strongSelf setImage:image];
