@@ -9,9 +9,11 @@
 #import "MERootViewController.h"
 #import <METhumbnailKit/METhumbnailKit.h>
 #import "MERootTableViewCell.h"
+#import "MERootCollectionViewCell.h"
 
-@interface MERootViewController () <UITableViewDataSource>
+@interface MERootViewController () <UICollectionViewDataSource>
 @property (strong,nonatomic) UITableView *tableView;
+@property (strong,nonatomic) UICollectionView *collectionView;
 
 @property (strong,nonatomic) NSArray *urls;
 @property (strong,nonatomic) METhumbnailManager *thumbnailManager;
@@ -38,29 +40,30 @@
     
     [self setImage:image];
     
-    [self setTableView:[[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain]];
-    [self.tableView setRowHeight:128];
-    [self.tableView setDataSource:self];
-    [self.view addSubview:self.tableView];
+    UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+    
+    [layout setSectionInset:UIEdgeInsetsMake(20, 20, 20, 20)];
+    [layout setItemSize:CGSizeMake(64, 64)];
+    [layout setMinimumInteritemSpacing:8];
+    [layout setMinimumLineSpacing:8];
+    [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
+    
+    [self setCollectionView:[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout]];
+    [self.collectionView registerClass:[MERootCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([MERootCollectionViewCell class])];
+    [self.collectionView setDataSource:self];
+    [self.view addSubview:self.collectionView];
 }
 - (void)viewDidLayoutSubviews {
-    [self.tableView setFrame:self.view.bounds];
+    [self.collectionView setFrame:self.view.bounds];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
     return self.urls.count;
 }
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    MERootTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@""];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
+    MERootCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MERootCollectionViewCell class]) forIndexPath:indexPath];
     
-    if (!cell) {
-        cell = [[MERootTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@""];
-    }
-    
-    NSURL *url = self.urls[indexPath.row];
-    
-    [cell.textLabel setText:url.lastPathComponent];
-    [cell.imageView METK_setImageForThumbnailFromURL:url size:CGSizeMake(128, 128) time:1.0 placeholderImage:self.image];
+    [cell.imageView METK_setImageForThumbnailFromURL:self.urls[indexPath.row] size:[(UICollectionViewFlowLayout *)collectionView.collectionViewLayout itemSize] time:2.0 placeholderImage:nil];
     
     return cell;
 }
