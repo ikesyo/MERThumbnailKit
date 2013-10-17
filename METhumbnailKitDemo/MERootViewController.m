@@ -31,7 +31,7 @@
     
     UIGraphicsBeginImageContext(CGSizeMake(128, 128));
     
-    [[UIColor blackColor] setFill];
+    [[UIColor whiteColor] setFill];
     UIRectFill(CGRectMake(0, 0, 128, 128));
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
