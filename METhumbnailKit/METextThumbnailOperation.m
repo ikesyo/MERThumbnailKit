@@ -1,26 +1,26 @@
 //
-//  MERTFThumbnailOperation.m
+//  METextThumbnailOperation.m
 //  METhumbnailKit
 //
-//  Created by William Towe on 10/17/13.
+//  Created by William Towe on 10/18/13.
 //  Copyright (c) 2013 Maestro, LLC. All rights reserved.
 //
 
-#import "MERTFThumbnailOperation.h"
+#import "METextThumbnailOperation.h"
 #import "UIImage+METKExtensions.h"
 
-@interface MERTFThumbnailOperation ()
+@interface METextThumbnailOperation ()
 @property (readwrite,strong,nonatomic) NSURL *url;
 @property (readwrite,assign,nonatomic) CGSize size;
 @property (copy,nonatomic) METhumbnailOperationCompletionBlock completion;
 @end
 
-@implementation MERTFThumbnailOperation
+@implementation METextThumbnailOperation
 
 - (void)main {
     NSDictionary *attributes;
     NSError *outError;
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithFileURL:self.url options:@{NSDocumentTypeDocumentAttribute: ([self.url.lastPathComponent.pathExtension isEqualToString:@"rtf"]) ? NSRTFTextDocumentType : NSRTFDTextDocumentType} documentAttributes:&attributes error:&outError];
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithFileURL:self.url options:@{NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType,NSDefaultAttributesDocumentAttribute: @{NSForegroundColorAttributeName: [UIColor blackColor],NSBackgroundColorAttributeName: [UIColor whiteColor],NSFontAttributeName: [UIFont systemFontOfSize:17]}} documentAttributes:&attributes error:&outError];
     
     if (!attributedString) {
         NSLog(@"%@",outError);

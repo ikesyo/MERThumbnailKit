@@ -10,6 +10,7 @@
 		79045DED18101CA800CEAB50 /* MERootCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79045DEC18101CA800CEAB50 /* MERootCollectionViewCell.m */; };
 		79045DF01810253400CEAB50 /* MEWebViewThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 79045DEF1810253400CEAB50 /* MEWebViewThumbnailOperation.m */; };
 		7919DA321810DA550016A764 /* MERTFThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7919DA311810DA550016A764 /* MERTFThumbnailOperation.m */; };
+		7919DA381810F7770016A764 /* METextThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7919DA371810F7770016A764 /* METextThumbnailOperation.m */; };
 		7933447A180F6AEA00AB2C0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334479180F6AEA00AB2C0F /* Foundation.framework */; };
 		79334488180F6AEA00AB2C0F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334487180F6AEA00AB2C0F /* XCTest.framework */; };
 		79334489180F6AEA00AB2C0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334479180F6AEA00AB2C0F /* Foundation.framework */; };
@@ -88,6 +89,8 @@
 		79045DEF1810253400CEAB50 /* MEWebViewThumbnailOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWebViewThumbnailOperation.m; sourceTree = "<group>"; };
 		7919DA301810DA550016A764 /* MERTFThumbnailOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERTFThumbnailOperation.h; sourceTree = "<group>"; };
 		7919DA311810DA550016A764 /* MERTFThumbnailOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERTFThumbnailOperation.m; sourceTree = "<group>"; };
+		7919DA361810F7770016A764 /* METextThumbnailOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = METextThumbnailOperation.h; sourceTree = "<group>"; };
+		7919DA371810F7770016A764 /* METextThumbnailOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = METextThumbnailOperation.m; sourceTree = "<group>"; };
 		79334476180F6AEA00AB2C0F /* libMEThumbnailKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMEThumbnailKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		79334479180F6AEA00AB2C0F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7933447D180F6AEA00AB2C0F /* METhumbnailKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "METhumbnailKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -209,6 +212,8 @@
 				79BA0BAC180FD055001CE50B /* MEPDFThumbnailOperation.m */,
 				7919DA301810DA550016A764 /* MERTFThumbnailOperation.h */,
 				7919DA311810DA550016A764 /* MERTFThumbnailOperation.m */,
+				7919DA361810F7770016A764 /* METextThumbnailOperation.h */,
+				7919DA371810F7770016A764 /* METextThumbnailOperation.m */,
 				79045DEE1810253400CEAB50 /* MEWebViewThumbnailOperation.h */,
 				79045DEF1810253400CEAB50 /* MEWebViewThumbnailOperation.m */,
 				793344DF180F7DB800AB2C0F /* UIImage+METKExtensions.h */,
@@ -388,6 +393,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7919DA381810F7770016A764 /* METextThumbnailOperation.m in Sources */,
 				79045DF01810253400CEAB50 /* MEWebViewThumbnailOperation.m in Sources */,
 				793344D8180F749900AB2C0F /* MEImageThumbnailOperation.m in Sources */,
 				79BA0BB2180FF9FE001CE50B /* UIImageView+METKExtensions.m in Sources */,
