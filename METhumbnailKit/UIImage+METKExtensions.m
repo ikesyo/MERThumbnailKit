@@ -14,8 +14,8 @@
 @implementation UIImage (METKExtensions)
 
 + (UIImage *)METK_thumbnailOfImage:(UIImage *)image size:(CGSize)size; {
-    NSParameterAssert(image);
-    NSParameterAssert(!CGSizeEqualToSize(size, CGSizeZero));
+    if (!image || CGSizeEqualToSize(size, CGSizeZero))
+        return image;
     
 //    CGFloat scale = (size.width > size.height) ? (size.width / image.size.width) : (size.height / image.size.height);
 //    CIFilter *filter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
