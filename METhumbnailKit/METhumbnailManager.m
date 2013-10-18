@@ -11,6 +11,7 @@
 #import "MEMovieThumbnailOperation.h"
 #import "MEPDFThumbnailOperation.h"
 #import "MEOfficeThumbnailOperation.h"
+#import "MEHTMLThumbnailOperation.h"
 
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -107,9 +108,13 @@
     }
     
     NSString *key = [self memoryCacheKeyForURL:url size:size page:page time:time];
-    UIImage *memoryImage = [self.memoryCache objectForKey:key];
+    NSPurgeableData *memoryData = [self.memoryCache objectForKey:key];
     
-    if (memoryImage) {
+    if (memoryData && [memoryData beginContentAccess]) {
+        UIImage *memoryImage = [UIImage imageWithData:memoryData];
+        
+        [memoryData endContentAccess];
+        
         completion(url,memoryImage,METhumbnailManagerCacheTypeMemory);
         
         return nil;
@@ -136,19 +141,26 @@
         operationClass = [MEMovieThumbnailOperation class];
     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePDF))
         operationClass = [MEPDFThumbnailOperation class];
+    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeHTML))
+        operationClass = [MEHTMLThumbnailOperation class];
     else if ([[NSSet setWithArray:@[@"doc",@"docx",@"ppt",@"pptx",@"xls",@"xlsx"]] containsObject:url.lastPathComponent.pathExtension.lowercaseString])
         operationClass = [MEOfficeThumbnailOperation class];
     
     if (operationClass) {
         operation = [[operationClass alloc] initWithURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image) {
+            NSData *data = UIImageJPEGRepresentation(image, 1.0);
+            
             if (self.isFileCachingEnabled && image) {
                 dispatch_async(self.fileCacheQueue, ^{
-                    [UIImageJPEGRepresentation(image, 1.0) writeToURL:fileCacheURL options:NSDataWritingAtomic error:NULL];
+                    [data writeToURL:fileCacheURL options:NSDataWritingAtomic error:NULL];
                 });
             }
             
-            if (self.isMemoryCachingEnabled && image)
-                [self.memoryCache setObject:image forKey:key cost:(image.size.width * image.size.height * image.scale)];
+            if (self.isMemoryCachingEnabled && image) {
+                NSPurgeableData *purgeableData = [NSPurgeableData dataWithData:data];
+                
+                [self.memoryCache setObject:purgeableData forKey:key cost:data.length];
+            }
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 completion(url,image,METhumbnailManagerCacheTypeNone);
