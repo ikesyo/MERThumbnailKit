@@ -20,7 +20,7 @@
 - (void)main {
     NSDictionary *attributes;
     NSError *outError;
-    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithFileURL:self.url options:@{NSDocumentTypeDocumentAttribute: NSRTFTextDocumentType,NSCharacterEncodingDocumentAttribute: @(NSUTF8StringEncoding)} documentAttributes:&attributes error:&outError];
+    NSAttributedString *attributedString = [[NSAttributedString alloc] initWithFileURL:self.url options:@{NSDocumentTypeDocumentAttribute: ([self.url.lastPathComponent.pathExtension isEqualToString:@"rtf"]) ? NSRTFTextDocumentType : NSRTFDTextDocumentType} documentAttributes:&attributes error:&outError];
     
     if (!attributedString) {
         NSLog(@"%@",outError);
@@ -29,15 +29,20 @@
         return;
     }
     
-    CGSize paperSize = [attributes[NSPaperSizeDocumentAttribute] CGSizeValue];
-    UIEdgeInsets paperMargin = [attributes[NSPaperMarginDocumentAttribute] UIEdgeInsetsValue];
+    __block CGSize paperSize = CGSizeZero;
+    
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        paperSize = [UIApplication sharedApplication].keyWindow.bounds.size;
+    });
     
     UIGraphicsBeginImageContextWithOptions(paperSize, YES, 0);
     
-    [[UIColor whiteColor] setFill];
-    UIRectFill(CGRectMake(0, 0, paperSize.width, paperSize.height));
+    if (![attributedString attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:NULL]) {
+        [[UIColor whiteColor] setFill];
+        UIRectFill(CGRectMake(0, 0, paperSize.width, paperSize.height));
+    }
     
-    [attributedString drawWithRect:UIEdgeInsetsInsetRect(CGRectMake(0, 0, paperSize.width, paperSize.height), paperMargin) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    [attributedString drawWithRect:CGRectMake(0, 0, paperSize.width, paperSize.height) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     

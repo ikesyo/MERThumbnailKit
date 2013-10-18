@@ -141,7 +141,8 @@
         operationClass = [MEMovieThumbnailOperation class];
     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePDF))
         operationClass = [MEPDFThumbnailOperation class];
-    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeRTF))
+    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeRTF) ||
+             UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeRTFD))
         operationClass = [MERTFThumbnailOperation class];
     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeHTML))
         operationClass = [MEWebViewThumbnailOperation class];
