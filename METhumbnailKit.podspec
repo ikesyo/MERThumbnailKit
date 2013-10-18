@@ -11,7 +11,7 @@ Pod::Spec.new do |s|
   
   s.dependency 'MEFoundation', '~> 0.3.14'
   
-  s.frameworks = 'CoreGraphics','UIKit','MobileCoreServices','CoreMedia','AVFoundation','Accelerate','CoreImage'
+  s.frameworks = 'CoreGraphics','UIKit','MobileCoreServices','CoreMedia','AVFoundation','Accelerate'
   
   s.source = {:git => "git@github.com:MaestroElearning/METhumbnailKit.git",:tag => s.version.to_s}
   s.source_files = 'METhumbnailKit'
