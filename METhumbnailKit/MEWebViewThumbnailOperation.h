@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 #import "METhumbnailOperation.h"
 
-@interface MEOfficeThumbnailOperation : NSOperation <METhumbnailOperation>
+@interface MEWebViewThumbnailOperation : NSOperation <METhumbnailOperation>
 
 @end

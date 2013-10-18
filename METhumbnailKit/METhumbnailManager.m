@@ -10,8 +10,7 @@
 #import "MEImageThumbnailOperation.h"
 #import "MEMovieThumbnailOperation.h"
 #import "MEPDFThumbnailOperation.h"
-#import "MEOfficeThumbnailOperation.h"
-#import "MEHTMLThumbnailOperation.h"
+#import "MEWebViewThumbnailOperation.h"
 
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -142,9 +141,9 @@
     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePDF))
         operationClass = [MEPDFThumbnailOperation class];
     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeHTML))
-        operationClass = [MEHTMLThumbnailOperation class];
+        operationClass = [MEWebViewThumbnailOperation class];
     else if ([[NSSet setWithArray:@[@"doc",@"docx",@"ppt",@"pptx",@"xls",@"xlsx"]] containsObject:url.lastPathComponent.pathExtension.lowercaseString])
-        operationClass = [MEOfficeThumbnailOperation class];
+        operationClass = [MEWebViewThumbnailOperation class];
     
     if (operationClass) {
         operation = [[operationClass alloc] initWithURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image) {

@@ -1,17 +1,20 @@
 //
-//  MEHTMLThumbnailOperation.m
+//  MEOfficeThumbnailOperation.m
 //  METhumbnailKit
 //
 //  Created by William Towe on 10/17/13.
 //  Copyright (c) 2013 Maestro, LLC. All rights reserved.
 //
 
-#import "MEHTMLThumbnailOperation.h"
+#import "MEWebViewThumbnailOperation.h"
 #import "UIImage+METKExtensions.h"
 
-@interface MEHTMLThumbnailOperation () <UIWebViewDelegate>
+#import <UIKit/UIKit.h>
+
+@interface MEWebViewThumbnailOperation () <UIWebViewDelegate>
 @property (readwrite,strong,nonatomic) NSURL *url;
 @property (readwrite,assign,nonatomic) CGSize size;
+@property (assign,nonatomic) NSInteger page;
 @property (copy,nonatomic) METhumbnailOperationCompletionBlock completion;
 
 @property (assign,nonatomic,getter = isExecuting) BOOL executing;
@@ -20,7 +23,7 @@
 @property (strong,nonatomic) UIWebView *webView;
 @end
 
-@implementation MEHTMLThumbnailOperation
+@implementation MEWebViewThumbnailOperation
 
 - (BOOL)isConcurrent {
     return YES;
@@ -96,7 +99,7 @@
     });
 }
 
-- (instancetype)initWithURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time completion:(METhumbnailOperationCompletionBlock)completion; {
+- (instancetype)initWithURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time completion:(METhumbnailOperationCompletionBlock)completion {
     if (!(self = [super init]))
         return nil;
     
@@ -106,6 +109,7 @@
     
     [self setUrl:url];
     [self setSize:size];
+    [self setPage:page];
     [self setCompletion:completion];
     
     return self;
