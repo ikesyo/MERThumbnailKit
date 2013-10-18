@@ -9,8 +9,6 @@
 #import "MEWebViewThumbnailOperation.h"
 #import "UIImage+METKExtensions.h"
 
-#import <UIKit/UIKit.h>
-
 @interface MEWebViewThumbnailOperation () <UIWebViewDelegate>
 @property (readwrite,strong,nonatomic) NSURL *url;
 @property (readwrite,assign,nonatomic) CGSize size;
