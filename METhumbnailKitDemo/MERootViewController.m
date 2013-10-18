@@ -28,6 +28,7 @@
     [self setUrls:[[NSFileManager defaultManager] contentsOfDirectoryAtURL:[[NSBundle mainBundle] URLForResource:@"Files" withExtension:nil] includingPropertiesForKeys:nil options:NSDirectoryEnumerationSkipsSubdirectoryDescendants|NSDirectoryEnumerationSkipsPackageDescendants|NSDirectoryEnumerationSkipsHiddenFiles error:NULL]];
     
     [self setThumbnailManager:[[METhumbnailManager alloc] init]];
+    [self.thumbnailManager clearFileCache];
     
     UIGraphicsBeginImageContext(CGSizeMake(128, 128));
     
@@ -62,8 +63,10 @@
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     MERootCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:NSStringFromClass([MERootCollectionViewCell class]) forIndexPath:indexPath];
+    NSURL *url = self.urls[indexPath.row];
     
-    [cell.imageView METK_setImageForThumbnailFromURL:self.urls[indexPath.row] size:[(UICollectionViewFlowLayout *)collectionView.collectionViewLayout itemSize] time:2.0 placeholderImage:nil];
+    [cell.titleLabel setText:url.lastPathComponent.pathExtension];
+    [cell.imageView METK_setImageForThumbnailFromURL:url size:[(UICollectionViewFlowLayout *)collectionView.collectionViewLayout itemSize] time:2.0 placeholderImage:nil];
     
     return cell;
 }

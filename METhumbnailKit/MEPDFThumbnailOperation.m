@@ -43,8 +43,6 @@
     
     CGPDFDocumentRelease(documentRef);
     
-    NSLog(@"%@",NSStringFromCGSize(retval.size));
-    
     self.completion(self.url,retval);
 }
 

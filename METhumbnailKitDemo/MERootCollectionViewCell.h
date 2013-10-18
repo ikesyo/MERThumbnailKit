@@ -11,5 +11,6 @@
 @interface MERootCollectionViewCell : UICollectionViewCell
 
 @property (readonly,strong,nonatomic) UIImageView *imageView;
+@property (readonly,strong,nonatomic) UILabel *titleLabel;
 
 @end

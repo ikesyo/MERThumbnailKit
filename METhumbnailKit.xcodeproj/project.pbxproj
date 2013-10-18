@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		79045DEA1810158800CEAB50 /* MERootTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79045DE91810158800CEAB50 /* MERootTableViewCell.m */; };
 		79045DED18101CA800CEAB50 /* MERootCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79045DEC18101CA800CEAB50 /* MERootCollectionViewCell.m */; };
+		79045DF01810253400CEAB50 /* MEOfficeThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 79045DEF1810253400CEAB50 /* MEOfficeThumbnailOperation.m */; };
 		7933447A180F6AEA00AB2C0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334479180F6AEA00AB2C0F /* Foundation.framework */; };
 		79334488180F6AEA00AB2C0F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334487180F6AEA00AB2C0F /* XCTest.framework */; };
 		79334489180F6AEA00AB2C0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334479180F6AEA00AB2C0F /* Foundation.framework */; };
@@ -85,6 +86,8 @@
 		79045DE91810158800CEAB50 /* MERootTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERootTableViewCell.m; sourceTree = "<group>"; };
 		79045DEB18101CA800CEAB50 /* MERootCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERootCollectionViewCell.h; sourceTree = "<group>"; };
 		79045DEC18101CA800CEAB50 /* MERootCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERootCollectionViewCell.m; sourceTree = "<group>"; };
+		79045DEE1810253400CEAB50 /* MEOfficeThumbnailOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEOfficeThumbnailOperation.h; sourceTree = "<group>"; };
+		79045DEF1810253400CEAB50 /* MEOfficeThumbnailOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEOfficeThumbnailOperation.m; sourceTree = "<group>"; };
 		79334476180F6AEA00AB2C0F /* libMEThumbnailKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMEThumbnailKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		79334479180F6AEA00AB2C0F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7933447D180F6AEA00AB2C0F /* METhumbnailKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "METhumbnailKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -204,6 +207,8 @@
 				79BA0BA9180FC995001CE50B /* MEMovieThumbnailOperation.m */,
 				79BA0BAB180FD055001CE50B /* MEPDFThumbnailOperation.h */,
 				79BA0BAC180FD055001CE50B /* MEPDFThumbnailOperation.m */,
+				79045DEE1810253400CEAB50 /* MEOfficeThumbnailOperation.h */,
+				79045DEF1810253400CEAB50 /* MEOfficeThumbnailOperation.m */,
 				793344DF180F7DB800AB2C0F /* UIImage+METKExtensions.h */,
 				793344E0180F7DB800AB2C0F /* UIImage+METKExtensions.m */,
 				79BA0BB0180FF9FE001CE50B /* UIImageView+METKExtensions.h */,
@@ -383,6 +388,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				79045DF01810253400CEAB50 /* MEOfficeThumbnailOperation.m in Sources */,
 				793344D8180F749900AB2C0F /* MEImageThumbnailOperation.m in Sources */,
 				79BA0BB2180FF9FE001CE50B /* UIImageView+METKExtensions.m in Sources */,
 				79BA0BAD180FD055001CE50B /* MEPDFThumbnailOperation.m in Sources */,
