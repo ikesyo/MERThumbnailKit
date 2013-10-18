@@ -13,6 +13,7 @@
 #import "MEWebViewThumbnailOperation.h"
 #import "MERTFThumbnailOperation.h"
 #import "METextThumbnailOperation.h"
+#import <MEFoundation/MEDebugging.h>
 
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -55,7 +56,7 @@
     if (![fileCacheDirectoryURL checkResourceIsReachableAndReturnError:NULL]) {
         NSError *outError;
         if (![[NSFileManager defaultManager] createDirectoryAtURL:fileCacheDirectoryURL withIntermediateDirectories:YES attributes:nil error:&outError])
-            NSLog(@"%@",outError);
+            MELogObject(outError);
     }
     
     [self setFileCacheDirectoryURL:fileCacheDirectoryURL];
@@ -64,7 +65,7 @@
 }
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
-    NSLog(@"%@ %@",cache,obj);
+    MELog(@"%@ %@",cache,obj);
 }
 
 + (instancetype)sharedManager; {
@@ -79,7 +80,7 @@
 - (void)clearFileCache; {
     NSError *outError;
     if (![[NSFileManager defaultManager] removeItemAtURL:self.fileCacheDirectoryURL error:&outError])
-        NSLog(@"%@",outError);
+        MELogObject(outError);
 }
 - (void)clearMemoryCache; {
     [self.memoryCache removeAllObjects];
@@ -125,7 +126,11 @@
     UIImage *fileImage = [UIImage imageWithContentsOfFile:fileCacheURL.path];
     
     if (fileImage) {
-        [self.memoryCache setObject:fileImage forKey:key cost:(fileImage.size.width * fileImage.size.height * fileImage.scale)];
+        if (self.isMemoryCachingEnabled && fileImage) {
+            NSPurgeableData *purgeableData = [NSPurgeableData dataWithData:UIImageJPEGRepresentation(fileImage, 1.0)];
+            
+            [self.memoryCache setObject:purgeableData forKey:key cost:purgeableData.length];
+        }
         
         completion(url,fileImage,METhumbnailManagerCacheTypeFile);
          
@@ -165,7 +170,7 @@
             if (self.isMemoryCachingEnabled && image) {
                 NSPurgeableData *purgeableData = [NSPurgeableData dataWithData:data];
                 
-                [self.memoryCache setObject:purgeableData forKey:key cost:data.length];
+                [self.memoryCache setObject:purgeableData forKey:key cost:purgeableData.length];
             }
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{

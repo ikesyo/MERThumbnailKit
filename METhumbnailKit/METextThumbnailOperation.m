@@ -8,6 +8,7 @@
 
 #import "METextThumbnailOperation.h"
 #import "UIImage+METKExtensions.h"
+#import <MEFoundation/MEDebugging.h>
 
 @interface METextThumbnailOperation ()
 @property (readwrite,strong,nonatomic) NSURL *url;
@@ -23,7 +24,7 @@
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithFileURL:self.url options:@{NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType,NSDefaultAttributesDocumentAttribute: @{NSForegroundColorAttributeName: [UIColor blackColor],NSBackgroundColorAttributeName: [UIColor whiteColor],NSFontAttributeName: [UIFont systemFontOfSize:17]}} documentAttributes:&attributes error:&outError];
     
     if (!attributedString) {
-        NSLog(@"%@",outError);
+        MELogObject(outError);
         self.completion(self.url,nil);
         
         return;

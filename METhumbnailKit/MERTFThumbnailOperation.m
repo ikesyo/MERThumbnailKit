@@ -8,6 +8,7 @@
 
 #import "MERTFThumbnailOperation.h"
 #import "UIImage+METKExtensions.h"
+#import <MEFoundation/MEDebugging.h>
 
 @interface MERTFThumbnailOperation ()
 @property (readwrite,strong,nonatomic) NSURL *url;
@@ -23,7 +24,7 @@
     NSAttributedString *attributedString = [[NSAttributedString alloc] initWithFileURL:self.url options:@{NSDocumentTypeDocumentAttribute: ([self.url.lastPathComponent.pathExtension isEqualToString:@"rtf"]) ? NSRTFTextDocumentType : NSRTFDTextDocumentType} documentAttributes:&attributes error:&outError];
     
     if (!attributedString) {
-        NSLog(@"%@",outError);
+        MELogObject(outError);
         self.completion(self.url,nil);
         
         return;
