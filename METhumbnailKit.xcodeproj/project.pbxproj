@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		79045DEA1810158800CEAB50 /* MERootTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79045DE91810158800CEAB50 /* MERootTableViewCell.m */; };
 		79045DED18101CA800CEAB50 /* MERootCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79045DEC18101CA800CEAB50 /* MERootCollectionViewCell.m */; };
 		79045DF01810253400CEAB50 /* MEWebViewThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 79045DEF1810253400CEAB50 /* MEWebViewThumbnailOperation.m */; };
+		7919DA321810DA550016A764 /* MERTFThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7919DA311810DA550016A764 /* MERTFThumbnailOperation.m */; };
 		7933447A180F6AEA00AB2C0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334479180F6AEA00AB2C0F /* Foundation.framework */; };
 		79334488180F6AEA00AB2C0F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334487180F6AEA00AB2C0F /* XCTest.framework */; };
 		79334489180F6AEA00AB2C0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334479180F6AEA00AB2C0F /* Foundation.framework */; };
@@ -82,12 +82,12 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		79045DE81810158800CEAB50 /* MERootTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERootTableViewCell.h; sourceTree = "<group>"; };
-		79045DE91810158800CEAB50 /* MERootTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERootTableViewCell.m; sourceTree = "<group>"; };
 		79045DEB18101CA800CEAB50 /* MERootCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERootCollectionViewCell.h; sourceTree = "<group>"; };
 		79045DEC18101CA800CEAB50 /* MERootCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERootCollectionViewCell.m; sourceTree = "<group>"; };
 		79045DEE1810253400CEAB50 /* MEWebViewThumbnailOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MEWebViewThumbnailOperation.h; sourceTree = "<group>"; };
 		79045DEF1810253400CEAB50 /* MEWebViewThumbnailOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEWebViewThumbnailOperation.m; sourceTree = "<group>"; };
+		7919DA301810DA550016A764 /* MERTFThumbnailOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERTFThumbnailOperation.h; sourceTree = "<group>"; };
+		7919DA311810DA550016A764 /* MERTFThumbnailOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERTFThumbnailOperation.m; sourceTree = "<group>"; };
 		79334476180F6AEA00AB2C0F /* libMEThumbnailKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMEThumbnailKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		79334479180F6AEA00AB2C0F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		7933447D180F6AEA00AB2C0F /* METhumbnailKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "METhumbnailKit-Prefix.pch"; sourceTree = "<group>"; };
@@ -207,6 +207,8 @@
 				79BA0BA9180FC995001CE50B /* MEMovieThumbnailOperation.m */,
 				79BA0BAB180FD055001CE50B /* MEPDFThumbnailOperation.h */,
 				79BA0BAC180FD055001CE50B /* MEPDFThumbnailOperation.m */,
+				7919DA301810DA550016A764 /* MERTFThumbnailOperation.h */,
+				7919DA311810DA550016A764 /* MERTFThumbnailOperation.m */,
 				79045DEE1810253400CEAB50 /* MEWebViewThumbnailOperation.h */,
 				79045DEF1810253400CEAB50 /* MEWebViewThumbnailOperation.m */,
 				793344DF180F7DB800AB2C0F /* UIImage+METKExtensions.h */,
@@ -251,8 +253,6 @@
 				793344B2180F6B8300AB2C0F /* MEAppDelegate.m */,
 				793344EB180FB19500AB2C0F /* MERootViewController.h */,
 				793344EC180FB19500AB2C0F /* MERootViewController.m */,
-				79045DE81810158800CEAB50 /* MERootTableViewCell.h */,
-				79045DE91810158800CEAB50 /* MERootTableViewCell.m */,
 				79045DEB18101CA800CEAB50 /* MERootCollectionViewCell.h */,
 				79045DEC18101CA800CEAB50 /* MERootCollectionViewCell.m */,
 				793344CE180F6C8300AB2C0F /* Files */,
@@ -395,6 +395,7 @@
 				79BA0BAA180FC995001CE50B /* MEMovieThumbnailOperation.m in Sources */,
 				793344E1180F7DB800AB2C0F /* UIImage+METKExtensions.m in Sources */,
 				793344D2180F6E6400AB2C0F /* METhumbnailManager.m in Sources */,
+				7919DA321810DA550016A764 /* MERTFThumbnailOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -411,7 +412,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				793344B3180F6B8300AB2C0F /* MEAppDelegate.m in Sources */,
-				79045DEA1810158800CEAB50 /* MERootTableViewCell.m in Sources */,
 				793344AF180F6B8300AB2C0F /* main.m in Sources */,
 				79045DED18101CA800CEAB50 /* MERootCollectionViewCell.m in Sources */,
 				793344ED180FB19500AB2C0F /* MERootViewController.m in Sources */,

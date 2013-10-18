@@ -11,6 +11,7 @@
 #import "MEMovieThumbnailOperation.h"
 #import "MEPDFThumbnailOperation.h"
 #import "MEWebViewThumbnailOperation.h"
+#import "MERTFThumbnailOperation.h"
 
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -140,6 +141,8 @@
         operationClass = [MEMovieThumbnailOperation class];
     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePDF))
         operationClass = [MEPDFThumbnailOperation class];
+    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeRTF))
+        operationClass = [MERTFThumbnailOperation class];
     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeHTML))
         operationClass = [MEWebViewThumbnailOperation class];
     else if ([[NSSet setWithArray:@[@"doc",@"docx",@"ppt",@"pptx",@"xls",@"xlsx"]] containsObject:url.lastPathComponent.pathExtension.lowercaseString])

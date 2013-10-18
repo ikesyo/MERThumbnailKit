@@ -8,7 +8,6 @@
 
 #import "MERootViewController.h"
 #import <METhumbnailKit/METhumbnailKit.h>
-#import "MERootTableViewCell.h"
 #import "MERootCollectionViewCell.h"
 
 @interface MERootViewController () <UICollectionViewDataSource>
@@ -30,21 +29,10 @@
     [self setThumbnailManager:[[METhumbnailManager alloc] init]];
     [self.thumbnailManager clearFileCache];
     
-    UIGraphicsBeginImageContext(CGSizeMake(128, 128));
-    
-    [[UIColor whiteColor] setFill];
-    UIRectFill(CGRectMake(0, 0, 128, 128));
-    
-    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-    
-    UIGraphicsEndImageContext();
-    
-    [self setImage:image];
-    
     UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
     
     [layout setSectionInset:UIEdgeInsetsMake(20, 20, 20, 20)];
-    [layout setItemSize:CGSizeMake(64, 64)];
+    [layout setItemSize:CGSizeMake(128, 128)];
     [layout setMinimumInteritemSpacing:8];
     [layout setMinimumLineSpacing:8];
     [layout setScrollDirection:UICollectionViewScrollDirectionVertical];
