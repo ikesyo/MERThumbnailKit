@@ -97,8 +97,11 @@
     [self.operationQueue cancelAllOperations];
 }
 
+- (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size completion:(METhumbnailManagerCompletionBlock)completion; {
+    return [self addThumbnailOperationForURL:url size:size page:0 time:0.0 completion:completion];
+}
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page completion:(METhumbnailManagerCompletionBlock)completion; {
-    return [self addThumbnailOperationForURL:url size:size page:page time:0 completion:completion];
+    return [self addThumbnailOperationForURL:url size:size page:page time:0.0 completion:completion];
 }
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time completion:(METhumbnailManagerCompletionBlock)completion; {
     return [self addThumbnailOperationForURL:url size:size page:0 time:time completion:completion];
