@@ -13,11 +13,19 @@
 
 @implementation UIImageView (METKExtensions)
 
-static void const *kMECKImageViewThumbnailOperationKey = &kMECKImageViewThumbnailOperationKey;
+- (void)METK_setImageForThumbnailFromURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage; {
+    [self METK_setImageForThumbnailFromURL:url size:self.bounds.size time:0.0 placeholderImage:placeholderImage];
+}
+- (void)METK_setImageForThumbnailFromURL:(NSURL *)url time:(NSTimeInterval)time placeholderImage:(UIImage *)placeholderImage; {
+    [self METK_setImageForThumbnailFromURL:url size:self.bounds.size time:time placeholderImage:placeholderImage];
+}
 
 - (void)METK_setImageForThumbnailFromURL:(NSURL *)url size:(CGSize)size placeholderImage:(UIImage *)placeholderImage; {
     [self METK_setImageForThumbnailFromURL:url size:size time:0.0 placeholderImage:placeholderImage];
 }
+
+static void const *kMECKImageViewThumbnailOperationKey = &kMECKImageViewThumbnailOperationKey;
+
 - (void)METK_setImageForThumbnailFromURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time placeholderImage:(UIImage *)placeholderImage; {
     NSOperation<METhumbnailOperation> *operation = objc_getAssociatedObject(self, kMECKImageViewThumbnailOperationKey);
     

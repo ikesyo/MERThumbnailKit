@@ -10,6 +10,9 @@
 
 @interface UIImageView (METKExtensions)
 
+- (void)METK_setImageForThumbnailFromURL:(NSURL *)url placeholderImage:(UIImage *)placeholderImage;
+- (void)METK_setImageForThumbnailFromURL:(NSURL *)url time:(NSTimeInterval)time placeholderImage:(UIImage *)placeholderImage;
+
 - (void)METK_setImageForThumbnailFromURL:(NSURL *)url size:(CGSize)size placeholderImage:(UIImage *)placeholderImage;
 - (void)METK_setImageForThumbnailFromURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time placeholderImage:(UIImage *)placeholderImage;
 
