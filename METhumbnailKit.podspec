@@ -9,7 +9,9 @@ Pod::Spec.new do |s|
   s.platform = :ios, '7.0'
   s.requires_arc = true
   
-  s.frameworks = 'Foundation','CoreGraphics','UIKit','MobileCoreServices','CoreMedia','AVFoundation','Accelerate','CoreImage'
+  s.dependency 'MEFoundation', '~> 0.3.14'
+  
+  s.frameworks = 'CoreGraphics','UIKit','MobileCoreServices','CoreMedia','AVFoundation','Accelerate','CoreImage'
   
   s.source = {:git => "git@github.com:MaestroElearning/METhumbnailKit.git",:tag => s.version.to_s}
   s.source_files = 'METhumbnailKit'
