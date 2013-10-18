@@ -7,35 +7,15 @@
 //
 
 #import "UIImage+METKExtensions.h"
+#import <MEFoundation/MEDebugging.h>
 
 #import <Accelerate/Accelerate.h>
-#import <CoreImage/CoreImage.h>
 
 @implementation UIImage (METKExtensions)
 
 + (UIImage *)METK_thumbnailOfImage:(UIImage *)image size:(CGSize)size; {
     if (!image || CGSizeEqualToSize(size, CGSizeZero))
         return image;
-    
-//    CGFloat scale = (size.width > size.height) ? (size.width / image.size.width) : (size.height / image.size.height);
-//    CIFilter *filter = [CIFilter filterWithName:@"CILanczosScaleTransform"];
-//    
-//    [filter setDefaults];
-//    [filter setValue:@(scale) forKey:@"inputScale"];
-//    [filter setValue:[[CIImage alloc] initWithImage:image] forKey:kCIInputImageKey];
-//    
-//    static CIContext *kContext;
-//    static dispatch_once_t onceToken;
-//    dispatch_once(&onceToken, ^{
-//        kContext = [CIContext contextWithOptions:nil];
-//    });
-//    
-//    CGImageRef imageRef = [kContext createCGImage:filter.outputImage fromRect:filter.outputImage.extent];
-//    UIImage *retval = [UIImage imageWithCGImage:imageRef];
-//    
-//    CGImageRelease(imageRef);
-//    
-//    return retval;
     
     CGImageRef sourceImageRef = image.CGImage;
     CFDataRef sourceDataRef = CGDataProviderCopyData(CGImageGetDataProvider(sourceImageRef));
@@ -49,14 +29,14 @@
     vImage_Error error = vImageBuffer_Init(&destination, (vImagePixelCount)size.height, (vImagePixelCount)size.width, CGImageGetBitsPerPixel(sourceImageRef), kvImageNoFlags);
     
     if (error != kvImageNoError) {
-        NSLog(@"%@",@(error));
+        MELogObject(@(error));
         return nil;
     }
     
     error = vImageScale_ARGB8888(&source, &destination, NULL, kvImageHighQualityResampling|kvImageEdgeExtend);
     
     if (error != kvImageNoError) {
-        NSLog(@"%@",@(error));
+        MELogObject(@(error));
         return nil;
     }
     
@@ -72,7 +52,7 @@
     CGImageRef destImageRef = vImageCreateCGImageFromBuffer(&destination, &format, NULL, NULL, kvImageNoFlags, &error);
     
     if (error != kvImageNoError) {
-        NSLog(@"%@",@(error));
+        MELogObject(@(error));
         return nil;
     }
     
