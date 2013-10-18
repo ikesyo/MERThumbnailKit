@@ -10,9 +10,14 @@
 
 #import <METhumbnailKit/METhumbnailManager.h>
 
+#import <METhumbnailKit/METhumbnailOperation.h>
+
 #import <METhumbnailKit/MEImageThumbnailOperation.h>
 #import <METhumbnailKit/MEMovieThumbnailOperation.h>
 #import <METhumbnailKit/MEPDFThumbnailOperation.h>
+#import <METhumbnailKit/MERTFThumbnailOperation.h>
+#import <METhumbnailKit/METextThumbnailOperation.h>
+#import <METhumbnailKit/MEWebViewThumbnailOperation.h>
 
 #import <METhumbnailKit/UIImage+METKExtensions.h>
 #import <METhumbnailKit/UIImageView+METKExtensions.h>

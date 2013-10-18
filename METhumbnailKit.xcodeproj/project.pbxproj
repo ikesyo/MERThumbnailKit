@@ -11,6 +11,9 @@
 		79045DF01810253400CEAB50 /* MEWebViewThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 79045DEF1810253400CEAB50 /* MEWebViewThumbnailOperation.m */; };
 		7919DA321810DA550016A764 /* MERTFThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7919DA311810DA550016A764 /* MERTFThumbnailOperation.m */; };
 		7919DA381810F7770016A764 /* METextThumbnailOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7919DA371810F7770016A764 /* METextThumbnailOperation.m */; };
+		7919DA391810FFC70016A764 /* MERTFThumbnailOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7919DA301810DA550016A764 /* MERTFThumbnailOperation.h */; };
+		7919DA3A1810FFC70016A764 /* METextThumbnailOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 7919DA361810F7770016A764 /* METextThumbnailOperation.h */; };
+		7919DA3B1810FFC70016A764 /* MEWebViewThumbnailOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79045DEE1810253400CEAB50 /* MEWebViewThumbnailOperation.h */; };
 		7933447A180F6AEA00AB2C0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334479180F6AEA00AB2C0F /* Foundation.framework */; };
 		79334488180F6AEA00AB2C0F /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334487180F6AEA00AB2C0F /* XCTest.framework */; };
 		79334489180F6AEA00AB2C0F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79334479180F6AEA00AB2C0F /* Foundation.framework */; };
@@ -75,6 +78,9 @@
 				793344E9180F904D00AB2C0F /* MEImageThumbnailOperation.h in CopyFiles */,
 				79BA0BAE180FECFD001CE50B /* MEMovieThumbnailOperation.h in CopyFiles */,
 				79BA0BAF180FED00001CE50B /* MEPDFThumbnailOperation.h in CopyFiles */,
+				7919DA391810FFC70016A764 /* MERTFThumbnailOperation.h in CopyFiles */,
+				7919DA3A1810FFC70016A764 /* METextThumbnailOperation.h in CopyFiles */,
+				7919DA3B1810FFC70016A764 /* MEWebViewThumbnailOperation.h in CopyFiles */,
 				793344EA180F904D00AB2C0F /* UIImage+METKExtensions.h in CopyFiles */,
 				79BA0BB3180FFE3C001CE50B /* UIImageView+METKExtensions.h in CopyFiles */,
 			);
