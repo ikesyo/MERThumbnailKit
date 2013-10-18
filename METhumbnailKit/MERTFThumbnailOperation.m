@@ -9,6 +9,8 @@
 #import "MERTFThumbnailOperation.h"
 #import "UIImage+METKExtensions.h"
 
+#import <CoreText/CoreText.h>
+
 @interface MERTFThumbnailOperation ()
 @property (readwrite,strong,nonatomic) NSURL *url;
 @property (readwrite,assign,nonatomic) CGSize size;
@@ -35,14 +37,23 @@
         paperSize = [UIApplication sharedApplication].keyWindow.bounds.size;
     });
     
+    NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:attributedString];
+    NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
+    NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:paperSize];
+    
+    [textStorage addLayoutManager:layoutManager];
+    [layoutManager addTextContainer:textContainer];
+    
+    [layoutManager ensureLayoutForCharacterRange:NSMakeRange(0, textStorage.length)];
+    
     UIGraphicsBeginImageContextWithOptions(paperSize, YES, 0);
     
-    if (![attributedString attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:NULL]) {
+    if (![textStorage attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:NULL]) {
         [[UIColor whiteColor] setFill];
         UIRectFill(CGRectMake(0, 0, paperSize.width, paperSize.height));
     }
     
-    [attributedString drawWithRect:CGRectMake(0, 0, paperSize.width, paperSize.height) options:NSStringDrawingUsesLineFragmentOrigin context:nil];
+    [layoutManager drawGlyphsForGlyphRange:[layoutManager glyphRangeForCharacterRange:NSMakeRange(0, textStorage.length) actualCharacterRange:NULL] atPoint:CGPointZero];
     
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     
