@@ -15,11 +15,23 @@ typedef NS_ENUM(NSInteger, METhumbnailManagerCacheType) {
     METhumbnailManagerCacheTypeMemory
 };
 
+typedef NS_OPTIONS(NSInteger, METhumbnailManagerCacheOptions) {
+    METhumbnailManagerCacheOptionNone = 0,
+    METhumbnailManagerCacheOptionFile = 1 << 0,
+    METhumbnailManagerCacheOptionMemory = 1 << 1,
+    METhumbnailManagerCacheOptionAll = METhumbnailManagerCacheOptionFile|METhumbnailManagerCacheOptionMemory,
+    METhumbnailManagerCacheOptionDefault = METhumbnailManagerCacheOptionAll
+};
+
 typedef void(^METhumbnailManagerCompletionBlock)(NSURL *url,UIImage *image,METhumbnailManagerCacheType cacheType);
 
 @interface METhumbnailManager : NSObject
 
 + (instancetype)sharedManager;
+
+@property (assign,nonatomic) METhumbnailManagerCacheOptions cacheOptions;
+@property (readonly,nonatomic,getter = isFileCachingEnabled) BOOL fileCachingEnabled;
+@property (readonly,nonatomic,getter = isMemoryCachingEnabled) BOOL memoryCachingEnabled;
 
 @property (readonly,strong,nonatomic) NSURL *fileCacheDirectoryURL;
 

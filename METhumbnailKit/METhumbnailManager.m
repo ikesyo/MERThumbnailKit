@@ -45,6 +45,8 @@
     
     [self setFileCacheQueue:dispatch_queue_create([NSString stringWithFormat:@"com.maestro.methumbnailkit.%p",self].UTF8String, DISPATCH_QUEUE_SERIAL)];
     
+    [self setCacheOptions:METhumbnailManagerCacheOptionDefault];
+    
     NSURL *cachesDirectoryURL = [[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask].lastObject;
     NSURL *fileCacheDirectoryURL = [cachesDirectoryURL URLByAppendingPathComponent:@"com.maestro.methumbnailkit.cache" isDirectory:YES];
     
@@ -139,13 +141,14 @@
     
     if (operationClass) {
         operation = [[operationClass alloc] initWithURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image) {
-            NSData *data = UIImageJPEGRepresentation(image, 1.0);
+            if (self.isFileCachingEnabled && image) {
+                dispatch_async(self.fileCacheQueue, ^{
+                    [UIImageJPEGRepresentation(image, 1.0) writeToURL:fileCacheURL options:NSDataWritingAtomic error:NULL];
+                });
+            }
             
-            dispatch_async(self.fileCacheQueue, ^{
-                [data writeToURL:fileCacheURL options:NSDataWritingAtomic error:NULL];
-            });
-            
-            [self.memoryCache setObject:image forKey:key cost:(image.size.width * image.size.height * image.scale)];
+            if (self.isMemoryCachingEnabled && image)
+                [self.memoryCache setObject:image forKey:key cost:(image.size.width * image.size.height * image.scale)];
             
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
                 completion(url,image,METhumbnailManagerCacheTypeNone);
@@ -155,6 +158,13 @@
         [self.operationQueue addOperation:operation];
     }
     return operation;
+}
+
+- (BOOL)isFileCachingEnabled {
+    return ((self.cacheOptions & METhumbnailManagerCacheOptionFile) != 0);
+}
+- (BOOL)isMemoryCachingEnabled {
+    return ((self.cacheOptions & METhumbnailManagerCacheOptionMemory) != 0);
 }
 
 - (void)_applicationDidReceiveMemoryWarning:(NSNotification *)note {

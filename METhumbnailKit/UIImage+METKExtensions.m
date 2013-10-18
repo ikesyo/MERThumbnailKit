@@ -39,7 +39,12 @@
     
     CGImageRef sourceImageRef = image.CGImage;
     CFDataRef sourceDataRef = CGDataProviderCopyData(CGImageGetDataProvider(sourceImageRef));
-    vImage_Buffer source = {.data=(void *)CFDataGetBytePtr(sourceDataRef), .height=CGImageGetHeight(sourceImageRef), .width=CGImageGetWidth(sourceImageRef), .rowBytes=CGImageGetBytesPerRow(sourceImageRef)};
+    vImage_Buffer source = {
+        .data=(void *)CFDataGetBytePtr(sourceDataRef),
+        .height=CGImageGetHeight(sourceImageRef),
+        .width=CGImageGetWidth(sourceImageRef),
+        .rowBytes=CGImageGetBytesPerRow(sourceImageRef)
+    };
     vImage_Buffer destination;
     vImage_Error error = vImageBuffer_Init(&destination, (vImagePixelCount)size.height, (vImagePixelCount)size.width, CGImageGetBitsPerPixel(sourceImageRef), kvImageNoFlags);
     

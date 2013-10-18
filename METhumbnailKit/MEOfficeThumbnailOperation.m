@@ -68,25 +68,25 @@
     });
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    [self.webView setDelegate:nil];
-    [self.webView removeFromSuperview];
-    
     __weak typeof(self) weakSelf = self;
-    __weak CALayer *layer = webView.layer;
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         __strong typeof(weakSelf) strongSelf = weakSelf;
-        __strong CALayer *strongLayer = layer;
         
-        UIGraphicsBeginImageContext(strongLayer.bounds.size);
+        UIGraphicsBeginImageContext(webView.layer.bounds.size);
         
-        [strongLayer renderInContext:UIGraphicsGetCurrentContext()];
+        [webView.layer renderInContext:UIGraphicsGetCurrentContext()];
         
         UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
         
         UIGraphicsEndImageContext();
         
         UIImage *retval = [image METK_thumbnailOfSize:strongSelf.size];
+        
+        dispatch_sync(dispatch_get_main_queue(), ^{
+            [webView setDelegate:nil];
+            [webView removeFromSuperview];
+        });
         
         strongSelf.completion(strongSelf.url,retval);
         

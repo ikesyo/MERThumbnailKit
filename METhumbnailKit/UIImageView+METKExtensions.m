@@ -31,6 +31,8 @@ static void const *kMECKImageViewThumbnailOperationKey = &kMECKImageViewThumbnai
         __strong typeof(weakSelf) strongSelf = weakSelf;
         
         [strongSelf setImage:image];
+        
+        objc_setAssociatedObject(strongSelf, kMECKImageViewThumbnailOperationKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }];
     
     objc_setAssociatedObject(self, kMECKImageViewThumbnailOperationKey, operation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
