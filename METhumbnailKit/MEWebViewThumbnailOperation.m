@@ -37,7 +37,7 @@
     
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     
-    [self setWebView:[[UIWebView alloc] initWithFrame:window.bounds]];
+    [self setWebView:[[UIWebView alloc] initWithFrame:CGRectMake(0, 0, METhumbnailOperationDefaultSize.width, METhumbnailOperationDefaultSize.height)]];
     [self.webView setUserInteractionEnabled:NO];
     [self.webView setScalesPageToFit:YES];
     [self.webView setDelegate:self];

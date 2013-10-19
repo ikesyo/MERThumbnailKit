@@ -12,6 +12,8 @@
 
 typedef void(^METhumbnailOperationCompletionBlock)(NSURL *url,UIImage *image);
 
+static CGSize const METhumbnailOperationDefaultSize = {.width=320, .height=480};
+
 @protocol METhumbnailOperation <NSObject>
 @required
 

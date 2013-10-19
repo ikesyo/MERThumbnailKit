@@ -30,11 +30,7 @@
         return;
     }
     
-    __block CGSize imageSize = CGSizeZero;
-    
-    dispatch_sync(dispatch_get_main_queue(), ^{
-        imageSize = [UIApplication sharedApplication].keyWindow.bounds.size;
-    });
+    CGSize const imageSize = METhumbnailOperationDefaultSize;
     
     NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:attributedString];
     NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
