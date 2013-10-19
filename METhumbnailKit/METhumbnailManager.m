@@ -18,6 +18,10 @@
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
 
+CGSize const METhumbnailManagerDefaultThumbnailSize = {.width=175, .height=175};
+NSInteger const METhumbnailManagerDefaultThumbnailPage = 0;
+NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
+
 @interface METhumbnailManager () <NSCacheDelegate>
 @property (readwrite,strong,nonatomic) NSURL *fileCacheDirectoryURL;
 
@@ -61,6 +65,10 @@
     
     [self setFileCacheDirectoryURL:fileCacheDirectoryURL];
     
+    [self setThumbnailSize:METhumbnailManagerDefaultThumbnailSize];
+    [self setThumbnailPage:METhumbnailManagerDefaultThumbnailPage];
+    [self setThumbnailTime:METhumbnailManagerDefaultThumbnailTime];
+    
     return self;
 }
 
@@ -97,14 +105,17 @@
     [self.operationQueue cancelAllOperations];
 }
 
+- (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url completion:(METhumbnailManagerCompletionBlock)completion; {
+    return [self addThumbnailOperationForURL:url size:self.thumbnailSize page:self.thumbnailPage time:self.thumbnailTime completion:completion];
+}
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size completion:(METhumbnailManagerCompletionBlock)completion; {
-    return [self addThumbnailOperationForURL:url size:size page:0 time:0.0 completion:completion];
+    return [self addThumbnailOperationForURL:url size:size page:self.thumbnailPage time:self.thumbnailTime completion:completion];
 }
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page completion:(METhumbnailManagerCompletionBlock)completion; {
-    return [self addThumbnailOperationForURL:url size:size page:page time:0.0 completion:completion];
+    return [self addThumbnailOperationForURL:url size:size page:page time:self.thumbnailTime completion:completion];
 }
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time completion:(METhumbnailManagerCompletionBlock)completion; {
-    return [self addThumbnailOperationForURL:url size:size page:0 time:time completion:completion];
+    return [self addThumbnailOperationForURL:url size:size page:self.thumbnailPage time:time completion:completion];
 }
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time completion:(METhumbnailManagerCompletionBlock)completion; {
     if (!url) {
@@ -194,6 +205,10 @@
 }
 - (BOOL)isMemoryCachingEnabled {
     return ((self.cacheOptions & METhumbnailManagerCacheOptionMemory) != 0);
+}
+
+- (void)setThumbnailSize:(CGSize)thumbnailSize {
+    _thumbnailSize = (CGSizeEqualToSize(CGSizeZero, thumbnailSize)) ? METhumbnailManagerDefaultThumbnailSize : thumbnailSize;
 }
 
 - (void)_applicationDidReceiveMemoryWarning:(NSNotification *)note {

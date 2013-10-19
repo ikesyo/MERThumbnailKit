@@ -25,6 +25,10 @@ typedef NS_OPTIONS(NSInteger, METhumbnailManagerCacheOptions) {
 
 typedef void(^METhumbnailManagerCompletionBlock)(NSURL *url,UIImage *image,METhumbnailManagerCacheType cacheType);
 
+extern CGSize const METhumbnailManagerDefaultThumbnailSize;
+extern NSInteger const METhumbnailManagerDefaultThumbnailPage;
+extern NSTimeInterval const METhumbnailManagerDefaultThumbnailTime;
+
 @interface METhumbnailManager : NSObject
 
 + (instancetype)sharedManager;
@@ -41,8 +45,13 @@ typedef void(^METhumbnailManagerCompletionBlock)(NSURL *url,UIImage *image,METhu
 - (NSURL *)fileCacheURLForMemoryCacheKey:(NSString *)key;
 - (NSString *)memoryCacheKeyForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time;
 
+@property (assign,nonatomic) CGSize thumbnailSize;
+@property (assign,nonatomic) NSInteger thumbnailPage;
+@property (assign,nonatomic) NSTimeInterval thumbnailTime;
+
 - (void)cancelAllThumbnailOperations;
 
+- (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url completion:(METhumbnailManagerCompletionBlock)completion;
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size completion:(METhumbnailManagerCompletionBlock)completion;
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page completion:(METhumbnailManagerCompletionBlock)completion;
 - (NSOperation<METhumbnailOperation> *)addThumbnailOperationForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time completion:(METhumbnailManagerCompletionBlock)completion;
