@@ -38,7 +38,7 @@ static void const *kMECKImageViewThumbnailOperationKey = &kMECKImageViewThumbnai
     operation = [[METhumbnailManager sharedManager] addThumbnailOperationForURL:url size:size page:0 time:time completion:^(NSURL *url, UIImage *image, METhumbnailManagerCacheType cacheType) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         
-        [strongSelf setImage:image];
+        [strongSelf setImage:(image) ?: placeholderImage];
         
         objc_setAssociatedObject(strongSelf, kMECKImageViewThumbnailOperationKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     }];
