@@ -159,6 +159,9 @@
         operationClass = [MEWebViewThumbnailOperation class];
     else if ([[NSSet setWithArray:@[@"doc",@"docx",@"ppt",@"pptx",@"xls",@"xlsx"]] containsObject:url.lastPathComponent.pathExtension.lowercaseString])
         operationClass = [MEWebViewThumbnailOperation class];
+    else {
+        MELog(@"unsupported uti %@ for url %@",uti,url);
+    }
     
     if (operationClass) {
         operation = [[operationClass alloc] initWithURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image) {
