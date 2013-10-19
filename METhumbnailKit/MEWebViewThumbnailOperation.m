@@ -12,7 +12,6 @@
 @interface MEWebViewThumbnailOperation () <UIWebViewDelegate>
 @property (readwrite,strong,nonatomic) NSURL *url;
 @property (readwrite,assign,nonatomic) CGSize size;
-@property (assign,nonatomic) NSInteger page;
 @property (copy,nonatomic) METhumbnailOperationCompletionBlock completion;
 
 @property (assign,nonatomic,getter = isExecuting) BOOL executing;
@@ -107,7 +106,6 @@
     
     [self setUrl:url];
     [self setSize:size];
-    [self setPage:page];
     [self setCompletion:completion];
     
     return self;
