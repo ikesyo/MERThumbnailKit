@@ -54,7 +54,7 @@
     NSURL *url = self.urls[indexPath.row];
     
     [cell.titleLabel setText:url.lastPathComponent.pathExtension];
-    [cell.imageView METK_setImageForThumbnailFromURL:url size:[(UICollectionViewFlowLayout *)collectionView.collectionViewLayout itemSize] time:2.0 placeholderImage:nil];
+    [cell.imageView METK_setImageForThumbnailFromURL:url size:[(UICollectionViewFlowLayout *)collectionView.collectionViewLayout itemSize] time:2.0 placeholder:nil];
     
     return cell;
 }

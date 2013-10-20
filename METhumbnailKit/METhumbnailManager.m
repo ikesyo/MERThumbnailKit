@@ -95,9 +95,13 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
 }
 
 - (NSURL *)fileCacheURLForMemoryCacheKey:(NSString *)key; {
+    NSParameterAssert(key);
+    
     return [self.fileCacheDirectoryURL URLByAppendingPathComponent:key isDirectory:NO];
 }
 - (NSString *)memoryCacheKeyForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time; {
+    NSParameterAssert(url);
+    
     return [[NSString stringWithFormat:@"%@%@%@%@",url.lastPathComponent.stringByDeletingPathExtension,NSStringFromCGSize(size),@(page),@(time)] stringByAppendingPathExtension:url.lastPathComponent.pathExtension];
 }
 
