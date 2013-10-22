@@ -1,5 +1,5 @@
 ##Architecture
-`METhumbnailManager` is the principal class. You would generally create and use instance of it within an application. You can also use the `sharedManager` instance for convenience.
+`METhumbnailManager` is the principal class. You would generally create and use an instance of it within an application. You can also use the `sharedManager` instance for convenience.
 
 The family of methods descending from `addThumbnailOperationForURL:size:page:time:completion:` create thumbnail operations that are owned and managed by the instance of `METhumbnailManager`.
 
