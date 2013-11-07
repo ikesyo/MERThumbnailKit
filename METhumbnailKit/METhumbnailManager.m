@@ -73,7 +73,7 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
 }
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
-    MELog(@"%@ %@",cache,obj);
+    MELog(@"%@ %@ %p",cache,[obj class],obj);
 }
 
 + (instancetype)sharedManager; {
