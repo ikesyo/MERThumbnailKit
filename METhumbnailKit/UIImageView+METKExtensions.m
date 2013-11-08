@@ -36,28 +36,29 @@
     [self METK_setImageForThumbnailFromURL:url size:size page:[METhumbnailManager sharedManager].thumbnailPage time:time placeholder:placeholder];
 }
 
-static void const *kMECKImageViewThumbnailOperationKey = &kMECKImageViewThumbnailOperationKey;
+static void const *kMETKImageViewThumbnailOperationKey = &kMETKImageViewThumbnailOperationKey;
 
 - (void)METK_setImageForThumbnailFromURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time placeholder:(UIImage *)placeholder; {
-    __block NSOperation<METhumbnailOperation> *operation = objc_getAssociatedObject(self, kMECKImageViewThumbnailOperationKey);
-    
-    [operation cancel];
+    NSOperation<METhumbnailOperation> *oldOperation = objc_getAssociatedObject(self, kMETKImageViewThumbnailOperationKey);
+    if (oldOperation) {
+        [oldOperation cancel];
+        
+        objc_setAssociatedObject(self, kMETKImageViewThumbnailOperationKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    }
     
     [self setImage:placeholder];
     
     __weak typeof(self) weakSelf = self;
     
-    operation = [[METhumbnailManager sharedManager] addThumbnailOperationForURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image, METhumbnailManagerCacheType cacheType) {
-        __strong typeof(weakSelf) strongSelf = weakSelf;
-        
-        [strongSelf setImage:(image) ?: placeholder];
-        
-        operation = nil;
-        
-        objc_setAssociatedObject(strongSelf, kMECKImageViewThumbnailOperationKey, operation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    NSOperation<METhumbnailOperation> *newOperation = [[METhumbnailManager sharedManager] addThumbnailOperationForURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image, METhumbnailManagerCacheType cacheType) {
+        if (weakSelf) {
+            [weakSelf setImage:(image) ?: placeholder];
+            
+            objc_setAssociatedObject(weakSelf, kMETKImageViewThumbnailOperationKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+        }
     }];
     
-    objc_setAssociatedObject(self, kMECKImageViewThumbnailOperationKey, operation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kMETKImageViewThumbnailOperationKey, newOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

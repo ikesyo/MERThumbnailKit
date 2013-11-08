@@ -161,6 +161,15 @@ extern NSTimeInterval const METhumbnailManagerDefaultThumbnailTime;
 @property (assign,nonatomic) NSTimeInterval thumbnailTime;
 
 /**
+ Returns the maximum number of concurrent thumbnail operations that will executed by the `NSOperationQueue` managed by the receiver.
+ 
+ The default is `NSOperationQueueDefaultMaxConcurrentOperationCount`.
+ 
+ @warning *NOTE:* The default the `sharedManager` instance is 1.
+ */
+@property (assign,nonatomic) NSInteger maximumNumberOfConcurrentThumbnailOperations;
+
+/**
  Cancels all pending thumbnail operations.
  
  The calls `cancelAllOperations` on the `NSOperationQueue` managed by the receiver.
