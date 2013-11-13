@@ -30,6 +30,7 @@
     
     if (error != kvImageNoError) {
         MELogObject(@(error));
+        CFRelease(sourceDataRef);
         return nil;
     }
     
@@ -37,8 +38,11 @@
     
     if (error != kvImageNoError) {
         MELogObject(@(error));
+        CFRelease(sourceDataRef);
         return nil;
     }
+    
+    CFRelease(sourceDataRef);
     
     vImage_CGImageFormat format = {
         .bitsPerComponent = CGImageGetBitsPerComponent(sourceImageRef),
@@ -51,12 +55,17 @@
     };
     CGImageRef destImageRef = vImageCreateCGImageFromBuffer(&destination, &format, NULL, NULL, kvImageNoFlags, &error);
     
+    free(destination.data);
+    
     if (error != kvImageNoError) {
         MELogObject(@(error));
+        CGImageRelease(destImageRef);
         return nil;
     }
     
     UIImage *retval = [UIImage imageWithCGImage:destImageRef];
+    
+    CGImageRelease(destImageRef);
     
     return retval;
 }

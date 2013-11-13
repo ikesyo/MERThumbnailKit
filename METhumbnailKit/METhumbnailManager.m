@@ -53,7 +53,7 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
     
     [self setFileCacheQueue:dispatch_queue_create([NSString stringWithFormat:@"com.maestro.methumbnailkit.%p",self].UTF8String, DISPATCH_QUEUE_SERIAL)];
     
-    [self setCacheOptions:METhumbnailManagerCacheOptionNone];
+    [self setCacheOptions:METhumbnailManagerCacheOptionDefault];
     
     NSURL *cachesDirectoryURL = [[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask].lastObject;
     NSURL *fileCacheDirectoryURL = [cachesDirectoryURL URLByAppendingPathComponent:@"com.maestro.methumbnailkit.cache" isDirectory:YES];
