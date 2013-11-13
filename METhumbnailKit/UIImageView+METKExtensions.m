@@ -58,7 +58,7 @@ static void const *kMETKImageViewThumbnailOperationKey = &kMETKImageViewThumbnai
         }
     }];
     
-    objc_setAssociatedObject(self, kMETKImageViewThumbnailOperationKey, newOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(weakSelf, kMETKImageViewThumbnailOperationKey, newOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end

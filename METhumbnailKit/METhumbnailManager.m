@@ -14,6 +14,7 @@
 #import "MERTFThumbnailOperation.h"
 #import "METextThumbnailOperation.h"
 #import <MEFoundation/MEDebugging.h>
+#import <MEFoundation/MEFunctions.h>
 
 #import <UIKit/UIKit.h>
 #import <MobileCoreServices/MobileCoreServices.h>
@@ -52,7 +53,7 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
     
     [self setFileCacheQueue:dispatch_queue_create([NSString stringWithFormat:@"com.maestro.methumbnailkit.%p",self].UTF8String, DISPATCH_QUEUE_SERIAL)];
     
-    [self setCacheOptions:METhumbnailManagerCacheOptionDefault];
+    [self setCacheOptions:METhumbnailManagerCacheOptionNone];
     
     NSURL *cachesDirectoryURL = [[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask].lastObject;
     NSURL *fileCacheDirectoryURL = [cachesDirectoryURL URLByAppendingPathComponent:@"com.maestro.methumbnailkit.cache" isDirectory:YES];
@@ -73,7 +74,7 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
 }
 
 - (void)cache:(NSCache *)cache willEvictObject:(id)obj {
-    MELog(@"%@ %@ %p",cache,[obj class],obj);
+    MELog(@"%@ %@",cache,obj);
 }
 
 + (instancetype)sharedManager; {
@@ -130,16 +131,15 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
     }
     
     NSString *key = [self memoryCacheKeyForURL:url size:size page:page time:time];
-    NSPurgeableData *memoryData = [self.memoryCache objectForKey:key];
     
-    if (memoryData && [memoryData beginContentAccess]) {
-        UIImage *memoryImage = [UIImage imageWithData:memoryData];
+    if (self.isMemoryCachingEnabled) {
+        UIImage *memoryImage = [self.memoryCache objectForKey:key];
         
-        [memoryData endContentAccess];
-        
-        completion(url,memoryImage,METhumbnailManagerCacheTypeMemory);
-        
-        return nil;
+        if (memoryImage) {
+            completion(url,memoryImage,METhumbnailManagerCacheTypeMemory);
+            
+            return nil;
+        }
     }
     
     NSURL *fileCacheURL = [self fileCacheURLForMemoryCacheKey:key];
@@ -147,13 +147,11 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
     
     if (fileImage) {
         if (self.isMemoryCachingEnabled && fileImage) {
-            NSPurgeableData *purgeableData = [NSPurgeableData dataWithData:UIImageJPEGRepresentation(fileImage, 1.0)];
-            
-            [self.memoryCache setObject:purgeableData forKey:key cost:purgeableData.length];
+            [self.memoryCache setObject:fileImage forKey:key cost:(fileImage.size.width * fileImage.size.height * fileImage.scale)];
         }
         
         completion(url,fileImage,METhumbnailManagerCacheTypeFile);
-         
+        
         return nil;
     }
     
@@ -182,23 +180,21 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
     
     if (operationClass) {
         operation = [[operationClass alloc] initWithURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image) {
-            NSData *data = UIImageJPEGRepresentation(image, 1.0);
-            
             if (self.isFileCachingEnabled && image) {
+                NSData *data = UIImageJPEGRepresentation(image, 1.0);
+                
                 dispatch_async(self.fileCacheQueue, ^{
                     [data writeToURL:fileCacheURL options:NSDataWritingAtomic error:NULL];
                 });
             }
             
             if (self.isMemoryCachingEnabled && image) {
-                NSPurgeableData *purgeableData = [NSPurgeableData dataWithData:data];
-                
-                [self.memoryCache setObject:purgeableData forKey:key cost:purgeableData.length];
+                [self.memoryCache setObject:image forKey:key cost:(image.size.width * image.size.height * image.scale)];
             }
             
-            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+            MEDispatchMainAsync(^{
                 completion(url,image,METhumbnailManagerCacheTypeNone);
-            }];
+            });
         }];
         
         [self.operationQueue addOperation:operation];
@@ -222,7 +218,7 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
 }
 
 - (void)_applicationDidReceiveMemoryWarning:(NSNotification *)note {
-    [self.memoryCache removeAllObjects];
+    [self clearMemoryCache];
 }
 
 @end
