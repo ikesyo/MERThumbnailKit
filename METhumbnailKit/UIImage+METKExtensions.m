@@ -17,6 +17,30 @@
     if (!image || CGSizeEqualToSize(size, CGSizeZero))
         return image;
     
+    CGSize destSize;
+    
+    if (image.size.width > image.size.height) {
+        destSize.width = size.width;
+        destSize.height = image.size.height * size.width / image.size.width;
+    }
+    else {
+        destSize.height = size.height;
+        destSize.width = image.size.width * size.height / image.size.height;
+    }
+    
+    if (destSize.width > size.width) {
+        destSize.width = size.width;
+        destSize.height = image.size.height * size.width / image.size.width;
+    }
+    
+    if (destSize.height > size.height) {
+        destSize.height = size.height;
+        destSize.width = image.size.width * size.height / image.size.height;
+    }
+    
+    destSize.width = floor(destSize.width);
+    destSize.height = floor(destSize.height);
+    
     CGImageRef sourceImageRef = image.CGImage;
     CFDataRef sourceDataRef = CGDataProviderCopyData(CGImageGetDataProvider(sourceImageRef));
     vImage_Buffer source = {
@@ -26,7 +50,7 @@
         .rowBytes=CGImageGetBytesPerRow(sourceImageRef)
     };
     vImage_Buffer destination;
-    vImage_Error error = vImageBuffer_Init(&destination, (vImagePixelCount)size.height, (vImagePixelCount)size.width, CGImageGetBitsPerPixel(sourceImageRef), kvImageNoFlags);
+    vImage_Error error = vImageBuffer_Init(&destination, (vImagePixelCount)destSize.height, (vImagePixelCount)destSize.width, CGImageGetBitsPerPixel(sourceImageRef), kvImageNoFlags);
     
     if (error != kvImageNoError) {
         MELogObject(@(error));
