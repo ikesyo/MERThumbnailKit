@@ -10,6 +10,7 @@
 #import <MEFoundation/MEDebugging.h>
 
 #import <Accelerate/Accelerate.h>
+#import <AVFoundation/AVFoundation.h>
 
 @implementation UIImage (METKExtensions)
 
@@ -17,30 +18,7 @@
     if (!image || CGSizeEqualToSize(size, CGSizeZero))
         return image;
     
-    CGSize destSize;
-    
-    if (image.size.width > image.size.height) {
-        destSize.width = size.width;
-        destSize.height = image.size.height * size.width / image.size.width;
-    }
-    else {
-        destSize.height = size.height;
-        destSize.width = image.size.width * size.height / image.size.height;
-    }
-    
-    if (destSize.width > size.width) {
-        destSize.width = size.width;
-        destSize.height = image.size.height * size.width / image.size.width;
-    }
-    
-    if (destSize.height > size.height) {
-        destSize.height = size.height;
-        destSize.width = image.size.width * size.height / image.size.height;
-    }
-    
-    destSize.width = floor(destSize.width);
-    destSize.height = floor(destSize.height);
-    
+    CGSize destSize = AVMakeRectWithAspectRatioInsideRect(CGSizeMake(image.size.width, image.size.height), CGRectMake(0, 0, size.width, size.height)).size;
     CGImageRef sourceImageRef = image.CGImage;
     CFDataRef sourceDataRef = CGDataProviderCopyData(CGImageGetDataProvider(sourceImageRef));
     vImage_Buffer source = {
