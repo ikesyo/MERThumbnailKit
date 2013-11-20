@@ -43,7 +43,7 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
     
     [self setOperationQueue:[[NSOperationQueue alloc] init]];
     [self.operationQueue setName:[NSString stringWithFormat:@"com.maestro.methumbnailkit.%p",self]];
-    [self.operationQueue setMaxConcurrentOperationCount:NSOperationQueueDefaultMaxConcurrentOperationCount];
+    [self.operationQueue setMaxConcurrentOperationCount:[[NSProcessInfo processInfo] processorCount]];
     
     [self setMemoryCache:[[NSCache alloc] init]];
     [self.memoryCache setName:[NSString stringWithFormat:@"com.maestro.methumbnailkit.%p",self]];
@@ -82,8 +82,6 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         retval = [[METhumbnailManager alloc] init];
-        
-        [retval setMaximumNumberOfConcurrentThumbnailOperations:1];
     });
     return retval;
 }
