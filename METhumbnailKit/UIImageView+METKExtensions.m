@@ -8,6 +8,7 @@
 
 #import "UIImageView+METKExtensions.h"
 #import "METhumbnailManager.h"
+#import <MEFoundation/MEFunctions.h>
 
 #import <objc/runtime.h>
 
@@ -52,9 +53,16 @@ static void const *kMETKImageViewThumbnailOperationKey = &kMETKImageViewThumbnai
     
     NSOperation<METhumbnailOperation> *newOperation = [[METhumbnailManager sharedManager] addThumbnailOperationForURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image, METhumbnailManagerCacheType cacheType) {
         if (weakSelf) {
-            [weakSelf setImage:(image) ?: placeholder];
+            void(^block)(void) = ^{
+                [weakSelf setImage:(image) ?: placeholder];
+            };
             
-            objc_setAssociatedObject(weakSelf, kMETKImageViewThumbnailOperationKey, nil, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+            if ([NSThread isMainThread]) {
+                block();
+            }
+            else {
+                MEDispatchMainSync(block);
+            }
         }
     }];
     

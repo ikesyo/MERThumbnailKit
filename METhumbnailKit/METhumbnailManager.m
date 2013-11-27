@@ -177,17 +177,21 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
     }
     
     if (operationClass) {
+        __weak typeof(self) weakSelf = self;
+        
         operation = [[operationClass alloc] initWithURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image) {
-            if (self.isFileCachingEnabled && image) {
+            __strong typeof(weakSelf) strongSelf = weakSelf;
+            
+            if (strongSelf.isFileCachingEnabled && image) {
                 NSData *data = UIImageJPEGRepresentation(image, 1.0);
                 
-                dispatch_async(self.fileCacheQueue, ^{
+                dispatch_async(strongSelf.fileCacheQueue, ^{
                     [data writeToURL:fileCacheURL options:NSDataWritingAtomic error:NULL];
                 });
             }
             
-            if (self.isMemoryCachingEnabled && image) {
-                [self.memoryCache setObject:image forKey:key cost:(image.size.width * image.size.height * image.scale)];
+            if (strongSelf.isMemoryCachingEnabled && image) {
+                [strongSelf.memoryCache setObject:image forKey:key cost:(image.size.width * image.size.height * image.scale)];
             }
             
             MEDispatchMainAsync(^{
