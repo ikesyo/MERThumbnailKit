@@ -82,6 +82,8 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         retval = [[METhumbnailManager alloc] init];
+        
+        [retval setMaximumNumberOfConcurrentThumbnailOperations:1];
     });
     return retval;
 }
@@ -215,6 +217,10 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
     _thumbnailSize = (CGSizeEqualToSize(CGSizeZero, thumbnailSize)) ? METhumbnailManagerDefaultThumbnailSize : thumbnailSize;
 }
 
+@dynamic maximumNumberOfConcurrentThumbnailOperations;
+- (NSInteger)maximumNumberOfConcurrentThumbnailOperations {
+    return self.operationQueue.maxConcurrentOperationCount;
+}
 - (void)setMaximumNumberOfConcurrentThumbnailOperations:(NSInteger)maximumNumberOfConcurrentThumbnailOperations {
     [self.operationQueue setMaxConcurrentOperationCount:maximumNumberOfConcurrentThumbnailOperations];
 }
