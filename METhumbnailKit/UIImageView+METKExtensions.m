@@ -55,6 +55,7 @@ static void const *kMETKImageViewThumbnailOperationKey = &kMETKImageViewThumbnai
         if (weakSelf) {
             void(^block)(void) = ^{
                 [weakSelf setImage:(image) ?: placeholder];
+                [weakSelf setNeedsLayout];
             };
             
             if ([NSThread isMainThread]) {
