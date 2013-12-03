@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "METhumbnailKit"
-  s.version = "1.0.12"
+  s.version = "1.0.13"
   s.summary = "A framework for generating thumbnails from various file types. Uses the Accelerate framework. It is fast."
   s.homepage = "https://github.com/MaestroElearning/METhumbnailKit"
   s.license = "Commercial"
