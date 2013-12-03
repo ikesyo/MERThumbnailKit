@@ -52,18 +52,14 @@ static void const *kMETKImageViewThumbnailOperationKey = &kMETKImageViewThumbnai
     __weak typeof(self) weakSelf = self;
     
     NSOperation<METhumbnailOperation> *newOperation = [[METhumbnailManager sharedManager] addThumbnailOperationForURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image, METhumbnailManagerCacheType cacheType) {
-        if (weakSelf) {
-            void(^block)(void) = ^{
-                [weakSelf setImage:(image) ?: placeholder];
-                [weakSelf setNeedsLayout];
-            };
-            
-            if ([NSThread isMainThread]) {
-                block();
-            }
-            else {
-                MEDispatchMainSync(block);
-            }
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        
+        if (cacheType == METhumbnailManagerCacheTypeNone) {
+            if (strongSelf.window)
+                [strongSelf setImage:image];
+        }
+        else {
+            [strongSelf setImage:image];
         }
     }];
     

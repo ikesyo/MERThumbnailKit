@@ -21,7 +21,7 @@
     UIImage *image = [UIImage imageWithContentsOfFile:self.url.path];
     UIImage *retval = [image METK_thumbnailOfSize:self.size];
     
-    self.completion(self.url,retval);
+    self.completion(self.url,(self.isCancelled) ? nil : retval);
 }
 
 - (instancetype)initWithURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time completion:(METhumbnailOperationCompletionBlock)completion; {

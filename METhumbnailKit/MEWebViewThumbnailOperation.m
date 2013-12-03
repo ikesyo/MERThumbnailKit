@@ -85,7 +85,7 @@
             [webView removeFromSuperview];
         });
         
-        strongSelf.completion(strongSelf.url,retval);
+        strongSelf.completion(strongSelf.url,(strongSelf.isCancelled) ? nil : retval);
         
         [strongSelf willChangeValueForKey:@"isExecuting"];
         [strongSelf willChangeValueForKey:@"isFinished"];
