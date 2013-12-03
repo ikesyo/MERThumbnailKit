@@ -54,16 +54,19 @@ static void const *kMETKImageViewThumbnailOperationKey = &kMETKImageViewThumbnai
     NSOperation<METhumbnailOperation> *newOperation = [[METhumbnailManager sharedManager] addThumbnailOperationForURL:url size:size page:page time:time completion:^(NSURL *url, UIImage *image, METhumbnailManagerCacheType cacheType) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         
-        if (cacheType == METhumbnailManagerCacheTypeNone) {
-            if (strongSelf.window)
+        if (image) {
+            if (cacheType == METhumbnailManagerCacheTypeNone &&
+                strongSelf.window != nil) {
+                
                 [strongSelf setImage:image];
-        }
-        else {
-            [strongSelf setImage:image];
+            }
+            else {
+                [strongSelf setImage:image];
+            }
         }
     }];
     
-    objc_setAssociatedObject(weakSelf, kMETKImageViewThumbnailOperationKey, newOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, kMETKImageViewThumbnailOperationKey, newOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
