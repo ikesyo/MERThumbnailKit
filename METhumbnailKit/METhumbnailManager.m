@@ -23,6 +23,19 @@ CGSize const METhumbnailManagerDefaultThumbnailSize = {.width=175, .height=175};
 NSInteger const METhumbnailManagerDefaultThumbnailPage = 0;
 NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
 
+@interface UIImage (METhumbnailManagerExtensions)
+@property (readonly,nonatomic) BOOL METK_hasAlphaChannel;
+@end
+
+@implementation UIImage (METhumbnailManagerExtensions)
+
+- (BOOL)METK_hasAlphaChannel; {
+    CGImageAlphaInfo alpha = CGImageGetAlphaInfo(self.CGImage);
+    return (alpha == kCGImageAlphaFirst || alpha == kCGImageAlphaLast || alpha == kCGImageAlphaPremultipliedFirst || alpha == kCGImageAlphaPremultipliedLast);
+}
+
+@end
+
 @interface METhumbnailManager () <NSCacheDelegate>
 @property (readwrite,strong,nonatomic) NSURL *fileCacheDirectoryURL;
 
@@ -185,7 +198,7 @@ NSTimeInterval const METhumbnailManagerDefaultThumbnailTime = 1.0;
             __strong typeof(weakSelf) strongSelf = weakSelf;
             
             if (strongSelf.isFileCachingEnabled && image) {
-                NSData *data = UIImageJPEGRepresentation(image, 1.0);
+                NSData *data = (image.METK_hasAlphaChannel) ? UIImagePNGRepresentation(image) : UIImageJPEGRepresentation(image, 1.0);
                 
                 dispatch_async(strongSelf.fileCacheQueue, ^{
                     [data writeToURL:fileCacheURL options:NSDataWritingAtomic error:NULL];
