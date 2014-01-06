@@ -22,13 +22,13 @@
     CGImageRef sourceImageRef = image.CGImage;
     CFDataRef sourceDataRef = CGDataProviderCopyData(CGImageGetDataProvider(sourceImageRef));
     vImage_Buffer source = {
-        .data=(void *)CFDataGetBytePtr(sourceDataRef),
-        .height=CGImageGetHeight(sourceImageRef),
-        .width=CGImageGetWidth(sourceImageRef),
-        .rowBytes=CGImageGetBytesPerRow(sourceImageRef)
+        .data = (void *)CFDataGetBytePtr(sourceDataRef),
+        .height = CGImageGetHeight(sourceImageRef),
+        .width = CGImageGetWidth(sourceImageRef),
+        .rowBytes = CGImageGetBytesPerRow(sourceImageRef)
     };
     vImage_Buffer destination;
-    vImage_Error error = vImageBuffer_Init(&destination, (vImagePixelCount)destSize.height, (vImagePixelCount)destSize.width, CGImageGetBitsPerPixel(sourceImageRef), kvImageNoFlags);
+    vImage_Error error = vImageBuffer_Init(&destination, (vImagePixelCount)destSize.height, (vImagePixelCount)destSize.width, (uint32_t)CGImageGetBitsPerPixel(sourceImageRef), kvImageNoFlags);
     
     if (error != kvImageNoError) {
         MELogObject(@(error));
@@ -47,8 +47,8 @@
     CFRelease(sourceDataRef);
     
     vImage_CGImageFormat format = {
-        .bitsPerComponent = CGImageGetBitsPerComponent(sourceImageRef),
-        .bitsPerPixel = CGImageGetBitsPerPixel(sourceImageRef),
+        .bitsPerComponent = (uint32_t)CGImageGetBitsPerComponent(sourceImageRef),
+        .bitsPerPixel = (uint32_t)CGImageGetBitsPerPixel(sourceImageRef),
         .colorSpace = NULL,
         .bitmapInfo = CGImageGetBitmapInfo(sourceImageRef),
         .version = 0,
