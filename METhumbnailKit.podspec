@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.platform = :ios, '7.0'
   s.requires_arc = true
   
-  s.dependency 'MEFoundation', '~> 0.4.0'
+  s.dependency 'MEFoundation', '~> 1.0.0'
   
   s.frameworks = 'CoreGraphics','UIKit','MobileCoreServices','CoreMedia','AVFoundation','Accelerate'
   
