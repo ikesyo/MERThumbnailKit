@@ -31,8 +31,8 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
 @property (strong,nonatomic) NSCache *memoryCache;
 @property (strong,nonatomic) dispatch_queue_t fileCacheQueue;
 
-@property (strong,nonatomic) dispatch_semaphore_t webViewThumbnailSemaphore;
 @property (strong,nonatomic) dispatch_queue_t webViewThumbnailQueue;
+@property (strong,nonatomic) dispatch_semaphore_t webViewThumbnailSemaphore;
 
 - (void)_cacheImageToFile:(UIImage *)image url:(NSURL *)url;
 - (void)_cacheImageToMemory:(UIImage *)image key:(NSString *)key;
