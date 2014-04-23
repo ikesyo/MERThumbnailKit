@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = "MERThumbnailKit"
-  s.version = "2.0.0"
+  s.version = "2.0.1"
   s.summary = "A framework for generating thumbnails from urls, both local and remote. Built on top of ReactiveCocoa, compatible with iOS, 7.0+."
   s.homepage = "https://github.com/MaestroElearning/MERThumbnailKit"
   s.license = "Commercial"
