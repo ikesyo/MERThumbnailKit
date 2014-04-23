@@ -1,32 +1,36 @@
-##Architecture
-`METhumbnailManager` is the principal class. You would generally create and use an instance of it within an application. You can also use the `sharedManager` instance for convenience.
+##MERThumbnailManager
 
-The family of methods descending from `addThumbnailOperationForURL:size:page:time:completion:` create thumbnail operations that are owned and managed by the instance of `METhumbnailManager`.
+A library for generating thumbnails from urls, both local and remote. Built on top of [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa), compatible with iOS, 7.0+.
 
-The `fileCacheURLForMemoryCacheKey:` and `memoryCacheKeyForURL:size:page:time:` methods provide access to the file cache url and memory cache key respectively. For example, on older devices, memory caching should be disabled.
+Use the `thumbnailForURL:size:page:time:` method and its variants to generate thumbnails for a given url.
 
-By default, the thumbnail manager will cache to disk and memory. To alter this behavior set the `cacheOptions` property appropriately.
+###Documentation
 
-The method that creates the thumbnails resides in [UIImage+METKExtensions.h](https://github.com/MaestroElearning/METhumbnailKit/blob/master/METhumbnailKit/UIImage%2BMETKExtensions.h). This can be used stand alone, provided you already have a reference to the image you want to create a thumbnail of.
+The headers are documented. Read them.
 
-Because the thumbnail generation method uses the Accelerate framework, which relies on correctly formatted image data to do its thing; thumbnails created from incorrectly formatted images will contain visual artifacts.
+###Tests
+
+Soon.
+
 ##Supported Formats
 
 The library supports the following UTIs:
 
 * kUTTypeImage (public.image)
 * kUTTypeMovie (public.movie)
-* kUTTypePDF (com.adobe.pdf)
-* kUTTypeRTF (public.rtf)
-* kUTTypeRTFD (com.apple.rtfd)
-* kUTTypePlainText (public.plain-text)
-* kUTTypeHTML (public.html)
+* kUTTypePDF__*__ (com.adobe.pdf)
+* kUTTypeRTF__*__ (public.rtf)
+* kUTTypeRTFD__*__ (com.apple.rtfd)
+* kUTTypePlainText__*__ (public.plain-text)
+* kUTTypeHTML__*__ (public.html)
 
 Additionally it supports Microsoft Office documents:
 
-* Word (.doc, .docx)
-* Powerpoint (.ppt, .pptx)
-* Excel (.xls, .xlsx)
+* Word__*__ (.doc, .docx)
+* Powerpoint__*__ (.ppt, .pptx)
+* Excel__*__ (.xls, .xlsx)
+
+UTIs marked with a * indicate only local thumbnail generation is supported for that UTI.
 
 ##Demo
 
