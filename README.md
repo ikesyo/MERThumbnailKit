@@ -1,4 +1,4 @@
-##MERThumbnailManager
+##MERThumbnailKit
 
 A library for generating thumbnails from urls, both local and remote. Built on top of [ReactiveCocoa](https://github.com/ReactiveCocoa/ReactiveCocoa), compatible with iOS, 7.0+.
 
