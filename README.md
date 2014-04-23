@@ -16,21 +16,21 @@ Soon.
 
 The library supports the following UTIs:
 
-* kUTTypeImage (public.image)
-* kUTTypeMovie (public.movie)
-* kUTTypePDF__*__ (com.adobe.pdf)
-* kUTTypeRTF__*__ (public.rtf)
-* kUTTypeRTFD__*__ (com.apple.rtfd)
-* kUTTypePlainText__*__ (public.plain-text)
-* kUTTypeHTML__*__ (public.html)
+* **kUTTypeImage** (public.image)
+* **kUTTypeMovie** (public.movie)
+* kUTTypePDF (com.adobe.pdf)
+* kUTTypeRTF (public.rtf)
+* kUTTypeRTFD (com.apple.rtfd)
+* kUTTypePlainText (public.plain-text)
+* kUTTypeHTML (public.html)
 
 Additionally it supports Microsoft Office documents:
 
-* Word__*__ (.doc, .docx)
-* Powerpoint__*__ (.ppt, .pptx)
-* Excel__*__ (.xls, .xlsx)
+* Word (.doc, .docx)
+* Powerpoint (.ppt, .pptx)
+* Excel (.xls, .xlsx)
 
-UTIs marked with a * indicate only local thumbnail generation is supported for that UTI.
+UTIs that are bolded indicate local and remote thumbnail generation is supported for that UTI.
 
 ##Demo
 
