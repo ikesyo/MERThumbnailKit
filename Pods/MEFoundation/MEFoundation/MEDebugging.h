@@ -1,9 +1,9 @@
 //
 //  MEDebugging.h
-//  MEFrameworks
+//  MEFoundation
 //
 //  Created by William Towe on 4/23/12.
-//  Copyright (c) 2012 Maestro. All rights reserved.
+//  Copyright (c) 2012 Maestro, LLC. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // 
@@ -11,8 +11,8 @@
 // 
 //  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-#ifndef MEExtensions_MEDebugging_h
-#define MEExtensions_MEDebugging_h
+#ifndef _ME_FOUNDATION_DEBUGGING_
+#define _ME_FOUNDATION_DEBUGGING_
 
 #ifdef DEBUG
 
@@ -42,11 +42,20 @@
 
 #define MEAssert(condition, ...) do { if (!(condition)) { MEAssertLog(__VA_ARGS__); }} while(0)
 
+#define MEIsEnvironmentVariableDefined(environmentVariable) [NSProcessInfo processInfo].environment[[NSString stringWithUTF8String:(#environmentVariable)]]
+
 #if NS_BLOCKS_AVAILABLE
 #import <CoreGraphics/CGBase.h>
 #include <mach/mach_time.h>
 
-// original timing function can be found at http://weblog.bignerdranch.com/?p=316
+/**
+ Returns the amount of time a given block takes to execute in seconds.
+ 
+ The original timing function can be found at http://weblog.bignerdranch.com/?p=316
+ 
+ @param block The block to time
+ @return The amount of time _block_ took to execute
+ */
 static inline NSTimeInterval METimeBlock(void (^block)(void)) {
 	mach_timebase_info_data_t info;
 	
@@ -62,8 +71,7 @@ static inline NSTimeInterval METimeBlock(void (^block)(void)) {
     
     return (NSTimeInterval)nanos / NSEC_PER_SEC;
 }
-/* close NS_BLOCKS_AVAILABLE */
+
 #endif
 
-/* close #ifndef */
 #endif

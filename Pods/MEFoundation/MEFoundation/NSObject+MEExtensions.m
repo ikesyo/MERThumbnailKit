@@ -1,9 +1,9 @@
 //
 //  NSObject+MEExtensions.m
-//  MEFrameworks
+//  MEFoundation
 //
 //  Created by William Towe on 8/15/12.
-//  Copyright (c) 2012 Maestro. All rights reserved.
+//  Copyright (c) 2012 Maestro, LLC. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // 
@@ -15,25 +15,13 @@
 
 #import <objc/runtime.h>
 
+#if !__has_feature(objc_arc)
+#error This file requires ARC
+#endif
+
 @implementation NSObject (MEExtensions)
 
-+ (void)ME_swapMethod:(SEL)oldSelector withMethod:(SEL)newSelector; {
-    Method originalMethod = class_getInstanceMethod(self, oldSelector);
-    Method newMethod = class_getInstanceMethod(self, newSelector);
-    const char *originalTypeEncoding = method_getTypeEncoding(originalMethod);
-    const char *newTypeEncoding = method_getTypeEncoding(newMethod);
-    
-    NSAssert2(!strcmp(originalTypeEncoding, newTypeEncoding), @"Method type encodings must be the same: %s vs. %s", originalTypeEncoding, newTypeEncoding);
-    
-    if(class_addMethod(self, oldSelector, method_getImplementation(newMethod), newTypeEncoding)) {
-        class_replaceMethod(self, newSelector, method_getImplementation(originalMethod), originalTypeEncoding);
-    }
-    else {
-        method_exchangeImplementations(originalMethod, newMethod);
-    }
-}
-
-static char kRepresentedObjectKey;
+static void const *kRepresentedObjectKey = &kRepresentedObjectKey;
 
 - (id)ME_representedObject; {
     return objc_getAssociatedObject(self, &kRepresentedObjectKey);

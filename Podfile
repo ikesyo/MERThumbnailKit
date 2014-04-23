@@ -1,8 +1,8 @@
-inhibit_all_warnings!
+platform :ios, "7.0"
 
-platform :ios, '7.0'
+pod "MEFoundation", "~> 1.0.0"
+pod "ReactiveCocoa", "~> 2.3.0"
+pod "libextobjc/EXTScope", "~> 0.4.0"
 
-pod 'MEFoundation', '~> 0.3.14'
-
-link_with 'METhumbnailKitDemo'
-workspace 'METhumbnailKitDemo'
+link_with "MERThumbnailKitDemo"
+workspace "MERThumbnailKitDemo"

@@ -1,9 +1,9 @@
 //
 //  NSObject+MEExtensions.h
-//  MEFrameworks
+//  MEFoundation
 //
 //  Created by William Towe on 8/15/12.
-//  Copyright (c) 2012 Maestro. All rights reserved.
+//  Copyright (c) 2012 Maestro, LLC. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // 
@@ -14,14 +14,6 @@
 #import <Foundation/Foundation.h>
 
 @interface NSObject (MEExtensions)
-/**
- Swaps the implementation of oldSelector for the implementation of newSelector. Also known as "swizzling". This method should be used with care, but has its place.
- 
- @param oldSelector The selector that you want to replace (e.g. @selector(loadView)).
- @param newSelector The selector that will replace `oldSelector` (e.g. @selector(ME_loadView)).
- @exception NSException Thrown if the signature of `oldSelector` and `newSelector` do not match.
- */
-+ (void)ME_swapMethod:(SEL)oldSelector withMethod:(SEL)newSelector;
 
 /**
  Calls `objc_getAssociatedObject()` passing `self` and the appropriate key.

@@ -1,9 +1,9 @@
 //
 //  NSDate+MEExtensions.h
-//  MEFrameworks
+//  MEFoundation
 //
 //  Created by Joshua Kovach on 4/27/12.
-//  Copyright (c) 2012 Maestro. All rights reserved.
+//  Copyright (c) 2012 Maestro, LLC. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // 
@@ -13,10 +13,10 @@
 
 #import <Foundation/Foundation.h>
 
-static const NSTimeInterval METimeIntervalOneMinute = 60;
-static const NSTimeInterval METimeIntervalOneHour   = 3600;
-static const NSTimeInterval METimeIntervalOneDay    = 86400;
-static const NSTimeInterval METimeIntervalOneWeek   = 604800;
+extern NSTimeInterval const METimeIntervalOneMinute;
+extern NSTimeInterval const METimeIntervalOneHour;
+extern NSTimeInterval const METimeIntervalOneDay;
+extern NSTimeInterval const METimeIntervalOneWeek;
 
 @interface NSDate (MEExtensions)
 
@@ -63,5 +63,129 @@ static const NSTimeInterval METimeIntervalOneWeek   = 604800;
  @see ME_components:toDate:
  */
 - (NSDateComponents *)ME_components:(NSUInteger)unitFlags fromDate:(NSDate *)fromDate;
+
+/**
+ Returns a new date from _date_ with the time set to 00:00:01 in the local time zone.
+ 
+ @param date The date for which to return the start of the day
+ @return The date representing the start of the day
+ @exception NSException Thrown if _date_ is nil
+ */
++ (NSDate *)ME_startOfDayForDate:(NSDate *)date;
+/**
+ Calls `ME_startOfDayForDate:`, passing self.
+ 
+ @return The date representing the start of the day for self
+ @see ME_startOfDayForDate:
+ */
+- (NSDate *)ME_startOfDay;
+/**
+ Returns a new date from _date_ with the time set to 23:59:59 in the local time zone.
+ 
+ @param date The date for which to return the end of the day
+ @return The date representing the end of the day
+ @exception NSException Thrown if _date_ is nil
+ */
++ (NSDate *)ME_endOfDayForDate:(NSDate *)date;
+/**
+ Calls `ME_endOfDayForDate:`, passing self.
+ 
+ @return The date representing the end of the day for self
+ @see ME_endOfDayForDate:
+ */
+- (NSDate *)ME_endOfDay;
+
+/**
+ Returns a new date from _date_ with the weekday set to 1 and the time set to 00:00:01 in the local time zone.
+ 
+ @param date The date for which to return the start of the week
+ @return The date representing the start of the week
+ @exception NSException Thrown if _date_ is nil
+ */
++ (NSDate *)ME_startOfWeekForDate:(NSDate *)date;
+/**
+ Calls `ME_startOfWeekForDate:`, passing self.
+ 
+ @return The date representing the start of the week for self
+ @see ME_startOfWeekForDate:
+ */
+- (NSDate *)ME_startOfWeek;
+/**
+ Returns a new date from _date_ with the weekday set to 7 and the time set to 23:59:59 in the local time zone.
+ 
+ @param date The date for which to return the end of the week
+ @return The date representing the end of the week
+ @exception NSException Thrown if _date_ is nil
+ */
++ (NSDate *)ME_endOfWeekForDate:(NSDate *)date;
+/**
+ Calls `ME_endOfWeekForDate:`, passing self.
+ 
+ @return The date representing the end of the week for self
+ @see ME_endOfWeekForDate:
+ */
+- (NSDate *)ME_endOfWeek;
+
+/**
+ Returns a new date from _date_ with the day set to the first day of the month and the time set to 00:00:01 in the local time zone.
+ 
+ @param date The date for which to return the start of the month
+ @return The date representing the start of the month
+ @exception NSException Thrown if _date_ is nil
+ */
++ (NSDate *)ME_startOfMonthForDate:(NSDate *)date;
+/**
+ Calls `ME_startOfMonthForDate:`, passing self.
+ 
+ @return The date representing the start of the month for self
+ @see ME_startOfMonthForDate:
+ */
+- (NSDate *)ME_startOfMonth;
+/**
+ Returns a new date from _date_ with the day set to the last day of the month and the time set to 23:59:59 in the local time zone.
+ 
+ @param date The date for which to return the end of the month
+ @return The date representing the end of the month
+ @exception NSException Thrown if _date_ is nil
+ */
++ (NSDate *)ME_endOfMonthForDate:(NSDate *)date;
+/**
+ Calls `ME_endOfMonthForDate:`, passing self.
+ 
+ @return The date representing the end of the month for self
+ @see ME_endOfMonthForDate:
+ */
+- (NSDate *)ME_endOfMonth;
+
+/**
+ Returns a new date from _date_ with the day set to the first day of the year and the time set to 00:00:01 in the local time zone.
+ 
+ @param date The date for which to return the start of the year
+ @return The date representing the start of the year
+ @exception NSException Thrown if _date_ is nil
+ */
++ (NSDate *)ME_startOfYearForDate:(NSDate *)date;
+/**
+ Calls `ME_startOfYearForDate:`, passing self.
+ 
+ @return The date representing the start of the year for self
+ @see ME_startOfYearForDate:
+ */
+- (NSDate *)ME_startOfYear;
+/**
+ Returns a new date from _date_ with the day set to the last day of the year and the time set to 23:59:59 in the local time zone.
+ 
+ @param date The date for which to return the end of the year
+ @return The date representing the end of the year
+ @exception NSException Thrown if _date_ is nil
+ */
++ (NSDate *)ME_endOfYearForDate:(NSDate *)date;
+/**
+ Calls `ME_endOfYearForDate:`, passing self.
+ 
+ @return The date representing the end of the year for self
+ @see ME_endOfYearForDate:
+ */
+- (NSDate *)ME_endOfYear;
 
 @end

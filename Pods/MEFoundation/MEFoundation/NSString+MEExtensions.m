@@ -1,9 +1,9 @@
 //
 //  NSString+MEExtensions.m
-//  MEFrameworks
+//  MEFoundation
 //
 //  Created by William Towe on 4/23/12.
-//  Copyright (c) 2012 Maestro. All rights reserved.
+//  Copyright (c) 2012 Maestro, LLC. All rights reserved.
 //
 //  Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
 // 
@@ -19,17 +19,111 @@
 #error This file requires ARC
 #endif
 
-static inline uint8_t MEHexValueForCharacter(unichar character);
-static inline uint8_t MEValueForCharacter(unichar character);
-static inline uint8_t MEBinaryValueForCharacter(unichar character);
+static inline uint8_t MEHexValueForCharacter(unichar character) {
+	switch (character) {
+		case '0':
+			return 0;
+		case '1':
+			return 1;
+		case '2':
+			return 2;
+		case '3':
+			return 3;
+		case '4':
+			return 4;
+		case '5':
+			return 5;
+		case '6':
+			return 6;
+		case '7':
+			return 7;
+		case '8':
+			return 8;
+		case '9':
+			return 9;
+		case 'a':
+		case 'A':
+			return 10;
+		case 'b':
+		case 'B':
+			return 11;
+		case 'c':
+		case 'C':
+			return 12;
+		case 'd':
+		case 'D':
+			return 13;
+		case 'e':
+		case 'E':
+			return 14;
+		case 'f':
+		case 'F':
+			return 15;
+		default:
+			return 0;
+	}
+}
+
+static inline uint8_t MEValueForCharacter(unichar character) {
+	switch (character) {
+		case '0':
+			return 0;
+		case '1':
+			return 1;
+		case '2':
+			return 2;
+		case '3':
+			return 3;
+		case '4':
+			return 4;
+		case '5':
+			return 5;
+		case '6':
+			return 6;
+		case '7':
+			return 7;
+		case '8':
+			return 8;
+		case '9':
+			return 9;
+		default:
+			return 0;
+	}
+}
+
+static inline uint8_t MEBinaryValueForCharacter(unichar character) {
+	switch (character) {
+		case '0':
+			return 0;
+		case '1':
+			return 1;
+		default:
+			return 0;
+	}
+}
 
 @implementation NSString (MEExtensions)
 
 - (NSString *)ME_stringByReplacingNewlinesWithString:(NSString *)replaceString; {
-    return [self stringByReplacingOccurrencesOfString:@"\n" 
-                                           withString:replaceString 
-                                              options:NSLiteralSearch 
-                                                range:NSMakeRange(0, self.length)];
+    NSParameterAssert(replaceString);
+    
+    NSMutableString *retval = [self mutableCopy];
+    NSCharacterSet *set = [NSCharacterSet newlineCharacterSet];
+    NSUInteger location = 0;
+    NSRange range;
+    
+    while (location < retval.length) {
+        range = [retval rangeOfCharacterFromSet:set options:0 range:NSMakeRange(location, retval.length - location)];
+        
+        if (range.location == NSNotFound)
+            break;
+        
+        [retval replaceCharactersInRange:range withString:replaceString];
+        
+        location = NSMaxRange(range);
+    }
+    
+    return [retval copy];
 }
 
 - (NSString *)ME_reverseString; {
@@ -48,17 +142,15 @@ static inline uint8_t MEBinaryValueForCharacter(unichar character);
 	
 	free(stringChars);
 	
-	return [[NSString alloc] initWithCharactersNoCopy:reverseStringChars
-                                                length:stringLength 
-                                          freeWhenDone:YES];
+	return [[NSString alloc] initWithCharactersNoCopy:reverseStringChars length:stringLength freeWhenDone:YES];
 }
 
 - (NSString *)ME_URLEncodedString {
     NSMutableString *output = [NSMutableString string];
-    const unsigned char * source = (const unsigned char *)[self UTF8String];
-    int sourceLen = strlen((const char *) source);
-    for (int i = 0; i < sourceLen; ++i) {
-        const unsigned char thisChar = source[i];
+    const char * source = (const char *)[self UTF8String];
+    size_t sourceLen = strlen(source);
+    for (size_t i = 0; i < sourceLen; ++i) {
+        const char thisChar = source[i];
         if (thisChar == ' ') {
             [output appendString:@"%20"];
         } else if (thisChar == '.' || thisChar == '-' || thisChar == '_' || thisChar == '~' ||
@@ -74,28 +166,16 @@ static inline uint8_t MEBinaryValueForCharacter(unichar character);
     return output;
 }
 
-- (NSString *)ME_localizedString; {
-    return NSLocalizedString(self, @"");
-}
-
 + (NSString *)ME_UUIDString; {
-    CFUUIDRef UUID = CFUUIDCreate(kCFAllocatorDefault);
-	CFStringRef UUIDString = CFUUIDCreateString(kCFAllocatorDefault, UUID);
-	
-	CFRelease(UUID);
-	
-    return (__bridge_transfer NSString *)UUIDString;
+    return [[NSUUID UUID] UUIDString];
 }
 
-@end
-
-@implementation NSString (MEHashing)
 - (NSString *)ME_MD5String {
     const char *str = [self UTF8String];
     
     unsigned char buffer[CC_MD5_DIGEST_LENGTH];
     
-    CC_MD5(str, strlen(str), buffer);
+    CC_MD5(str, (CC_LONG)strlen(str), buffer);
     
     NSMutableString *retval = [NSMutableString stringWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     
@@ -110,7 +190,7 @@ static inline uint8_t MEBinaryValueForCharacter(unichar character);
     
     unsigned char buffer[CC_SHA1_DIGEST_LENGTH];
     
-    CC_SHA1(str, strlen(str), buffer);
+    CC_SHA1(str, (CC_LONG)strlen(str), buffer);
     
     NSMutableString *retval = [NSMutableString stringWithCapacity:CC_SHA1_DIGEST_LENGTH * 2];
     
@@ -119,9 +199,6 @@ static inline uint8_t MEBinaryValueForCharacter(unichar character);
     
     return retval;
 }
-@end
-
-@implementation NSString (MENumberConversion)
 
 - (NSUInteger)ME_valueFromHexadecimalString; {
 	NSString *string = [self ME_stringByRemovingInvalidHexadecimalDigits];
@@ -149,7 +226,7 @@ static inline uint8_t MEBinaryValueForCharacter(unichar character);
 	NSUInteger total = 0, exponent = 0, base = 2;
 	
 	while (index > 0) {
-		uint8_t value = MEHexValueForCharacter([string characterAtIndex:--index]);
+		uint8_t value = MEBinaryValueForCharacter([string characterAtIndex:--index]);
 		total += value * (NSUInteger)powf(base, exponent++);
 	}
 	return total;
@@ -244,102 +321,4 @@ static inline uint8_t MEBinaryValueForCharacter(unichar character);
 	return nil;
 }
 
-- (int64_t)ME_longLongValue; {
-    NSScanner *scanner = [NSScanner scannerWithString:self];
-    
-    [scanner setCharactersToBeSkipped:nil];
-    
-    int64_t retval;
-    
-    if ([scanner scanLongLong:&retval])
-        return retval;
-    
-    return LONG_LONG_MAX;
-}
-
 @end
-
-#pragma mark *** Number System Digit Definitions ***
-
-static inline uint8_t MEHexValueForCharacter(unichar character) {
-	switch (character) {
-		case '0':
-			return 0;
-		case '1':
-			return 1;
-		case '2':
-			return 2;
-		case '3':
-			return 3;
-		case '4':
-			return 4;
-		case '5':
-			return 5;
-		case '6':
-			return 6;
-		case '7':
-			return 7;
-		case '8':
-			return 8;
-		case '9':
-			return 9;
-		case 'a':
-		case 'A':
-			return 10;
-		case 'b':
-		case 'B':
-			return 11;
-		case 'c':
-		case 'C':
-			return 12;
-		case 'd':
-		case 'D':
-			return 13;
-		case 'e':
-		case 'E':
-			return 14;
-		case 'f':
-		case 'F':
-			return 15;
-		default:
-			return 0;
-	}
-}
-
-static inline uint8_t MEValueForCharacter(unichar character) {
-	switch (character) {
-		case '0':
-			return 0;
-		case '1':
-			return 1;
-		case '2':
-			return 2;
-		case '3':
-			return 3;
-		case '4':
-			return 4;
-		case '5':
-			return 5;
-		case '6':
-			return 6;
-		case '7':
-			return 7;
-		case '8':
-			return 8;
-		case '9':
-			return 9;
-		default:
-			return 0;
-	}
-}
-
-static inline uint8_t MEBinaryValueForCharacter(unichar character) {
-	switch (character) {
-		case '0':
-			return 0;
-		case '1':
-			return 1;
-		default:
-			return 0;
-	}
-}
