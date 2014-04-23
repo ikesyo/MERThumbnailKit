@@ -248,7 +248,13 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
                         [[self _textThumbnailForURL:url size:size] subscribe:subscriber];
                     }
                     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeHTML) ||
-                             [@[@"doc",@"docx",@"ppt",@"pptx",@"xls",@"xlsx"] containsObject:url.lastPathComponent.pathExtension.lowercaseString]) {
+                             [@[@"doc",
+                                @"docx",
+                                @"ppt",
+                                @"pptx",
+                                @"xls",
+                                @"xlsx",
+                                @"csv"] containsObject:url.lastPathComponent.pathExtension.lowercaseString]) {
                         [[self _webViewThumbnailForURL:url size:size] subscribe:subscriber];
                     }
                     else {
