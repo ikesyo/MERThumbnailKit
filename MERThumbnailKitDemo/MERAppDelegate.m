@@ -15,7 +15,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 
-    [[MERThumbnailManager sharedManager] setThumbnailTime:5.0];
+    [[MERThumbnailManager sharedManager] setThumbnailTime:2.0];
     
     self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
     self.window.backgroundColor = [UIColor whiteColor];
