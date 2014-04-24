@@ -30,7 +30,7 @@ Additionally it supports Microsoft Office documents:
 * Powerpoint (.ppt, .pptx)
 * Excel (.xls, .xlsx)
 
-UTIs that are bolded indicate local and remote thumbnail generation is supported for that UTI.
+*UTIs that are* **bolded** *indicate local and remote thumbnail generation is supported for that UTI.*
 
 ##Demo
 
