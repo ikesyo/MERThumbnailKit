@@ -1,20 +1,24 @@
-Pod::Spec.new do |s|
-  s.name = "MERThumbnailKit"
-  s.version = "2.0.1"
-  s.summary = "A framework for generating thumbnails from urls, both local and remote. Built on top of ReactiveCocoa, compatible with iOS, 7.0+."
-  s.homepage = "https://github.com/MaestroElearning/MERThumbnailKit"
-  s.license = "Commercial"
-  s.author = {"William Towe" => "willbur1984@gmail.com"}
+Pod::Spec.new do |spec|
+  spec.name = "MERThumbnailKit"
+  spec.version = "2.1.0"
+  spec.authors = {"William Towe" => "willbur1984@gmail.com"}
+  spec.license = "Commercial"
+  spec.homepage = "https://github.com/MaestroElearning/MERThumbnailKit"
+  spec.source = {:git => "git@github.com:MaestroElearning/MERThumbnailKit.git", :tag => spec.version.to_s}
+  spec.summary = "A framework for generating thumbnails of urls, both local and remote. Compatible with iOS/OSX, 7.0+/10.9+."
   
-  s.platform = :ios, '7.0'
-  s.requires_arc = true
+  spec.ios.deployment_target = "7.0"
+  spec.osx.deployment_target = "10.9"
   
-  s.dependency 'MEFoundation', '~> 1.0.0'
-  s.dependency "ReactiveCocoa", "~> 2.3.0"
-  s.dependency "libextobjc/EXTScope", "~> 0.4.0"
+  spec.dependency "MEFoundation", "~> 1.0.0"
+  spec.dependency "libextobjc/EXTScope", "~> 0.4.0"
+  spec.dependency "ReactiveFoundation", "~> 2.3.0"
+  spec.requires_arc = true
+  spec.frameworks = "Foundation", "Accelerate", "AVFoundation"
+  spec.ios.frameworks = "UIKit", "MobileCoreServices"
+  spec.osx.frameworks = "AppKit", "QuickLook"
   
-  s.frameworks = 'UIKit','MobileCoreServices','CoreMedia','AVFoundation','Accelerate'
-  
-  s.source = {:git => "git@github.com:MaestroElearning/METhumbnailKit.git",:tag => s.version.to_s}
-  s.source_files = "MERThumbnailKit"
+  spec.source_files = "MERThumbnailKit", "MERThumbnailKitFramework"
+  spec.ios.exclude_files = "MERThumbnailKitFramework"
+  spec.osx.exclude_files = "MERThumbnailKit/UI*"
 end
