@@ -39,6 +39,8 @@ typedef NS_OPTIONS(NSInteger, MERThumbnailManagerCacheOptions) {
     MERThumbnailManagerCacheOptionsDefault = MERThumbnailManagerCacheOptionsAll
 };
 
+typedef void(^MERThumbnailManagerDownloadCompletionBlock)(NSData *data, MERThumbnailManagerCacheType cacheType, NSError *error);
+
 @class RACSignal;
 
 /**
@@ -97,13 +99,13 @@ typedef NS_OPTIONS(NSInteger, MERThumbnailManagerCacheOptions) {
 + (instancetype)sharedManager;
 
 /**
- Clears the file cache.
+ Clears the thumbnail file cache.
  */
-- (void)clearFileCache;
+- (void)clearThumbnailFileCache;
 /**
- Clears the memory cache.
+ Clears the thumbnail memory cache.
  */
-- (void)clearMemoryCache;
+- (void)clearThumbnailMemoryCache;
 
 /**
  Returns the file cache url for the provided memory cache _key_.
@@ -112,7 +114,7 @@ typedef NS_OPTIONS(NSInteger, MERThumbnailManagerCacheOptions) {
  @return The file cache url for _key_
  @exception NSException Thrown if _key_ is nil
  */
-- (NSURL *)fileCacheURLForMemoryCacheKey:(NSString *)key;
+- (NSURL *)thumbnailFileCacheURLForMemoryCacheKey:(NSString *)key;
 /**
  Returns the memory cache key for the provided _url_, _size_, _page_, and _time_.
  
@@ -177,5 +179,17 @@ typedef NS_OPTIONS(NSInteger, MERThumbnailManagerCacheOptions) {
  @exception NSException Thrown if _url_ is nil
  */
 - (RACSignal *)thumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time;
+/**
+ Returns a signal that sends `next` with a `RACTuple` containing _url_, the thumbnail image, and the `MERThumbnailManagerCacheType` of the generated thumbnail, then `completes`. If the request cannot be completed, which is possible for remote urls, sends `error`.
+ 
+ @param url The url of the asset
+ @param size The size of the thumbnail
+ @param page The page of the thumbnail
+ @param time The time of the thumbnail
+ @param downloadCompletion The block that is invoked when the full asset has finished downloading. If this parameter is nil, the library will attempt to generate the thumbnail without downloading the entire asset. The block takes three parameters, the _data_ of the downloaded asset, the `MERThumbnailManagerCacheType` of the downloaded asset, and an _error_ if the download could not be completed
+ @return The signal
+ @exception NSException Thrown if _url_ is nil
+ */
+- (RACSignal *)thumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time downloadCompletion:(MERThumbnailManagerDownloadCompletionBlock)downloadCompletion;
 
 @end

@@ -119,7 +119,7 @@ static NSTimeInterval const kMERThumbnailManagerDefaultThumbnailTime = 1.0;
      subscribeNext:^(id _) {
          @strongify(self);
          
-         [self clearMemoryCache];
+         [self clearThumbnailMemoryCache];
     }];
 #endif
     
@@ -182,16 +182,16 @@ static NSTimeInterval const kMERThumbnailManagerDefaultThumbnailTime = 1.0;
     return retval;
 }
 
-- (void)clearFileCache; {
+- (void)clearThumbnailFileCache; {
     NSError *outError;
     if (![[NSFileManager defaultManager] removeItemAtURL:self.fileCacheDirectoryURL error:&outError])
         MELogObject(outError);
 }
-- (void)clearMemoryCache; {
+- (void)clearThumbnailMemoryCache; {
     [self.memoryCache removeAllObjects];
 }
 
-- (NSURL *)fileCacheURLForMemoryCacheKey:(NSString *)key; {
+- (NSURL *)thumbnailFileCacheURLForMemoryCacheKey:(NSString *)key; {
     NSParameterAssert(key);
     
     return [self.fileCacheDirectoryURL URLByAppendingPathComponent:key isDirectory:NO];
@@ -219,6 +219,9 @@ static NSTimeInterval const kMERThumbnailManagerDefaultThumbnailTime = 1.0;
     return [self thumbnailForURL:url size:size page:self.thumbnailPage time:time];
 }
 - (RACSignal *)thumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time; {
+    return [self thumbnailForURL:url size:size page:page time:time downloadCompletion:nil];
+}
+- (RACSignal *)thumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time downloadCompletion:(MERThumbnailManagerDownloadCompletionBlock)downloadCompletion; {
     NSParameterAssert(url);
     
     @weakify(self);
@@ -240,7 +243,7 @@ static NSTimeInterval const kMERThumbnailManagerDefaultThumbnailTime = 1.0;
         
         if (!retval) {
             if (self.isFileCachingEnabled) {
-                NSURL *fileCacheURL = [self fileCacheURLForMemoryCacheKey:key];
+                NSURL *fileCacheURL = [self thumbnailFileCacheURLForMemoryCacheKey:key];
                 
                 if ([fileCacheURL checkResourceIsReachableAndReturnError:NULL]) {
                     retval = [[MERThumbnailKitImageClass alloc] initWithContentsOfFile:fileCacheURL.path];
@@ -285,7 +288,7 @@ static NSTimeInterval const kMERThumbnailManagerDefaultThumbnailTime = 1.0;
                             @"csv"] containsObject:url.lastPathComponent.pathExtension.lowercaseString]) {
                              
                              [[self _webViewThumbnailForURL:url size:size] subscribe:subscriber];
-                }
+                         }
 #endif
                 else {
 #if (TARGET_OS_IPHONE)
@@ -320,9 +323,9 @@ static NSTimeInterval const kMERThumbnailManagerDefaultThumbnailTime = 1.0;
         
         if (image) {
             NSString *key = [self memoryCacheKeyForURL:url size:size page:page time:time];
-            NSURL *fileCacheURL = [self fileCacheURLForMemoryCacheKey:key];
+            NSURL *fileCacheURL = [self thumbnailFileCacheURLForMemoryCacheKey:key];
             MERThumbnailManagerCacheType cacheTypeValue = cacheType.integerValue;
-
+            
             switch (cacheTypeValue) {
                 case MERThumbnailManagerCacheTypeNone:
                     if (self.isFileCachingEnabled)
