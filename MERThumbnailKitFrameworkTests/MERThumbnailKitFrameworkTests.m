@@ -1,6 +1,6 @@
 //
-//  MERThumbnailKitTests.m
-//  MERThumbnailKitTests
+//  MERThumbnailKitFrameworkTests.m
+//  MERThumbnailKitFrameworkTests
 //
 //  Created by William Towe on 5/1/14.
 //  Copyright (c) 2014 Maestro, LLC. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface MERThumbnailKitTests : XCTestCase
+@interface MERThumbnailKitFrameworkTests : XCTestCase
 
 @end
 
-@implementation MERThumbnailKitTests
+@implementation MERThumbnailKitFrameworkTests
 
 - (void)setUp
 {

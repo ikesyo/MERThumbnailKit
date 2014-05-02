@@ -2,11 +2,12 @@
 //  MERThumbnailManager.h
 //  MERThumbnailKit
 //
-//  Created by William Towe on 4/23/14.
+//  Created by William Towe on 5/1/14.
 //  Copyright (c) 2014 Maestro, LLC. All rights reserved.
 //
 
-#import <UIKit/UIImage.h>
+#import <Foundation/Foundation.h>
+#import <CoreGraphics/CGGeometry.h>
 
 /**
  Enum that describes the cache type that was used, if any, when generating a thumbnail.

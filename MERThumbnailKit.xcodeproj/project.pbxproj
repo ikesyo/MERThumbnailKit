@@ -7,247 +7,465 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		797D0E151908043000FD6F95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797D0E141908043000FD6F95 /* Foundation.framework */; };
-		797D0E1A1908043000FD6F95 /* MERThumbnailKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 797D0E191908043000FD6F95 /* MERThumbnailKit.h */; };
-		797D0E231908043000FD6F95 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797D0E221908043000FD6F95 /* XCTest.framework */; };
-		797D0E241908043000FD6F95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797D0E141908043000FD6F95 /* Foundation.framework */; };
-		797D0E261908043000FD6F95 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797D0E251908043000FD6F95 /* UIKit.framework */; };
-		797D0E291908043000FD6F95 /* libMERThumbnailKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 797D0E111908043000FD6F95 /* libMERThumbnailKit.a */; };
-		797D0E2F1908043000FD6F95 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 797D0E2D1908043000FD6F95 /* InfoPlist.strings */; };
-		797D0E311908043000FD6F95 /* MERThumbnailKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 797D0E301908043000FD6F95 /* MERThumbnailKitTests.m */; };
-		797D0E3C1908059700FD6F95 /* MERThumbnailManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 797D0E3B1908059700FD6F95 /* MERThumbnailManager.m */; };
-		797D0E421908088F00FD6F95 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797D0E141908043000FD6F95 /* Foundation.framework */; };
-		797D0E441908088F00FD6F95 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797D0E431908088F00FD6F95 /* CoreGraphics.framework */; };
-		797D0E451908088F00FD6F95 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 797D0E251908043000FD6F95 /* UIKit.framework */; };
-		797D0E4B1908088F00FD6F95 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 797D0E491908088F00FD6F95 /* InfoPlist.strings */; };
-		797D0E4D1908088F00FD6F95 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 797D0E4C1908088F00FD6F95 /* main.m */; };
-		797D0E511908088F00FD6F95 /* MERAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 797D0E501908088F00FD6F95 /* MERAppDelegate.m */; };
-		797D0E5C1908088F00FD6F95 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 797D0E5B1908088F00FD6F95 /* Images.xcassets */; };
-		797D0E771908097E00FD6F95 /* MERRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797D0E761908097E00FD6F95 /* MERRootViewController.m */; };
-		797D0E7919080CE600FD6F95 /* Files in Resources */ = {isa = PBXBuildFile; fileRef = 797D0E7819080CE600FD6F95 /* Files */; };
-		797D0E7A19080ED200FD6F95 /* MERThumbnailManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 797D0E3A1908059700FD6F95 /* MERThumbnailManager.h */; };
-		797D0E7F1908157300FD6F95 /* UIImage+MERThumnailKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 797D0E7E1908157300FD6F95 /* UIImage+MERThumnailKitExtensions.m */; };
-		797D0E80190818E400FD6F95 /* UIImage+MERThumnailKitExtensions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 797D0E7D1908157300FD6F95 /* UIImage+MERThumnailKitExtensions.h */; };
-		797D0E8519082BA300FD6F95 /* MERRootCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 797D0E8419082BA300FD6F95 /* MERRootCollectionViewCell.m */; };
-		797D0E8819082DCE00FD6F95 /* libMERThumbnailKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 797D0E111908043000FD6F95 /* libMERThumbnailKit.a */; };
-		797D0E8B190859E800FD6F95 /* UIWebView+MERThumbnailKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 797D0E8A190859E800FD6F95 /* UIWebView+MERThumbnailKitExtensions.m */; };
-		B75D2BC14DB445468CCC6EA3 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E6505AEC15C418492BEDED7 /* libPods.a */; };
+		63AB80A564D74D46BBECEB99 /* libPods-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = F46C2A2EBEDB401C87B925EA /* libPods-ios.a */; };
+		72448D6128E14B63B386DB5B /* libPods-osx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD8AC61140764E40A10B186E /* libPods-osx.a */; };
+		79B434E119130DE900FB4832 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B434E019130DE900FB4832 /* Foundation.framework */; };
+		79B434E619130DEA00FB4832 /* MERThumbnailKit.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79B434E519130DEA00FB4832 /* MERThumbnailKit.h */; };
+		79B434EF19130DEA00FB4832 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B434EE19130DEA00FB4832 /* XCTest.framework */; };
+		79B434F019130DEA00FB4832 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B434E019130DE900FB4832 /* Foundation.framework */; };
+		79B434F219130DEA00FB4832 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B434F119130DEA00FB4832 /* UIKit.framework */; };
+		79B434F519130DEA00FB4832 /* libMERThumbnailKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B434DD19130DE900FB4832 /* libMERThumbnailKit.a */; };
+		79B434FB19130DEA00FB4832 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79B434F919130DEA00FB4832 /* InfoPlist.strings */; };
+		79B434FD19130DEA00FB4832 /* MERThumbnailKitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B434FC19130DEA00FB4832 /* MERThumbnailKitTests.m */; };
+		79B4350B19130E2000FB4832 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4350A19130E2000FB4832 /* Cocoa.framework */; };
+		79B4351519130E2000FB4832 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79B4351319130E2000FB4832 /* InfoPlist.strings */; };
+		79B4351F19130E2100FB4832 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B434EE19130DEA00FB4832 /* XCTest.framework */; };
+		79B4352019130E2100FB4832 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4350A19130E2000FB4832 /* Cocoa.framework */; };
+		79B4352319130E2100FB4832 /* MERThumbnailKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4350919130E2000FB4832 /* MERThumbnailKit.framework */; };
+		79B4352919130E2100FB4832 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79B4352719130E2100FB4832 /* InfoPlist.strings */; };
+		79B4352B19130E2100FB4832 /* MERThumbnailKitFrameworkTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B4352A19130E2100FB4832 /* MERThumbnailKitFrameworkTests.m */; };
+		79B435331913128900FB4832 /* MERThumbnailKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 79B434E519130DEA00FB4832 /* MERThumbnailKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		79B43536191312AD00FB4832 /* MERThumbnailManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 79B43534191312AD00FB4832 /* MERThumbnailManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		79B43537191312AD00FB4832 /* MERThumbnailManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B43535191312AD00FB4832 /* MERThumbnailManager.m */; };
+		79B43538191312AD00FB4832 /* MERThumbnailManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B43535191312AD00FB4832 /* MERThumbnailManager.m */; };
+		79B43587191328F000FB4832 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B434E019130DE900FB4832 /* Foundation.framework */; };
+		79B43588191328F000FB4832 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B435501913282F00FB4832 /* CoreGraphics.framework */; };
+		79B43589191328F000FB4832 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B434F119130DEA00FB4832 /* UIKit.framework */; };
+		79B4358F191328F000FB4832 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79B4358D191328F000FB4832 /* InfoPlist.strings */; };
+		79B43591191328F000FB4832 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B43590191328F000FB4832 /* main.m */; };
+		79B43595191328F000FB4832 /* MERAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B43594191328F000FB4832 /* MERAppDelegate.m */; };
+		79B4359E191328F000FB4832 /* MERViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B4359D191328F000FB4832 /* MERViewController.m */; };
+		79B435A0191328F000FB4832 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79B4359F191328F000FB4832 /* Images.xcassets */; };
+		79B435C31913292800FB4832 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4350A19130E2000FB4832 /* Cocoa.framework */; };
+		79B435C91913292800FB4832 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 79B435C71913292800FB4832 /* InfoPlist.strings */; };
+		79B435CB1913292800FB4832 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B435CA1913292800FB4832 /* main.m */; };
+		79B435CF1913292800FB4832 /* Credits.rtf in Resources */ = {isa = PBXBuildFile; fileRef = 79B435CD1913292800FB4832 /* Credits.rtf */; };
+		79B435D21913292800FB4832 /* MERAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B435D11913292800FB4832 /* MERAppDelegate.m */; };
+		79B435D51913292800FB4832 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79B435D31913292800FB4832 /* MainMenu.xib */; };
+		79B435D71913292800FB4832 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 79B435D61913292800FB4832 /* Images.xcassets */; };
+		79B435EF1913294C00FB4832 /* MERThumbnailManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79B43534191312AD00FB4832 /* MERThumbnailManager.h */; };
+		79B435F2191329AE00FB4832 /* libMERThumbnailKit.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B434DD19130DE900FB4832 /* libMERThumbnailKit.a */; };
+		79B435F819132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B435F719132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.m */; };
+		79B435F919132B8B00FB4832 /* UIImage+MERThumbnailKitExtensions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79B435F619132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.h */; };
+		79B435FC19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 79B435FA19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		79B435FD19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B435FB19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.m */; };
+		79B4360019132CBD00FB4832 /* MERThumbnailKitFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 79B435FE19132CBD00FB4832 /* MERThumbnailKitFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		79B4360119132CBD00FB4832 /* MERThumbnailKitFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B435FF19132CBD00FB4832 /* MERThumbnailKitFunctions.m */; };
+		79B4360219132CBD00FB4832 /* MERThumbnailKitFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B435FF19132CBD00FB4832 /* MERThumbnailKitFunctions.m */; };
+		79B4360319132D0400FB4832 /* MERThumbnailKitFunctions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79B435FE19132CBD00FB4832 /* MERThumbnailKitFunctions.h */; };
+		79B43663191339B000FB4832 /* MERThumbnailKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4350919130E2000FB4832 /* MERThumbnailKit.framework */; };
+		79B4366619133D3100FB4832 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4366519133D3100FB4832 /* AVFoundation.framework */; };
+		79B4366819133D3600FB4832 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4366719133D3600FB4832 /* Accelerate.framework */; };
+		79B4368019134C6200FB4832 /* MERThumbnailKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4350919130E2000FB4832 /* MERThumbnailKit.framework */; };
+		79B4368219135CD700FB4832 /* Files in Resources */ = {isa = PBXBuildFile; fileRef = 79B4368119135CD700FB4832 /* Files */; };
+		79B4368319135CD700FB4832 /* Files in Resources */ = {isa = PBXBuildFile; fileRef = 79B4368119135CD700FB4832 /* Files */; };
+		79B4368A19137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B4368919137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m */; };
+		79B4368C1913913500FB4832 /* RemoteURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79B4368B1913913500FB4832 /* RemoteURLs.plist */; };
+		79B4368D1913913500FB4832 /* RemoteURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79B4368B1913913500FB4832 /* RemoteURLs.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		797D0E271908043000FD6F95 /* PBXContainerItemProxy */ = {
+		79B434F319130DEA00FB4832 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 797D0E091908043000FD6F95 /* Project object */;
+			containerPortal = 790E33B919130C8F0040C38C /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 797D0E101908043000FD6F95;
+			remoteGlobalIDString = 79B434DC19130DE900FB4832;
 			remoteInfo = MERThumbnailKit;
 		};
-		797D0E8619082DC900FD6F95 /* PBXContainerItemProxy */ = {
+		79B4352119130E2100FB4832 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 797D0E091908043000FD6F95 /* Project object */;
+			containerPortal = 790E33B919130C8F0040C38C /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 797D0E101908043000FD6F95;
+			remoteGlobalIDString = 79B4350819130E2000FB4832;
+			remoteInfo = MERThumbnailKitFramework;
+		};
+		79B435F0191329A700FB4832 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 790E33B919130C8F0040C38C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79B434DC19130DE900FB4832;
 			remoteInfo = MERThumbnailKit;
+		};
+		79B435F3191329B600FB4832 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 790E33B919130C8F0040C38C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 79B4350819130E2000FB4832;
+			remoteInfo = MERThumbnailKitFramework;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		797D0E0F1908043000FD6F95 /* CopyFiles */ = {
+		79B434DB19130DE900FB4832 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				797D0E1A1908043000FD6F95 /* MERThumbnailKit.h in CopyFiles */,
-				797D0E7A19080ED200FD6F95 /* MERThumbnailManager.h in CopyFiles */,
-				797D0E80190818E400FD6F95 /* UIImage+MERThumnailKitExtensions.h in CopyFiles */,
+				79B434E619130DEA00FB4832 /* MERThumbnailKit.h in CopyFiles */,
+				79B4360319132D0400FB4832 /* MERThumbnailKitFunctions.h in CopyFiles */,
+				79B435EF1913294C00FB4832 /* MERThumbnailManager.h in CopyFiles */,
+				79B435F919132B8B00FB4832 /* UIImage+MERThumbnailKitExtensions.h in CopyFiles */,
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79B4360419132E7300FB4832 /* Copy Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				79B43663191339B000FB4832 /* MERThumbnailKit.framework in Copy Frameworks */,
+			);
+			name = "Copy Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		797D0E111908043000FD6F95 /* libMERThumbnailKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMERThumbnailKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		797D0E141908043000FD6F95 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		797D0E181908043000FD6F95 /* MERThumbnailKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MERThumbnailKit-Prefix.pch"; sourceTree = "<group>"; };
-		797D0E191908043000FD6F95 /* MERThumbnailKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERThumbnailKit.h; sourceTree = "<group>"; };
-		797D0E211908043000FD6F95 /* MERThumbnailKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MERThumbnailKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		797D0E221908043000FD6F95 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
-		797D0E251908043000FD6F95 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
-		797D0E2C1908043000FD6F95 /* MERThumbnailKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MERThumbnailKitTests-Info.plist"; sourceTree = "<group>"; };
-		797D0E2E1908043000FD6F95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		797D0E301908043000FD6F95 /* MERThumbnailKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERThumbnailKitTests.m; sourceTree = "<group>"; };
-		797D0E3A1908059700FD6F95 /* MERThumbnailManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERThumbnailManager.h; sourceTree = "<group>"; };
-		797D0E3B1908059700FD6F95 /* MERThumbnailManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERThumbnailManager.m; sourceTree = "<group>"; };
-		797D0E411908088F00FD6F95 /* MERThumbnailKitDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MERThumbnailKitDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		797D0E431908088F00FD6F95 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
-		797D0E481908088F00FD6F95 /* MERThumbnailKitDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MERThumbnailKitDemo-Info.plist"; sourceTree = "<group>"; };
-		797D0E4A1908088F00FD6F95 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		797D0E4C1908088F00FD6F95 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		797D0E4E1908088F00FD6F95 /* MERThumbnailKitDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MERThumbnailKitDemo-Prefix.pch"; sourceTree = "<group>"; };
-		797D0E4F1908088F00FD6F95 /* MERAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERAppDelegate.h; sourceTree = "<group>"; };
-		797D0E501908088F00FD6F95 /* MERAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERAppDelegate.m; sourceTree = "<group>"; };
-		797D0E5B1908088F00FD6F95 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
-		797D0E751908097E00FD6F95 /* MERRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERRootViewController.h; sourceTree = "<group>"; };
-		797D0E761908097E00FD6F95 /* MERRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERRootViewController.m; sourceTree = "<group>"; };
-		797D0E7819080CE600FD6F95 /* Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Files; sourceTree = "<group>"; };
-		797D0E7D1908157300FD6F95 /* UIImage+MERThumnailKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MERThumnailKitExtensions.h"; sourceTree = "<group>"; };
-		797D0E7E1908157300FD6F95 /* UIImage+MERThumnailKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MERThumnailKitExtensions.m"; sourceTree = "<group>"; };
-		797D0E8319082BA300FD6F95 /* MERRootCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERRootCollectionViewCell.h; sourceTree = "<group>"; };
-		797D0E8419082BA300FD6F95 /* MERRootCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERRootCollectionViewCell.m; sourceTree = "<group>"; };
-		797D0E89190859E800FD6F95 /* UIWebView+MERThumbnailKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+MERThumbnailKitExtensions.h"; sourceTree = "<group>"; };
-		797D0E8A190859E800FD6F95 /* UIWebView+MERThumbnailKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+MERThumbnailKitExtensions.m"; sourceTree = "<group>"; };
-		8E29DC2FE5CF41AFB57C9B88 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
-		9E6505AEC15C418492BEDED7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FA2619A6487432F94FEC364 /* Pods-osx.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-osx.xcconfig"; path = "Pods/Pods-osx.xcconfig"; sourceTree = "<group>"; };
+		79B434DD19130DE900FB4832 /* libMERThumbnailKit.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libMERThumbnailKit.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		79B434E019130DE900FB4832 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		79B434E419130DE900FB4832 /* MERThumbnailKit-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MERThumbnailKit-Prefix.pch"; sourceTree = "<group>"; };
+		79B434E519130DEA00FB4832 /* MERThumbnailKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERThumbnailKit.h; sourceTree = "<group>"; };
+		79B434ED19130DEA00FB4832 /* MERThumbnailKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MERThumbnailKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		79B434EE19130DEA00FB4832 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		79B434F119130DEA00FB4832 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = Library/Frameworks/UIKit.framework; sourceTree = DEVELOPER_DIR; };
+		79B434F819130DEA00FB4832 /* MERThumbnailKitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MERThumbnailKitTests-Info.plist"; sourceTree = "<group>"; };
+		79B434FA19130DEA00FB4832 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		79B434FC19130DEA00FB4832 /* MERThumbnailKitTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERThumbnailKitTests.m; sourceTree = "<group>"; };
+		79B4350919130E2000FB4832 /* MERThumbnailKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = MERThumbnailKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79B4350A19130E2000FB4832 /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
+		79B4350D19130E2000FB4832 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		79B4350E19130E2000FB4832 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		79B4350F19130E2000FB4832 /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = System/Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		79B4351219130E2000FB4832 /* MERThumbnailKitFramework-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MERThumbnailKitFramework-Info.plist"; sourceTree = "<group>"; };
+		79B4351419130E2000FB4832 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		79B4351619130E2000FB4832 /* MERThumbnailKitFramework-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MERThumbnailKitFramework-Prefix.pch"; sourceTree = "<group>"; };
+		79B4351E19130E2000FB4832 /* MERThumbnailKitFrameworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MERThumbnailKitFrameworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		79B4352619130E2100FB4832 /* MERThumbnailKitFrameworkTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MERThumbnailKitFrameworkTests-Info.plist"; sourceTree = "<group>"; };
+		79B4352819130E2100FB4832 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		79B4352A19130E2100FB4832 /* MERThumbnailKitFrameworkTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERThumbnailKitFrameworkTests.m; sourceTree = "<group>"; };
+		79B43534191312AD00FB4832 /* MERThumbnailManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERThumbnailManager.h; sourceTree = "<group>"; };
+		79B43535191312AD00FB4832 /* MERThumbnailManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERThumbnailManager.m; sourceTree = "<group>"; };
+		79B435501913282F00FB4832 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		79B43586191328EF00FB4832 /* MERThumbnailKitDemoiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MERThumbnailKitDemoiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		79B4358C191328F000FB4832 /* MERThumbnailKitDemoiOS-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MERThumbnailKitDemoiOS-Info.plist"; sourceTree = "<group>"; };
+		79B4358E191328F000FB4832 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		79B43590191328F000FB4832 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		79B43592191328F000FB4832 /* MERThumbnailKitDemoiOS-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MERThumbnailKitDemoiOS-Prefix.pch"; sourceTree = "<group>"; };
+		79B43593191328F000FB4832 /* MERAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERAppDelegate.h; sourceTree = "<group>"; };
+		79B43594191328F000FB4832 /* MERAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERAppDelegate.m; sourceTree = "<group>"; };
+		79B4359C191328F000FB4832 /* MERViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERViewController.h; sourceTree = "<group>"; };
+		79B4359D191328F000FB4832 /* MERViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERViewController.m; sourceTree = "<group>"; };
+		79B4359F191328F000FB4832 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		79B435C21913292800FB4832 /* MERThumbnailKitDemoOSX.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MERThumbnailKitDemoOSX.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		79B435C61913292800FB4832 /* MERThumbnailKitDemoOSX-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "MERThumbnailKitDemoOSX-Info.plist"; sourceTree = "<group>"; };
+		79B435C81913292800FB4832 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		79B435CA1913292800FB4832 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		79B435CC1913292800FB4832 /* MERThumbnailKitDemoOSX-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MERThumbnailKitDemoOSX-Prefix.pch"; sourceTree = "<group>"; };
+		79B435CE1913292800FB4832 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/Credits.rtf; sourceTree = "<group>"; };
+		79B435D01913292800FB4832 /* MERAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MERAppDelegate.h; sourceTree = "<group>"; };
+		79B435D11913292800FB4832 /* MERAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MERAppDelegate.m; sourceTree = "<group>"; };
+		79B435D41913292800FB4832 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		79B435D61913292800FB4832 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		79B435F619132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+MERThumbnailKitExtensions.h"; sourceTree = "<group>"; };
+		79B435F719132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+MERThumbnailKitExtensions.m"; sourceTree = "<group>"; };
+		79B435FA19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSImage+MERThumbnailKitExtensions.h"; sourceTree = "<group>"; };
+		79B435FB19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSImage+MERThumbnailKitExtensions.m"; sourceTree = "<group>"; };
+		79B435FE19132CBD00FB4832 /* MERThumbnailKitFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERThumbnailKitFunctions.h; sourceTree = "<group>"; };
+		79B435FF19132CBD00FB4832 /* MERThumbnailKitFunctions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERThumbnailKitFunctions.m; sourceTree = "<group>"; };
+		79B4366519133D3100FB4832 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/AVFoundation.framework; sourceTree = DEVELOPER_DIR; };
+		79B4366719133D3600FB4832 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS7.1.sdk/System/Library/Frameworks/Accelerate.framework; sourceTree = DEVELOPER_DIR; };
+		79B4367F191344BC00FB4832 /* MERThumbnailKit.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = MERThumbnailKit.xcconfig; sourceTree = "<group>"; };
+		79B4368119135CD700FB4832 /* Files */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Files; sourceTree = "<group>"; };
+		79B4368819137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+MERThumbnailKitExtensions.h"; sourceTree = "<group>"; };
+		79B4368919137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+MERThumbnailKitExtensions.m"; sourceTree = "<group>"; };
+		79B4368B1913913500FB4832 /* RemoteURLs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RemoteURLs.plist; sourceTree = "<group>"; };
+		BD8AC61140764E40A10B186E /* libPods-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E5ED67B294AE4F6985C2D528 /* Pods-ios.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.xcconfig"; path = "Pods/Pods-ios.xcconfig"; sourceTree = "<group>"; };
+		F46C2A2EBEDB401C87B925EA /* libPods-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		797D0E0E1908043000FD6F95 /* Frameworks */ = {
+		79B434DA19130DE900FB4832 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				797D0E151908043000FD6F95 /* Foundation.framework in Frameworks */,
+				79B434E119130DE900FB4832 /* Foundation.framework in Frameworks */,
+				63AB80A564D74D46BBECEB99 /* libPods-ios.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		797D0E1E1908043000FD6F95 /* Frameworks */ = {
+		79B434EA19130DEA00FB4832 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				797D0E231908043000FD6F95 /* XCTest.framework in Frameworks */,
-				797D0E261908043000FD6F95 /* UIKit.framework in Frameworks */,
-				797D0E291908043000FD6F95 /* libMERThumbnailKit.a in Frameworks */,
-				797D0E241908043000FD6F95 /* Foundation.framework in Frameworks */,
+				79B434EF19130DEA00FB4832 /* XCTest.framework in Frameworks */,
+				79B434F219130DEA00FB4832 /* UIKit.framework in Frameworks */,
+				79B434F519130DEA00FB4832 /* libMERThumbnailKit.a in Frameworks */,
+				79B434F019130DEA00FB4832 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		797D0E3E1908088F00FD6F95 /* Frameworks */ = {
+		79B4350519130E2000FB4832 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				797D0E8819082DCE00FD6F95 /* libMERThumbnailKit.a in Frameworks */,
-				797D0E441908088F00FD6F95 /* CoreGraphics.framework in Frameworks */,
-				797D0E451908088F00FD6F95 /* UIKit.framework in Frameworks */,
-				797D0E421908088F00FD6F95 /* Foundation.framework in Frameworks */,
-				B75D2BC14DB445468CCC6EA3 /* libPods.a in Frameworks */,
+				79B4350B19130E2000FB4832 /* Cocoa.framework in Frameworks */,
+				72448D6128E14B63B386DB5B /* libPods-osx.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79B4351B19130E2000FB4832 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B4352019130E2100FB4832 /* Cocoa.framework in Frameworks */,
+				79B4352319130E2100FB4832 /* MERThumbnailKit.framework in Frameworks */,
+				79B4351F19130E2100FB4832 /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79B43583191328EF00FB4832 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B4366819133D3600FB4832 /* Accelerate.framework in Frameworks */,
+				79B4366619133D3100FB4832 /* AVFoundation.framework in Frameworks */,
+				79B435F2191329AE00FB4832 /* libMERThumbnailKit.a in Frameworks */,
+				79B43588191328F000FB4832 /* CoreGraphics.framework in Frameworks */,
+				79B43589191328F000FB4832 /* UIKit.framework in Frameworks */,
+				79B43587191328F000FB4832 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79B435BF1913292800FB4832 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B435C31913292800FB4832 /* Cocoa.framework in Frameworks */,
+				79B4368019134C6200FB4832 /* MERThumbnailKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		797D0E081908043000FD6F95 = {
+		790E33B819130C8F0040C38C = {
 			isa = PBXGroup;
 			children = (
-				797D0E161908043000FD6F95 /* MERThumbnailKit */,
-				797D0E2A1908043000FD6F95 /* MERThumbnailKitTests */,
-				797D0E461908088F00FD6F95 /* MERThumbnailKitDemo */,
-				797D0E131908043000FD6F95 /* Frameworks */,
-				797D0E121908043000FD6F95 /* Products */,
-				8E29DC2FE5CF41AFB57C9B88 /* Pods.xcconfig */,
+				79B4367F191344BC00FB4832 /* MERThumbnailKit.xcconfig */,
+				79B434E219130DE900FB4832 /* MERThumbnailKit */,
+				79B434F619130DEA00FB4832 /* MERThumbnailKitTests */,
+				79B4351019130E2000FB4832 /* MERThumbnailKitFramework */,
+				79B4352419130E2100FB4832 /* MERThumbnailKitFrameworkTests */,
+				79B4358A191328F000FB4832 /* MERThumbnailKitDemoiOS */,
+				79B435C41913292800FB4832 /* MERThumbnailKitDemoOSX */,
+				79B434DF19130DE900FB4832 /* Frameworks */,
+				79B434DE19130DE900FB4832 /* Products */,
+				E5ED67B294AE4F6985C2D528 /* Pods-ios.xcconfig */,
+				2FA2619A6487432F94FEC364 /* Pods-osx.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
-		797D0E121908043000FD6F95 /* Products */ = {
+		79B434DE19130DE900FB4832 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				797D0E111908043000FD6F95 /* libMERThumbnailKit.a */,
-				797D0E211908043000FD6F95 /* MERThumbnailKitTests.xctest */,
-				797D0E411908088F00FD6F95 /* MERThumbnailKitDemo.app */,
+				79B434DD19130DE900FB4832 /* libMERThumbnailKit.a */,
+				79B434ED19130DEA00FB4832 /* MERThumbnailKitTests.xctest */,
+				79B4350919130E2000FB4832 /* MERThumbnailKit.framework */,
+				79B4351E19130E2000FB4832 /* MERThumbnailKitFrameworkTests.xctest */,
+				79B43586191328EF00FB4832 /* MERThumbnailKitDemoiOS.app */,
+				79B435C21913292800FB4832 /* MERThumbnailKitDemoOSX.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		797D0E131908043000FD6F95 /* Frameworks */ = {
+		79B434DF19130DE900FB4832 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				797D0E141908043000FD6F95 /* Foundation.framework */,
-				797D0E221908043000FD6F95 /* XCTest.framework */,
-				797D0E251908043000FD6F95 /* UIKit.framework */,
-				797D0E431908088F00FD6F95 /* CoreGraphics.framework */,
-				9E6505AEC15C418492BEDED7 /* libPods.a */,
+				79B4366719133D3600FB4832 /* Accelerate.framework */,
+				79B4366519133D3100FB4832 /* AVFoundation.framework */,
+				79B434E019130DE900FB4832 /* Foundation.framework */,
+				79B434EE19130DEA00FB4832 /* XCTest.framework */,
+				79B434F119130DEA00FB4832 /* UIKit.framework */,
+				79B4350A19130E2000FB4832 /* Cocoa.framework */,
+				79B435501913282F00FB4832 /* CoreGraphics.framework */,
+				79B4350C19130E2000FB4832 /* Other Frameworks */,
+				F46C2A2EBEDB401C87B925EA /* libPods-ios.a */,
+				BD8AC61140764E40A10B186E /* libPods-osx.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		797D0E161908043000FD6F95 /* MERThumbnailKit */ = {
+		79B434E219130DE900FB4832 /* MERThumbnailKit */ = {
 			isa = PBXGroup;
 			children = (
-				797D0E191908043000FD6F95 /* MERThumbnailKit.h */,
-				797D0E3A1908059700FD6F95 /* MERThumbnailManager.h */,
-				797D0E3B1908059700FD6F95 /* MERThumbnailManager.m */,
-				797D0E7D1908157300FD6F95 /* UIImage+MERThumnailKitExtensions.h */,
-				797D0E7E1908157300FD6F95 /* UIImage+MERThumnailKitExtensions.m */,
-				797D0E89190859E800FD6F95 /* UIWebView+MERThumbnailKitExtensions.h */,
-				797D0E8A190859E800FD6F95 /* UIWebView+MERThumbnailKitExtensions.m */,
-				797D0E171908043000FD6F95 /* Supporting Files */,
+				79B434E519130DEA00FB4832 /* MERThumbnailKit.h */,
+				79B435FE19132CBD00FB4832 /* MERThumbnailKitFunctions.h */,
+				79B435FF19132CBD00FB4832 /* MERThumbnailKitFunctions.m */,
+				79B43534191312AD00FB4832 /* MERThumbnailManager.h */,
+				79B43535191312AD00FB4832 /* MERThumbnailManager.m */,
+				79B4368819137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.h */,
+				79B4368919137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m */,
+				79B435F619132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.h */,
+				79B435F719132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.m */,
+				79B434E319130DE900FB4832 /* Supporting Files */,
 			);
 			path = MERThumbnailKit;
 			sourceTree = "<group>";
 		};
-		797D0E171908043000FD6F95 /* Supporting Files */ = {
+		79B434E319130DE900FB4832 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				797D0E181908043000FD6F95 /* MERThumbnailKit-Prefix.pch */,
+				79B434E419130DE900FB4832 /* MERThumbnailKit-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		797D0E2A1908043000FD6F95 /* MERThumbnailKitTests */ = {
+		79B434F619130DEA00FB4832 /* MERThumbnailKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				797D0E301908043000FD6F95 /* MERThumbnailKitTests.m */,
-				797D0E2B1908043000FD6F95 /* Supporting Files */,
+				79B434FC19130DEA00FB4832 /* MERThumbnailKitTests.m */,
+				79B434F719130DEA00FB4832 /* Supporting Files */,
 			);
 			path = MERThumbnailKitTests;
 			sourceTree = "<group>";
 		};
-		797D0E2B1908043000FD6F95 /* Supporting Files */ = {
+		79B434F719130DEA00FB4832 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				797D0E2C1908043000FD6F95 /* MERThumbnailKitTests-Info.plist */,
-				797D0E2D1908043000FD6F95 /* InfoPlist.strings */,
+				79B434F819130DEA00FB4832 /* MERThumbnailKitTests-Info.plist */,
+				79B434F919130DEA00FB4832 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		797D0E461908088F00FD6F95 /* MERThumbnailKitDemo */ = {
+		79B4350C19130E2000FB4832 /* Other Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				797D0E4F1908088F00FD6F95 /* MERAppDelegate.h */,
-				797D0E501908088F00FD6F95 /* MERAppDelegate.m */,
-				797D0E751908097E00FD6F95 /* MERRootViewController.h */,
-				797D0E761908097E00FD6F95 /* MERRootViewController.m */,
-				797D0E8319082BA300FD6F95 /* MERRootCollectionViewCell.h */,
-				797D0E8419082BA300FD6F95 /* MERRootCollectionViewCell.m */,
-				797D0E5B1908088F00FD6F95 /* Images.xcassets */,
-				797D0E471908088F00FD6F95 /* Supporting Files */,
+				79B4350D19130E2000FB4832 /* Foundation.framework */,
+				79B4350E19130E2000FB4832 /* CoreData.framework */,
+				79B4350F19130E2000FB4832 /* AppKit.framework */,
 			);
-			path = MERThumbnailKitDemo;
+			name = "Other Frameworks";
 			sourceTree = "<group>";
 		};
-		797D0E471908088F00FD6F95 /* Supporting Files */ = {
+		79B4351019130E2000FB4832 /* MERThumbnailKitFramework */ = {
 			isa = PBXGroup;
 			children = (
-				797D0E7819080CE600FD6F95 /* Files */,
-				797D0E481908088F00FD6F95 /* MERThumbnailKitDemo-Info.plist */,
-				797D0E491908088F00FD6F95 /* InfoPlist.strings */,
-				797D0E4C1908088F00FD6F95 /* main.m */,
-				797D0E4E1908088F00FD6F95 /* MERThumbnailKitDemo-Prefix.pch */,
+				79B435FA19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.h */,
+				79B435FB19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.m */,
+				79B4351119130E2000FB4832 /* Supporting Files */,
+			);
+			path = MERThumbnailKitFramework;
+			sourceTree = "<group>";
+		};
+		79B4351119130E2000FB4832 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				79B4351219130E2000FB4832 /* MERThumbnailKitFramework-Info.plist */,
+				79B4351319130E2000FB4832 /* InfoPlist.strings */,
+				79B4351619130E2000FB4832 /* MERThumbnailKitFramework-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		79B4352419130E2100FB4832 /* MERThumbnailKitFrameworkTests */ = {
+			isa = PBXGroup;
+			children = (
+				79B4352A19130E2100FB4832 /* MERThumbnailKitFrameworkTests.m */,
+				79B4352519130E2100FB4832 /* Supporting Files */,
+			);
+			path = MERThumbnailKitFrameworkTests;
+			sourceTree = "<group>";
+		};
+		79B4352519130E2100FB4832 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				79B4352619130E2100FB4832 /* MERThumbnailKitFrameworkTests-Info.plist */,
+				79B4352719130E2100FB4832 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		79B4358A191328F000FB4832 /* MERThumbnailKitDemoiOS */ = {
+			isa = PBXGroup;
+			children = (
+				79B43593191328F000FB4832 /* MERAppDelegate.h */,
+				79B43594191328F000FB4832 /* MERAppDelegate.m */,
+				79B4359C191328F000FB4832 /* MERViewController.h */,
+				79B4359D191328F000FB4832 /* MERViewController.m */,
+				79B4359F191328F000FB4832 /* Images.xcassets */,
+				79B4358B191328F000FB4832 /* Supporting Files */,
+			);
+			path = MERThumbnailKitDemoiOS;
+			sourceTree = "<group>";
+		};
+		79B4358B191328F000FB4832 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				79B4368119135CD700FB4832 /* Files */,
+				79B4358C191328F000FB4832 /* MERThumbnailKitDemoiOS-Info.plist */,
+				79B4358D191328F000FB4832 /* InfoPlist.strings */,
+				79B43590191328F000FB4832 /* main.m */,
+				79B43592191328F000FB4832 /* MERThumbnailKitDemoiOS-Prefix.pch */,
+				79B4368B1913913500FB4832 /* RemoteURLs.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		79B435C41913292800FB4832 /* MERThumbnailKitDemoOSX */ = {
+			isa = PBXGroup;
+			children = (
+				79B435D01913292800FB4832 /* MERAppDelegate.h */,
+				79B435D11913292800FB4832 /* MERAppDelegate.m */,
+				79B435D31913292800FB4832 /* MainMenu.xib */,
+				79B435D61913292800FB4832 /* Images.xcassets */,
+				79B435C51913292800FB4832 /* Supporting Files */,
+			);
+			path = MERThumbnailKitDemoOSX;
+			sourceTree = "<group>";
+		};
+		79B435C51913292800FB4832 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				79B435C61913292800FB4832 /* MERThumbnailKitDemoOSX-Info.plist */,
+				79B435C71913292800FB4832 /* InfoPlist.strings */,
+				79B435CA1913292800FB4832 /* main.m */,
+				79B435CC1913292800FB4832 /* MERThumbnailKitDemoOSX-Prefix.pch */,
+				79B435CD1913292800FB4832 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		79B4350619130E2000FB4832 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B43536191312AD00FB4832 /* MERThumbnailManager.h in Headers */,
+				79B4360019132CBD00FB4832 /* MERThumbnailKitFunctions.h in Headers */,
+				79B435FC19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.h in Headers */,
+				79B435331913128900FB4832 /* MERThumbnailKit.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		797D0E101908043000FD6F95 /* MERThumbnailKit */ = {
+		79B434DC19130DE900FB4832 /* MERThumbnailKit */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 797D0E341908043000FD6F95 /* Build configuration list for PBXNativeTarget "MERThumbnailKit" */;
+			buildConfigurationList = 79B4350219130DEA00FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKit" */;
 			buildPhases = (
-				797D0E0D1908043000FD6F95 /* Sources */,
-				797D0E0E1908043000FD6F95 /* Frameworks */,
-				797D0E0F1908043000FD6F95 /* CopyFiles */,
+				F177D145E5DB40F9A1646409 /* Check Pods Manifest.lock */,
+				79B434D919130DE900FB4832 /* Sources */,
+				79B434DA19130DE900FB4832 /* Frameworks */,
+				79B434DB19130DE900FB4832 /* CopyFiles */,
+				E93E17C77DCC4FCF89210190 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -255,63 +473,125 @@
 			);
 			name = MERThumbnailKit;
 			productName = MERThumbnailKit;
-			productReference = 797D0E111908043000FD6F95 /* libMERThumbnailKit.a */;
+			productReference = 79B434DD19130DE900FB4832 /* libMERThumbnailKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		797D0E201908043000FD6F95 /* MERThumbnailKitTests */ = {
+		79B434EC19130DEA00FB4832 /* MERThumbnailKitTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 797D0E371908043000FD6F95 /* Build configuration list for PBXNativeTarget "MERThumbnailKitTests" */;
+			buildConfigurationList = 79B4350319130DEA00FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitTests" */;
 			buildPhases = (
-				797D0E1D1908043000FD6F95 /* Sources */,
-				797D0E1E1908043000FD6F95 /* Frameworks */,
-				797D0E1F1908043000FD6F95 /* Resources */,
+				79B434E919130DEA00FB4832 /* Sources */,
+				79B434EA19130DEA00FB4832 /* Frameworks */,
+				79B434EB19130DEA00FB4832 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				797D0E281908043000FD6F95 /* PBXTargetDependency */,
+				79B434F419130DEA00FB4832 /* PBXTargetDependency */,
 			);
 			name = MERThumbnailKitTests;
 			productName = MERThumbnailKitTests;
-			productReference = 797D0E211908043000FD6F95 /* MERThumbnailKitTests.xctest */;
+			productReference = 79B434ED19130DEA00FB4832 /* MERThumbnailKitTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		797D0E401908088F00FD6F95 /* MERThumbnailKitDemo */ = {
+		79B4350819130E2000FB4832 /* MERThumbnailKitFramework */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 797D0E6F1908088F00FD6F95 /* Build configuration list for PBXNativeTarget "MERThumbnailKitDemo" */;
+			buildConfigurationList = 79B4352C19130E2100FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitFramework" */;
 			buildPhases = (
-				0BD7FA9371344B87B58400E1 /* Check Pods Manifest.lock */,
-				797D0E3D1908088F00FD6F95 /* Sources */,
-				797D0E3E1908088F00FD6F95 /* Frameworks */,
-				797D0E3F1908088F00FD6F95 /* Resources */,
-				A579BA774AC14C00A5969D7E /* Copy Pods Resources */,
+				274E3FD7627145DCBCA51EF2 /* Check Pods Manifest.lock */,
+				79B4350419130E2000FB4832 /* Sources */,
+				79B4350519130E2000FB4832 /* Frameworks */,
+				79B4350619130E2000FB4832 /* Headers */,
+				79B4350719130E2000FB4832 /* Resources */,
+				4A3FEF53D0DF4702AEFC70DE /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				797D0E8719082DC900FD6F95 /* PBXTargetDependency */,
 			);
-			name = MERThumbnailKitDemo;
-			productName = MERThumbnailKitDemo;
-			productReference = 797D0E411908088F00FD6F95 /* MERThumbnailKitDemo.app */;
+			name = MERThumbnailKitFramework;
+			productName = MERThumbnailKitFramework;
+			productReference = 79B4350919130E2000FB4832 /* MERThumbnailKit.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		79B4351D19130E2000FB4832 /* MERThumbnailKitFrameworkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79B4352F19130E2100FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitFrameworkTests" */;
+			buildPhases = (
+				79B4351A19130E2000FB4832 /* Sources */,
+				79B4351B19130E2000FB4832 /* Frameworks */,
+				79B4351C19130E2000FB4832 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				79B4352219130E2100FB4832 /* PBXTargetDependency */,
+			);
+			name = MERThumbnailKitFrameworkTests;
+			productName = MERThumbnailKitFrameworkTests;
+			productReference = 79B4351E19130E2000FB4832 /* MERThumbnailKitFrameworkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		79B43585191328EF00FB4832 /* MERThumbnailKitDemoiOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79B435B3191328F000FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitDemoiOS" */;
+			buildPhases = (
+				73E7A3BC93CC4DB9A75BD302 /* Check Pods Manifest.lock */,
+				79B43582191328EF00FB4832 /* Sources */,
+				79B43583191328EF00FB4832 /* Frameworks */,
+				79B43584191328EF00FB4832 /* Resources */,
+				88031590929642899D26A6F2 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				79B435F1191329A700FB4832 /* PBXTargetDependency */,
+			);
+			name = MERThumbnailKitDemoiOS;
+			productName = MERThumbnailKitDemoiOS;
+			productReference = 79B43586191328EF00FB4832 /* MERThumbnailKitDemoiOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		79B435C11913292800FB4832 /* MERThumbnailKitDemoOSX */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 79B435E91913292800FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitDemoOSX" */;
+			buildPhases = (
+				2487FE1F87204C70914E6013 /* Check Pods Manifest.lock */,
+				79B435BE1913292800FB4832 /* Sources */,
+				79B435BF1913292800FB4832 /* Frameworks */,
+				79B435C01913292800FB4832 /* Resources */,
+				79B4360419132E7300FB4832 /* Copy Frameworks */,
+				40EDD28886A24F4D84E851A3 /* Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				79B435F4191329B600FB4832 /* PBXTargetDependency */,
+			);
+			name = MERThumbnailKitDemoOSX;
+			productName = MERThumbnailKitDemoOSX;
+			productReference = 79B435C21913292800FB4832 /* MERThumbnailKitDemoOSX.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		797D0E091908043000FD6F95 /* Project object */ = {
+		790E33B919130C8F0040C38C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = MER;
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = "Maestro, LLC.";
 				TargetAttributes = {
-					797D0E201908043000FD6F95 = {
-						TestTargetID = 797D0E401908088F00FD6F95;
+					79B434EC19130DEA00FB4832 = {
+						TestTargetID = 79B4350819130E2000FB4832;
+					};
+					79B4351D19130E2000FB4832 = {
+						TestTargetID = 79B4350819130E2000FB4832;
 					};
 				};
 			};
-			buildConfigurationList = 797D0E0C1908043000FD6F95 /* Build configuration list for PBXProject "MERThumbnailKit" */;
+			buildConfigurationList = 790E33BC19130C8F0040C38C /* Build configuration list for PBXProject "MERThumbnailKit" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -319,41 +599,74 @@
 				en,
 				Base,
 			);
-			mainGroup = 797D0E081908043000FD6F95;
-			productRefGroup = 797D0E121908043000FD6F95 /* Products */;
+			mainGroup = 790E33B819130C8F0040C38C;
+			productRefGroup = 79B434DE19130DE900FB4832 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				797D0E101908043000FD6F95 /* MERThumbnailKit */,
-				797D0E201908043000FD6F95 /* MERThumbnailKitTests */,
-				797D0E401908088F00FD6F95 /* MERThumbnailKitDemo */,
+				79B434DC19130DE900FB4832 /* MERThumbnailKit */,
+				79B434EC19130DEA00FB4832 /* MERThumbnailKitTests */,
+				79B4350819130E2000FB4832 /* MERThumbnailKitFramework */,
+				79B4351D19130E2000FB4832 /* MERThumbnailKitFrameworkTests */,
+				79B43585191328EF00FB4832 /* MERThumbnailKitDemoiOS */,
+				79B435C11913292800FB4832 /* MERThumbnailKitDemoOSX */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		797D0E1F1908043000FD6F95 /* Resources */ = {
+		79B434EB19130DEA00FB4832 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				797D0E2F1908043000FD6F95 /* InfoPlist.strings in Resources */,
+				79B434FB19130DEA00FB4832 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		797D0E3F1908088F00FD6F95 /* Resources */ = {
+		79B4350719130E2000FB4832 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				797D0E7919080CE600FD6F95 /* Files in Resources */,
-				797D0E5C1908088F00FD6F95 /* Images.xcassets in Resources */,
-				797D0E4B1908088F00FD6F95 /* InfoPlist.strings in Resources */,
+				79B4351519130E2000FB4832 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79B4351C19130E2000FB4832 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B4352919130E2100FB4832 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79B43584191328EF00FB4832 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B4368C1913913500FB4832 /* RemoteURLs.plist in Resources */,
+				79B4368219135CD700FB4832 /* Files in Resources */,
+				79B435A0191328F000FB4832 /* Images.xcassets in Resources */,
+				79B4358F191328F000FB4832 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79B435C01913292800FB4832 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B435C91913292800FB4832 /* InfoPlist.strings in Resources */,
+				79B435D71913292800FB4832 /* Images.xcassets in Resources */,
+				79B4368D1913913500FB4832 /* RemoteURLs.plist in Resources */,
+				79B4368319135CD700FB4832 /* Files in Resources */,
+				79B435CF1913292800FB4832 /* Credits.rtf in Resources */,
+				79B435D51913292800FB4832 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0BD7FA9371344B87B58400E1 /* Check Pods Manifest.lock */ = {
+		2487FE1F87204C70914E6013 /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -368,7 +681,22 @@
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
-		A579BA774AC14C00A5969D7E /* Copy Pods Resources */ = {
+		274E3FD7627145DCBCA51EF2 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		40EDD28886A24F4D84E851A3 /* Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -380,78 +708,244 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-osx-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		4A3FEF53D0DF4702AEFC70DE /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-osx-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		73E7A3BC93CC4DB9A75BD302 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		88031590929642899D26A6F2 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-ios-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E93E17C77DCC4FCF89210190 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-ios-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F177D145E5DB40F9A1646409 /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		797D0E0D1908043000FD6F95 /* Sources */ = {
+		79B434D919130DE900FB4832 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				797D0E3C1908059700FD6F95 /* MERThumbnailManager.m in Sources */,
-				797D0E8B190859E800FD6F95 /* UIWebView+MERThumbnailKitExtensions.m in Sources */,
-				797D0E7F1908157300FD6F95 /* UIImage+MERThumnailKitExtensions.m in Sources */,
+				79B435F819132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.m in Sources */,
+				79B43537191312AD00FB4832 /* MERThumbnailManager.m in Sources */,
+				79B4368A19137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m in Sources */,
+				79B4360119132CBD00FB4832 /* MERThumbnailKitFunctions.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		797D0E1D1908043000FD6F95 /* Sources */ = {
+		79B434E919130DEA00FB4832 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				797D0E311908043000FD6F95 /* MERThumbnailKitTests.m in Sources */,
+				79B434FD19130DEA00FB4832 /* MERThumbnailKitTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		797D0E3D1908088F00FD6F95 /* Sources */ = {
+		79B4350419130E2000FB4832 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				797D0E4D1908088F00FD6F95 /* main.m in Sources */,
-				797D0E8519082BA300FD6F95 /* MERRootCollectionViewCell.m in Sources */,
-				797D0E511908088F00FD6F95 /* MERAppDelegate.m in Sources */,
-				797D0E771908097E00FD6F95 /* MERRootViewController.m in Sources */,
+				79B43538191312AD00FB4832 /* MERThumbnailManager.m in Sources */,
+				79B435FD19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.m in Sources */,
+				79B4360219132CBD00FB4832 /* MERThumbnailKitFunctions.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79B4351A19130E2000FB4832 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B4352B19130E2100FB4832 /* MERThumbnailKitFrameworkTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79B43582191328EF00FB4832 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B4359E191328F000FB4832 /* MERViewController.m in Sources */,
+				79B43591191328F000FB4832 /* main.m in Sources */,
+				79B43595191328F000FB4832 /* MERAppDelegate.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		79B435BE1913292800FB4832 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79B435CB1913292800FB4832 /* main.m in Sources */,
+				79B435D21913292800FB4832 /* MERAppDelegate.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		797D0E281908043000FD6F95 /* PBXTargetDependency */ = {
+		79B434F419130DEA00FB4832 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 797D0E101908043000FD6F95 /* MERThumbnailKit */;
-			targetProxy = 797D0E271908043000FD6F95 /* PBXContainerItemProxy */;
+			target = 79B434DC19130DE900FB4832 /* MERThumbnailKit */;
+			targetProxy = 79B434F319130DEA00FB4832 /* PBXContainerItemProxy */;
 		};
-		797D0E8719082DC900FD6F95 /* PBXTargetDependency */ = {
+		79B4352219130E2100FB4832 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 797D0E101908043000FD6F95 /* MERThumbnailKit */;
-			targetProxy = 797D0E8619082DC900FD6F95 /* PBXContainerItemProxy */;
+			target = 79B4350819130E2000FB4832 /* MERThumbnailKitFramework */;
+			targetProxy = 79B4352119130E2100FB4832 /* PBXContainerItemProxy */;
+		};
+		79B435F1191329A700FB4832 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 79B434DC19130DE900FB4832 /* MERThumbnailKit */;
+			targetProxy = 79B435F0191329A700FB4832 /* PBXContainerItemProxy */;
+		};
+		79B435F4191329B600FB4832 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 79B4350819130E2000FB4832 /* MERThumbnailKitFramework */;
+			targetProxy = 79B435F3191329B600FB4832 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		797D0E2D1908043000FD6F95 /* InfoPlist.strings */ = {
+		79B434F919130DEA00FB4832 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				797D0E2E1908043000FD6F95 /* en */,
+				79B434FA19130DEA00FB4832 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		797D0E491908088F00FD6F95 /* InfoPlist.strings */ = {
+		79B4351319130E2000FB4832 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				797D0E4A1908088F00FD6F95 /* en */,
+				79B4351419130E2000FB4832 /* en */,
 			);
 			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		79B4352719130E2100FB4832 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79B4352819130E2100FB4832 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		79B4358D191328F000FB4832 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79B4358E191328F000FB4832 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		79B435C71913292800FB4832 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79B435C81913292800FB4832 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		79B435CD1913292800FB4832 /* Credits.rtf */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79B435CE1913292800FB4832 /* en */,
+			);
+			name = Credits.rtf;
+			sourceTree = "<group>";
+		};
+		79B435D31913292800FB4832 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				79B435D41913292800FB4832 /* Base */,
+			);
+			name = MainMenu.xib;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		797D0E321908043000FD6F95 /* Debug */ = {
+		790E33BD19130C8F0040C38C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			buildSettings = {
+				ONLY_ACTIVE_ARCH = YES;
+			};
+			name = Debug;
+		};
+		790E33BE19130C8F0040C38C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		79B434FE19130DEA00FB4832 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5ED67B294AE4F6985C2D528 /* Pods-ios.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -467,9 +961,12 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/MERThumbnailKit.dst;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MERThumbnailKit/MERThumbnailKit-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -482,13 +979,18 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
-				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "-ObjC";
+				PRIVATE_HEADERS_FOLDER_PATH = "include/$(PRODUCT_NAME)";
+				PRODUCT_NAME = MERThumbnailKit;
+				PUBLIC_HEADERS_FOLDER_PATH = include;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
-		797D0E331908043000FD6F95 /* Release */ = {
+		79B434FF19130DEA00FB4832 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E5ED67B294AE4F6985C2D528 /* Pods-ios.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -504,8 +1006,11 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				COPY_PHASE_STRIP = YES;
+				DSTROOT = /tmp/MERThumbnailKit.dst;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MERThumbnailKit/MERThumbnailKit-Prefix.pch";
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
@@ -513,121 +1018,465 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				OTHER_LDFLAGS = "-ObjC";
+				PRIVATE_HEADERS_FOLDER_PATH = "include/$(PRODUCT_NAME)";
+				PRODUCT_NAME = MERThumbnailKit;
+				PUBLIC_HEADERS_FOLDER_PATH = include;
 				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
-		797D0E351908043000FD6F95 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E29DC2FE5CF41AFB57C9B88 /* Pods.xcconfig */;
-			buildSettings = {
-				DSTROOT = /tmp/MERThumbnailKit.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MERThumbnailKit/MERThumbnailKit-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
-				PRIVATE_HEADERS_FOLDER_PATH = "/include/$(TARGET_NAME)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = /include;
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		797D0E361908043000FD6F95 /* Release */ = {
-			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E29DC2FE5CF41AFB57C9B88 /* Pods.xcconfig */;
-			buildSettings = {
-				DSTROOT = /tmp/MERThumbnailKit.dst;
-				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MERThumbnailKit/MERThumbnailKit-Prefix.pch";
-				OTHER_LDFLAGS = "-ObjC";
-				PRIVATE_HEADERS_FOLDER_PATH = "/include/$(TARGET_NAME)";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PUBLIC_HEADERS_FOLDER_PATH = /include;
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		797D0E381908043000FD6F95 /* Debug */ = {
+		79B4350019130DEA00FB4832 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MERThumbnailKitDemo.app/MERThumbnailKitDemo";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MERThumbnailKitFramework.framework/Versions/A/MERThumbnailKitFramework";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MERThumbnailKit/MERThumbnailKit-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "MERThumbnailKitTests/MERThumbnailKitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Debug;
 		};
-		797D0E391908043000FD6F95 /* Release */ = {
+		79B4350119130DEA00FB4832 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MERThumbnailKitDemo.app/MERThumbnailKitDemo";
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MERThumbnailKitFramework.framework/Versions/A/MERThumbnailKitFramework";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "MERThumbnailKit/MERThumbnailKit-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = "MERThumbnailKitTests/MERThumbnailKitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+		79B4352D19130E2100FB4832 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2FA2619A6487432F94FEC364 /* Pods-osx.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MERThumbnailKitFramework/MERThumbnailKitFramework-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "MERThumbnailKitFramework/MERThumbnailKitFramework-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = MERThumbnailKit;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		79B4352E19130E2100FB4832 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2FA2619A6487432F94FEC364 /* Pods-osx.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_VERSION = A;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MERThumbnailKitFramework/MERThumbnailKitFramework-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "MERThumbnailKitFramework/MERThumbnailKitFramework-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = MERThumbnailKit;
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		79B4353019130E2100FB4832 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MERThumbnailKitFramework.framework/Versions/A/MERThumbnailKitFramework";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MERThumbnailKitFramework/MERThumbnailKitFramework-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "MERThumbnailKitFrameworkTests/MERThumbnailKitFrameworkTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		79B4353119130E2100FB4832 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/MERThumbnailKitFramework.framework/Versions/A/MERThumbnailKitFramework";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MERThumbnailKitFramework/MERThumbnailKitFramework-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "MERThumbnailKitFrameworkTests/MERThumbnailKitFrameworkTests-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				TEST_HOST = "$(BUNDLE_LOADER)";
 				WRAPPER_EXTENSION = xctest;
 			};
 			name = Release;
 		};
-		797D0E701908088F00FD6F95 /* Debug */ = {
+		79B435B4191328F000FB4832 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E29DC2FE5CF41AFB57C9B88 /* Pods.xcconfig */;
+			baseConfigurationReference = 79B4367F191344BC00FB4832 /* MERThumbnailKit.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MERThumbnailKitDemo/MERThumbnailKitDemo-Prefix.pch";
+				GCC_PREFIX_HEADER = "MERThumbnailKitDemoiOS/MERThumbnailKitDemoiOS-Prefix.pch";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = "MERThumbnailKitDemo/MERThumbnailKitDemo-Info.plist";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "MERThumbnailKitDemoiOS/MERThumbnailKitDemoiOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
-		797D0E711908088F00FD6F95 /* Release */ = {
+		79B435B5191328F000FB4832 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8E29DC2FE5CF41AFB57C9B88 /* Pods.xcconfig */;
+			baseConfigurationReference = 79B4367F191344BC00FB4832 /* MERThumbnailKit.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(DEVELOPER_FRAMEWORKS_DIR)",
 				);
+				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "MERThumbnailKitDemo/MERThumbnailKitDemo-Prefix.pch";
-				INFOPLIST_FILE = "MERThumbnailKitDemo/MERThumbnailKitDemo-Info.plist";
+				GCC_PREFIX_HEADER = "MERThumbnailKitDemoiOS/MERThumbnailKitDemoiOS-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "MERThumbnailKitDemoiOS/MERThumbnailKitDemoiOS-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		79B435EA1913292800FB4832 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79B4367F191344BC00FB4832 /* MERThumbnailKit.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MERThumbnailKitDemoOSX/MERThumbnailKitDemoOSX-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "MERThumbnailKitDemoOSX/MERThumbnailKitDemoOSX-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		79B435EB1913292800FB4832 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 79B4367F191344BC00FB4832 /* MERThumbnailKit.xcconfig */;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "MERThumbnailKitDemoOSX/MERThumbnailKitDemoOSX-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = "MERThumbnailKitDemoOSX/MERThumbnailKitDemoOSX-Info.plist";
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -635,43 +1484,70 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		797D0E0C1908043000FD6F95 /* Build configuration list for PBXProject "MERThumbnailKit" */ = {
+		790E33BC19130C8F0040C38C /* Build configuration list for PBXProject "MERThumbnailKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				797D0E321908043000FD6F95 /* Debug */,
-				797D0E331908043000FD6F95 /* Release */,
+				790E33BD19130C8F0040C38C /* Debug */,
+				790E33BE19130C8F0040C38C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		797D0E341908043000FD6F95 /* Build configuration list for PBXNativeTarget "MERThumbnailKit" */ = {
+		79B4350219130DEA00FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKit" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				797D0E351908043000FD6F95 /* Debug */,
-				797D0E361908043000FD6F95 /* Release */,
+				79B434FE19130DEA00FB4832 /* Debug */,
+				79B434FF19130DEA00FB4832 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		797D0E371908043000FD6F95 /* Build configuration list for PBXNativeTarget "MERThumbnailKitTests" */ = {
+		79B4350319130DEA00FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				797D0E381908043000FD6F95 /* Debug */,
-				797D0E391908043000FD6F95 /* Release */,
+				79B4350019130DEA00FB4832 /* Debug */,
+				79B4350119130DEA00FB4832 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		797D0E6F1908088F00FD6F95 /* Build configuration list for PBXNativeTarget "MERThumbnailKitDemo" */ = {
+		79B4352C19130E2100FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitFramework" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				797D0E701908088F00FD6F95 /* Debug */,
-				797D0E711908088F00FD6F95 /* Release */,
+				79B4352D19130E2100FB4832 /* Debug */,
+				79B4352E19130E2100FB4832 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		79B4352F19130E2100FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitFrameworkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79B4353019130E2100FB4832 /* Debug */,
+				79B4353119130E2100FB4832 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		79B435B3191328F000FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitDemoiOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79B435B4191328F000FB4832 /* Debug */,
+				79B435B5191328F000FB4832 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		79B435E91913292800FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitDemoOSX" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				79B435EA1913292800FB4832 /* Debug */,
+				79B435EB1913292800FB4832 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 797D0E091908043000FD6F95 /* Project object */;
+	rootObject = 790E33B919130C8F0040C38C /* Project object */;
 }

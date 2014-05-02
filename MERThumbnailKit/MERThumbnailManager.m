@@ -2,58 +2,80 @@
 //  MERThumbnailManager.m
 //  MERThumbnailKit
 //
-//  Created by William Towe on 4/23/14.
+//  Created by William Towe on 5/1/14.
 //  Copyright (c) 2014 Maestro, LLC. All rights reserved.
 //
 
 #import "MERThumbnailManager.h"
-#import <MEFoundation/MEDebugging.h>
+#import "MERThumbnailKitFunctions.h"
+#import <MEFoundation/MEFoundation.h>
 #import <ReactiveCocoa/ReactiveCocoa.h>
+#import <ReactiveCocoa/RACDelegateProxy.h>
 #import <libextobjc/EXTScope.h>
-#import "UIImage+MERThumnailKitExtensions.h"
-#import <MEFoundation/MEMacros.h>
-#import <MEFoundation/MEFunctions.h>
-#import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
+
+#if (TARGET_OS_IPHONE)
+#import <MobileCoreServices/MobileCoreServices.h>
+#import <UIKit/UIApplication.h>
+
+#import "UIImage+MERThumbnailKitExtensions.h"
 #import "UIWebView+MERThumbnailKitExtensions.h"
 
-#import <MobileCoreServices/MobileCoreServices.h>
-#import <AVFoundation/AVFoundation.h>
+#define MERThumbnailKitImageClass UIImage
+#else
+#import <QuickLook/QuickLook.h>
+
+#import "NSImage+MERThumbnailKitExtensions.h"
+
+#define MERThumbnailKitImageClass NSImage
+#endif
+
+#if !__has_feature(objc_arc)
+#error MERThumbnailKit requires ARC
+#endif
 
 static CGSize const kMERThumbnailManagerDefaultThumbnailSize = {.width=175, .height=175};
 static NSInteger const kMERThumbnailManagerDefaultThumbnailPage = 1;
 static NSTimeInterval const kMERThumbnailManagerDefaultThumbnailTime = 1.0;
 
-static long const kWebViewThumbnailMaxConcurrent = 2;
+#if (TARGET_OS_IPHONE)
+@interface MERThumbnailManager () <UIWebViewDelegate,NSCacheDelegate,NSURLConnectionDataDelegate>
+#else
+@interface MERThumbnailManager () <NSCacheDelegate>
+#endif
 
-@interface MERThumbnailManager () <UIWebViewDelegate,NSCacheDelegate>
 @property (readwrite,strong,nonatomic) NSURL *fileCacheDirectoryURL;
 
 @property (strong,nonatomic) NSCache *memoryCache;
 @property (strong,nonatomic) dispatch_queue_t fileCacheQueue;
 
+#if (TARGET_OS_IPHONE)
 @property (strong,nonatomic) dispatch_queue_t webViewThumbnailQueue;
 @property (strong,nonatomic) dispatch_semaphore_t webViewThumbnailSemaphore;
+#endif
 
-- (void)_cacheImageToFile:(UIImage *)image url:(NSURL *)url;
-- (void)_cacheImageToMemory:(UIImage *)image key:(NSString *)key;
+- (void)_cacheImageToFile:(MERThumbnailKitImageClass *)image url:(NSURL *)url;
+- (void)_cacheImageToMemory:(MERThumbnailKitImageClass *)image key:(NSString *)key;
 
 - (RACSignal *)_imageThumbnailForURL:(NSURL *)url size:(CGSize)size;
 - (RACSignal *)_movieThumbnailForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time;
 - (RACSignal *)_pdfThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page;
 - (RACSignal *)_rtfThumbnailForURL:(NSURL *)url size:(CGSize)size;
 - (RACSignal *)_textThumbnailForURL:(NSURL *)url size:(CGSize)size;
-- (RACSignal *)_webViewThumbnailForURL:(NSURL *)url size:(CGSize)size;
 
+#if (TARGET_OS_IPHONE)
+- (RACSignal *)_webViewThumbnailForURL:(NSURL *)url size:(CGSize)size;
+#else
+- (RACSignal *)_quickLookThumbnailForURL:(NSURL *)url size:(CGSize)size;
+#endif
+
+- (RACSignal *)_remoteThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time;
 - (RACSignal *)_remoteImageThumbnailForURL:(NSURL *)url size:(CGSize)size;
 - (RACSignal *)_remoteMovieThumbnailForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time;
 @end
 
 @implementation MERThumbnailManager
 #pragma mark *** Subclass Overrides ***
-- (void)dealloc {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 - (id)init {
     if (!(self = [super init]))
         return nil;
@@ -64,8 +86,12 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
     
     [self setFileCacheQueue:dispatch_queue_create([NSString stringWithFormat:@"com.maestro.merthumbnailkit.filecache.%p",self].UTF8String, DISPATCH_QUEUE_SERIAL)];
     
+#if (TARGET_OS_IPHONE)
+    long const kWebViewThumbnailMaxConcurrent = [NSProcessInfo processInfo].activeProcessorCount;
+    
     [self setWebViewThumbnailSemaphore:dispatch_semaphore_create(kWebViewThumbnailMaxConcurrent)];
     [self setWebViewThumbnailQueue:dispatch_queue_create([NSString stringWithFormat:@"com.maestro.merthumbnailkit.webview.%p",self].UTF8String, DISPATCH_QUEUE_CONCURRENT)];
+#endif
     
     [self setCacheOptions:MERThumbnailManagerCacheOptionsDefault];
     
@@ -84,15 +110,18 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
     [self setThumbnailPage:kMERThumbnailManagerDefaultThumbnailPage];
     [self setThumbnailTime:kMERThumbnailManagerDefaultThumbnailTime];
     
+#if (TARGET_OS_IPHONE)
     @weakify(self);
     
-    [[[[NSNotificationCenter defaultCenter] rac_addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil]
+    [[[[NSNotificationCenter defaultCenter]
+       rac_addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil]
       takeUntil:[self rac_willDeallocSignal]]
      subscribeNext:^(id _) {
          @strongify(self);
          
          [self clearMemoryCache];
     }];
+#endif
     
     return self;
 }
@@ -101,6 +130,8 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
     MELog(@"%@ %@",cache,obj);
 }
 #pragma mark UIWebViewDelegate
+
+#if (TARGET_OS_IPHONE)
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
     id<RACSubscriber> subscriber = webView.MER_subscriber;
     
@@ -139,6 +170,8 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
         });
     });
 }
+#endif
+
 #pragma mark *** Public Methods ***
 + (instancetype)sharedManager; {
     static id retval;
@@ -166,7 +199,11 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
 - (NSString *)memoryCacheKeyForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time; {
     NSParameterAssert(url);
     
+#if (TARGET_OS_IPHONE)
     return [[NSString stringWithFormat:@"%@%@%@%@",url.lastPathComponent.stringByDeletingPathExtension,NSStringFromCGSize(size),@(page),@(time)] stringByAppendingPathExtension:url.lastPathComponent.pathExtension];
+#else
+    return [[NSString stringWithFormat:@"%@%@%@%@",url.lastPathComponent.stringByDeletingPathExtension,NSStringFromSize(NSSizeFromCGSize(size)),@(page),@(time)] stringByAppendingPathExtension:url.lastPathComponent.pathExtension];
+#endif
 }
 #pragma mark Signals
 - (RACSignal *)thumbnailForURL:(NSURL *)url; {
@@ -189,92 +226,88 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
     return [[RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
         
-        UIImage *retval = nil;
-        
-        // the key used to cache our thumbnail in memory
+        MERThumbnailKitImageClass *retval = nil;
         NSString *key = [self memoryCacheKeyForURL:url size:size page:page time:time];
         
-        // is memory caching enabled?
         if (self.isMemoryCachingEnabled) {
-            // retrieve the thumbnail from the memory cache
             retval = [self.memoryCache objectForKey:key];
             
-            // did we get a thumbnail? if so, we are done
             if (retval) {
                 [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeMemory))];
                 [subscriber sendCompleted];
             }
         }
         
-        // no thumbnail yet?
         if (!retval) {
-            // the file url used to cache our thumbnail on disk
-            NSURL *cacheURL = [self fileCacheURLForMemoryCacheKey:key];
-            
-            // is file caching enabled?
             if (self.isFileCachingEnabled) {
-                // check to see if the thumbnail exists at the cache url
-                if ([cacheURL checkResourceIsReachableAndReturnError:NULL]) {
-                    retval = [UIImage imageWithContentsOfFile:cacheURL.path];
+                NSURL *fileCacheURL = [self fileCacheURLForMemoryCacheKey:key];
+                
+                if ([fileCacheURL checkResourceIsReachableAndReturnError:NULL]) {
+                    retval = [[MERThumbnailKitImageClass alloc] initWithContentsOfFile:fileCacheURL.path];
                     
-                    // did we get a thumbnail? if so, we are done
                     if (retval) {
                         [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeFile))];
                         [subscriber sendCompleted];
                     }
                 }
             }
-            
-            // still no thumbnail?
-            if (!retval) {
-                // does the url point to a local file?
-                if (url.isFileURL) {
-                    NSString *uti = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)url.lastPathComponent.pathExtension, NULL);
+        }
+        
+        if (!retval) {
+            if (url.isFileURL) {
+                NSString *uti = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)url.lastPathComponent.pathExtension, NULL);
+                
+                if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeImage)) {
+                    [[self _imageThumbnailForURL:url size:size] subscribe:subscriber];
+                }
+                else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeMovie)) {
+                    [[self _movieThumbnailForURL:url size:size time:time] subscribe:subscriber];
+                }
+                else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePDF)) {
+                    [[self _pdfThumbnailForURL:url size:size page:page] subscribe:subscriber];
+                }
+                else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeRTF) ||
+                         UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeRTFD)) {
                     
-                    if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeImage)) {
-                        [[self _imageThumbnailForURL:url size:size] subscribe:subscriber];
-                    }
-                    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeMovie)) {
-                        [[self _movieThumbnailForURL:url size:size time:time] subscribe:subscriber];
-                    }
-                    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePDF)) {
-                        [[self _pdfThumbnailForURL:url size:size page:page] subscribe:subscriber];
-                    }
-                    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeRTF) ||
-                             UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeRTFD)) {
-                        [[self _rtfThumbnailForURL:url size:size] subscribe:subscriber];
-                    }
-                    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePlainText)) {
-                        [[self _textThumbnailForURL:url size:size] subscribe:subscriber];
-                    }
-                    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeHTML) ||
-                             [@[@"doc",
-                                @"docx",
-                                @"ppt",
-                                @"pptx",
-                                @"xls",
-                                @"xlsx",
-                                @"csv"] containsObject:url.lastPathComponent.pathExtension.lowercaseString]) {
-                        [[self _webViewThumbnailForURL:url size:size] subscribe:subscriber];
-                    }
-                    else {
-                        [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
-                        [subscriber sendCompleted];
-                    }
+                    [[self _rtfThumbnailForURL:url size:size] subscribe:subscriber];
+                }
+                else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePlainText)) {
+                    [[self _textThumbnailForURL:url size:size] subscribe:subscriber];
+                }
+#if (TARGET_OS_IPHONE)
+                else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeHTML) ||
+                         [@[@"doc",
+                            @"docx",
+                            @"ppt",
+                            @"pptx",
+                            @"xls",
+                            @"xlsx",
+                            @"csv"] containsObject:url.lastPathComponent.pathExtension.lowercaseString]) {
+                             
+                             [[self _webViewThumbnailForURL:url size:size] subscribe:subscriber];
+                }
+#endif
+                else {
+#if (TARGET_OS_IPHONE)
+                    [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
+                    [subscriber sendCompleted];
+#else
+                    [[self _quickLookThumbnailForURL:url size:size] subscribe:subscriber];
+#endif
+                }
+            }
+            else {
+                NSString *uti = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)url.lastPathComponent.pathExtension, NULL);
+                
+                if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeImage)) {
+                    [[self _remoteImageThumbnailForURL:url size:size] subscribe:subscriber];
+                }
+                else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeMovie)) {
+                    [[self _remoteMovieThumbnailForURL:url size:size time:time] subscribe:subscriber];
                 }
                 else {
-                    NSString *uti = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)url.lastPathComponent.pathExtension, NULL);
-                    
-                    if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeImage)) {
-                        [[self _remoteImageThumbnailForURL:url size:size] subscribe:subscriber];
-                    }
-                    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeMovie)) {
-                        [[self _remoteMovieThumbnailForURL:url size:size time:time] subscribe:subscriber];
-                    }
-                    else {
-                        [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
-                        [subscriber sendCompleted];
-                    }
+                    [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
+                    [subscriber sendCompleted];
                 }
             }
         }
@@ -283,27 +316,23 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
     }] flattenMap:^RACStream *(RACTuple *value) {
         @strongify(self);
         
-        RACTupleUnpack(NSURL *url, UIImage *image, NSNumber *cacheType) = value;
+        RACTupleUnpack(NSURL *url, MERThumbnailKitImageClass *image, NSNumber *cacheType) = value;
         
         if (image) {
             NSString *key = [self memoryCacheKeyForURL:url size:size page:page time:time];
-            
-            if (cacheType.integerValue == MERThumbnailManagerCacheTypeNone) {
-                if (self.isFileCachingEnabled) {
-                    NSURL *cacheURL = [self fileCacheURLForMemoryCacheKey:key];
-                    
-                    [self _cacheImageToFile:image url:cacheURL];
-                }
-                
-                if (self.isMemoryCachingEnabled) {
-                    [self _cacheImageToMemory:image key:key];
-                }
-            }
-            
-            if (cacheType.integerValue == MERThumbnailManagerCacheTypeFile) {
-                if (self.isMemoryCachingEnabled) {
-                    [self _cacheImageToMemory:image key:key];
-                }
+            NSURL *fileCacheURL = [self fileCacheURLForMemoryCacheKey:key];
+            MERThumbnailManagerCacheType cacheTypeValue = cacheType.integerValue;
+
+            switch (cacheTypeValue) {
+                case MERThumbnailManagerCacheTypeNone:
+                    if (self.isFileCachingEnabled)
+                        [self _cacheImageToFile:image url:fileCacheURL];
+                case MERThumbnailManagerCacheTypeFile:
+                    if (self.isMemoryCachingEnabled)
+                        [self _cacheImageToMemory:image key:key];
+                    break;
+                default:
+                    break;
             }
         }
         
@@ -325,29 +354,38 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
     _thumbnailPage = MAX(thumbnailPage, kMERThumbnailManagerDefaultThumbnailPage);
 }
 #pragma mark *** Private Methods ***
-- (void)_cacheImageToFile:(UIImage *)image url:(NSURL *)url; {
+- (void)_cacheImageToFile:(MERThumbnailKitImageClass *)image url:(NSURL *)url; {
     NSParameterAssert(image);
     NSParameterAssert(url);
     
     dispatch_async(self.fileCacheQueue, ^{
-        NSData *data = (image.MER_hasAlpha) ? UIImagePNGRepresentation(image) : UIImageJPEGRepresentation(image, 1.0);
+#if (TARGET_OS_IPHONE)
+        CGImageRef imageRef = image.CGImage;
+#else
+        CGImageRef imageRef = [image CGImageForProposedRect:NULL context:NULL hints:nil];
+#endif
+
+        CGDataProviderRef dataProviderRef = CGImageGetDataProvider(imageRef);
+        NSData *data = (__bridge_transfer NSData *)CGDataProviderCopyData(dataProviderRef);
+        NSError *outError;
         
-        [data writeToURL:url options:NSDataWritingAtomic error:NULL];
+        if (![data writeToURL:url options:0 error:&outError])
+            MELogObject(outError);
     });
 }
-- (void)_cacheImageToMemory:(UIImage *)image key:(NSString *)key; {
+- (void)_cacheImageToMemory:(MERThumbnailKitImageClass *)image key:(NSString *)key; {
     NSParameterAssert(image);
     NSParameterAssert(key);
     
-    [self.memoryCache setObject:image forKey:key cost:(image.size.width * image.size.height * image.scale)];
+    [self.memoryCache setObject:image forKey:key cost:(image.size.width * image.size.height)];
 }
 #pragma mark Signals
 - (RACSignal *)_imageThumbnailForURL:(NSURL *)url size:(CGSize)size; {
     NSParameterAssert(url);
     
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-        UIImage *image = [UIImage imageWithContentsOfFile:url.path];
-        UIImage *retval = [image MER_thumbnailOfSize:size];
+        MERThumbnailKitImageClass *image = [[MERThumbnailKitImageClass alloc] initWithContentsOfFile:url.path];
+        MERThumbnailKitImageClass *retval = [image MER_thumbnailOfSize:size];
         
         [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
         [subscriber sendCompleted];
@@ -367,11 +405,15 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
         int32_t const kPreferredTimeScale = 1;
         
         CGImageRef imageRef = [assetImageGenerator copyCGImageAtTime:CMTimeMakeWithSeconds(time, kPreferredTimeScale) actualTime:NULL error:NULL];
-        UIImage *image = [UIImage imageWithCGImage:imageRef];
+        CGImageRef sourceImageRef = MERThumbnailKitCreateCGImageThumbnailWithSize(imageRef, size);
+#if (TARGET_OS_IPHONE)
+        MERThumbnailKitImageClass *retval = [[MERThumbnailKitImageClass alloc] initWithCGImage:sourceImageRef];
+#else
+        MERThumbnailKitImageClass *retval = [[MERThumbnailKitImageClass alloc] initWithCGImage:sourceImageRef size:NSZeroSize];
+#endif
         
         CGImageRelease(imageRef);
-        
-        UIImage *retval = [image MER_thumbnailOfSize:size];
+        CGImageRelease(sourceImageRef);
         
         [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
         [subscriber sendCompleted];
@@ -389,6 +431,7 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
         CGPDFPageRef pageRef = CGPDFDocumentGetPage(documentRef, pageNumber);
         CGSize pageSize = CGPDFPageGetBoxRect(pageRef, kCGPDFMediaBox).size;
         
+#if (TARGET_OS_IPHONE)
         UIGraphicsBeginImageContextWithOptions(pageSize, NO, 0);
         
         CGContextRef context = UIGraphicsGetCurrentContext();
@@ -403,6 +446,22 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
         UIGraphicsEndImageContext();
         
         UIImage *retval = [image MER_thumbnailOfSize:size];
+#else
+        CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+        CGContextRef context = CGBitmapContextCreate(NULL, pageSize.width, pageSize.height, 8, 0, colorSpaceRef, (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
+        
+        CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+        CGContextDrawPDFPage(context, pageRef);
+        
+        CGImageRef sourceImageRef = CGBitmapContextCreateImage(context);
+        CGImageRef imageRef = MERThumbnailKitCreateCGImageThumbnailWithSize(sourceImageRef, size);
+        NSImage *retval = [[NSImage alloc] initWithCGImage:imageRef size:NSZeroSize];
+        
+        CGContextRelease(context);
+        CGColorSpaceRelease(colorSpaceRef);
+        CGImageRelease(sourceImageRef);
+        CGImageRelease(imageRef);
+#endif
         
         CGPDFDocumentRelease(documentRef);
         
@@ -418,34 +477,39 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         NSDictionary *attributes;
         NSError *outError;
+#if (TARGET_OS_IPHONE)
         NSAttributedString *attributedString = [[NSAttributedString alloc] initWithFileURL:url options:@{NSDocumentTypeDocumentAttribute: ([url.lastPathComponent.pathExtension isEqualToString:@"rtf"]) ? NSRTFTextDocumentType : NSRTFDTextDocumentType} documentAttributes:&attributes error:&outError];
+#else
+        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute: ([url.lastPathComponent.pathExtension isEqualToString:@"rtf"]) ? NSRTFTextDocumentType : NSRTFDTextDocumentType} documentAttributes:&attributes error:&outError];
+#endif
         
         if (attributedString) {
+#if (TARGET_OS_IPHONE)
             CGSize const kSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds));
-            
-            NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:attributedString];
-            NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-            NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:kSize];
-            
-            [textStorage addLayoutManager:layoutManager];
-            [layoutManager addTextContainer:textContainer];
-            
-            [layoutManager ensureLayoutForCharacterRange:NSMakeRange(0, textStorage.length)];
             
             UIGraphicsBeginImageContextWithOptions(kSize, YES, 0);
             
-            UIColor *backgroundColor = ([textStorage attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:NULL]) ?: [UIColor whiteColor];
+            UIColor *backgroundColor = ([attributedString attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:NULL]) ?: [UIColor whiteColor];
             
             [backgroundColor setFill];
             UIRectFill(CGRectMake(0, 0, kSize.width, kSize.height));
             
-            [layoutManager drawGlyphsForGlyphRange:[layoutManager glyphRangeForCharacterRange:NSMakeRange(0, textStorage.length) actualCharacterRange:NULL] atPoint:CGPointZero];
+            [attributedString drawWithRect:CGRectMake(0, 0, kSize.width, kSize.height) options:NSStringDrawingUsesLineFragmentOrigin context:NULL];
             
             UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
             
             UIGraphicsEndImageContext();
             
             UIImage *retval = [image MER_thumbnailOfSize:size];
+#else
+            NSImage *retval = [[NSImage alloc] initWithSize:size];
+            
+            [retval lockFocus];
+            
+            [attributedString drawAtPoint:NSZeroPoint];
+            
+            [retval unlockFocus];
+#endif
             
             [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
         }
@@ -466,34 +530,39 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         NSDictionary *attributes;
         NSError *outError;
+#if (TARGET_OS_IPHONE)
         NSAttributedString *attributedString = [[NSAttributedString alloc] initWithFileURL:url options:@{NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType,NSDefaultAttributesDocumentAttribute: @{NSForegroundColorAttributeName: [UIColor blackColor],NSBackgroundColorAttributeName: [UIColor whiteColor],NSFontAttributeName: [UIFont systemFontOfSize:17]}} documentAttributes:&attributes error:&outError];
+#else
+        NSAttributedString *attributedString = [[NSAttributedString alloc] initWithURL:url options:@{NSDocumentTypeDocumentAttribute: NSPlainTextDocumentType,NSDefaultAttributesDocumentOption: @{NSForegroundColorAttributeName: [NSColor blackColor],NSBackgroundColorAttributeName: [NSColor whiteColor],NSFontAttributeName: [NSFont systemFontOfSize:17]}} documentAttributes:&attributes error:&outError];
+#endif
         
         if (attributedString) {
+#if (TARGET_OS_IPHONE)
             CGSize const kSize = CGSizeMake(CGRectGetWidth([UIScreen mainScreen].bounds), CGRectGetHeight([UIScreen mainScreen].bounds));
-            
-            NSTextStorage *textStorage = [[NSTextStorage alloc] initWithAttributedString:attributedString];
-            NSLayoutManager *layoutManager = [[NSLayoutManager alloc] init];
-            NSTextContainer *textContainer = [[NSTextContainer alloc] initWithSize:kSize];
-            
-            [textStorage addLayoutManager:layoutManager];
-            [layoutManager addTextContainer:textContainer];
-            
-            [layoutManager ensureLayoutForCharacterRange:NSMakeRange(0, textStorage.length)];
             
             UIGraphicsBeginImageContextWithOptions(kSize, YES, 0);
             
-            UIColor *backgroundColor = ([textStorage attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:NULL]) ?: [UIColor whiteColor];
+            UIColor *backgroundColor = ([attributedString attribute:NSBackgroundColorAttributeName atIndex:0 effectiveRange:NULL]) ?: [UIColor whiteColor];
             
             [backgroundColor setFill];
             UIRectFill(CGRectMake(0, 0, kSize.width, kSize.height));
             
-            [layoutManager drawGlyphsForGlyphRange:[layoutManager glyphRangeForCharacterRange:NSMakeRange(0, textStorage.length) actualCharacterRange:NULL] atPoint:CGPointZero];
+            [attributedString drawWithRect:CGRectMake(0, 0, kSize.width, kSize.height) options:NSStringDrawingUsesLineFragmentOrigin context:NULL];
             
             UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
             
             UIGraphicsEndImageContext();
             
             UIImage *retval = [image MER_thumbnailOfSize:size];
+#else
+            NSImage *retval = [[NSImage alloc] initWithSize:size];
+            
+            [retval lockFocus];
+            
+            [attributedString drawWithRect:NSMakeRect(0, 0, size.width, size.height) options:NSStringDrawingUsesLineFragmentOrigin];
+            
+            [retval unlockFocus];
+#endif
             
             [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
         }
@@ -508,6 +577,8 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
         return nil;
     }];
 }
+
+#if (TARGET_OS_IPHONE)
 - (RACSignal *)_webViewThumbnailForURL:(NSURL *)url size:(CGSize)size; {
     NSParameterAssert(url);
     
@@ -541,7 +612,80 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
         return nil;
     }];
 }
+#else
+- (RACSignal *)_quickLookThumbnailForURL:(NSURL *)url size:(CGSize)size; {
+    NSParameterAssert(url);
+    
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        CGImageRef imageRef = QLThumbnailImageCreate(kCFAllocatorDefault, (__bridge CFURLRef)url, size, NULL);
+        NSImage *retval = [[NSImage alloc] initWithCGImage:imageRef size:NSZeroSize];
+        
+        CGImageRelease(imageRef);
+        
+        [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
+        [subscriber sendCompleted];
+        
+        return nil;
+    }];
+}
+#endif
 
+- (RACSignal *)_remoteThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time; {
+    NSParameterAssert(url);
+    // TODO: finish this!
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        __block NSMutableData *data = nil;
+        __block BOOL supportedUTI = NO;
+        __block NSString *uti = nil;
+        RACDelegateProxy *proxy = [[RACDelegateProxy alloc] initWithProtocol:@protocol(NSURLConnectionDataDelegate)];
+        
+        [[proxy signalForSelector:@selector(connection:didFailWithError:)] subscribeNext:^(id x) {
+            [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
+            [subscriber sendCompleted];
+        }];
+        
+        [[proxy signalForSelector:@selector(connection:didReceiveResponse:)] subscribeNext:^(RACTuple *value) {
+            RACTupleUnpack(NSURLConnection *connection, NSURLResponse *response) = value;
+            
+            uti = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)response.MIMEType, NULL);
+            
+            if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeImage) ||
+                UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeMovie)) {
+                
+                supportedUTI = YES;
+            }
+            
+            if (supportedUTI) {
+                data = [[NSMutableData alloc] init];
+            }
+            else {
+                [connection cancel];
+            }
+        }];
+        
+        [[proxy signalForSelector:@selector(connection:didReceiveData:)] subscribeNext:^(RACTuple *value) {
+            [data appendData:value.second];
+        }];
+        
+        [[proxy signalForSelector:@selector(connectionDidFinishLoading:)] subscribeNext:^(id _) {
+            if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeImage)) {
+                
+            }
+            else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeMovie)) {
+                
+            }
+        }];
+        
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:url] delegate:proxy startImmediately:NO];
+        
+        [connection scheduleInRunLoop:[NSRunLoop mainRunLoop] forMode:NSDefaultRunLoopMode];
+        [connection start];
+        
+        return [RACDisposable disposableWithBlock:^{
+            [connection cancel];
+        }];
+    }];
+}
 - (RACSignal *)_remoteImageThumbnailForURL:(NSURL *)url size:(CGSize)size; {
     NSParameterAssert(url);
     
@@ -551,8 +695,8 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
                 [subscriber sendError:error];
             }
             else {
-                UIImage *image = [UIImage imageWithData:data];
-                UIImage *retval = [image MER_thumbnailOfSize:size];
+                MERThumbnailKitImageClass *image = [[MERThumbnailKitImageClass alloc] initWithData:data];
+                MERThumbnailKitImageClass *retval = [image MER_thumbnailOfSize:size];
                 
                 [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
                 [subscriber sendCompleted];
@@ -579,8 +723,12 @@ static long const kWebViewThumbnailMaxConcurrent = 2;
         
         [assetImageGenerator generateCGImagesAsynchronouslyForTimes:@[[NSValue valueWithCMTime:CMTimeMakeWithSeconds(time, kPreferredTimeScale)]] completionHandler:^(CMTime requestedTime, CGImageRef imageRef, CMTime actualTime, AVAssetImageGeneratorResult result, NSError *error) {
             if (result == AVAssetImageGeneratorSucceeded) {
-                UIImage *image = [UIImage imageWithCGImage:imageRef];
-                UIImage *retval = [image MER_thumbnailOfSize:size];
+#if (TARGET_OS_IPHONE)
+                MERThumbnailKitImageClass *image = [[MERThumbnailKitImageClass alloc] initWithCGImage:imageRef];
+#else
+                MERThumbnailKitImageClass *image = [[MERThumbnailKitImageClass alloc] initWithCGImage:imageRef size:NSZeroSize];
+#endif
+                MERThumbnailKitImageClass *retval = [image MER_thumbnailOfSize:size];
                 
                 [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
                 [subscriber sendCompleted];

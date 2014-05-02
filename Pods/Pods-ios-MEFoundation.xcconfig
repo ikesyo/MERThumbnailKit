@@ -1,0 +1,1 @@
+PODS_IOS_MEFOUNDATION_OTHER_LDFLAGS = -framework Foundation -framework UIKit

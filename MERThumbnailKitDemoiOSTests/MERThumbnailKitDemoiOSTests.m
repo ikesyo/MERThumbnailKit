@@ -1,6 +1,6 @@
 //
-//  MERThumbnailKitTests.m
-//  MERThumbnailKitTests
+//  MERThumbnailKitDemoiOSTests.m
+//  MERThumbnailKitDemoiOSTests
 //
 //  Created by William Towe on 5/1/14.
 //  Copyright (c) 2014 Maestro, LLC. All rights reserved.
@@ -8,11 +8,11 @@
 
 #import <XCTest/XCTest.h>
 
-@interface MERThumbnailKitTests : XCTestCase
+@interface MERThumbnailKitDemoiOSTests : XCTestCase
 
 @end
 
-@implementation MERThumbnailKitTests
+@implementation MERThumbnailKitDemoiOSTests
 
 - (void)setUp
 {

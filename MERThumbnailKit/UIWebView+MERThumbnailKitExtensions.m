@@ -2,7 +2,7 @@
 //  UIWebView+MERThumbnailKitExtensions.m
 //  MERThumbnailKit
 //
-//  Created by William Towe on 4/23/14.
+//  Created by William Towe on 5/2/14.
 //  Copyright (c) 2014 Maestro, LLC. All rights reserved.
 //
 
