@@ -196,7 +196,7 @@ static NSTimeInterval const kMERThumbnailManagerDefaultThumbnailTime = 1.0;
     
     return [self.fileCacheDirectoryURL URLByAppendingPathComponent:key isDirectory:NO];
 }
-- (NSString *)memoryCacheKeyForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time; {
+- (NSString *)thumbnailMemoryCacheKeyForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time; {
     NSParameterAssert(url);
     
 #if (TARGET_OS_IPHONE)
@@ -230,7 +230,7 @@ static NSTimeInterval const kMERThumbnailManagerDefaultThumbnailTime = 1.0;
         @strongify(self);
         
         MERThumbnailKitImageClass *retval = nil;
-        NSString *key = [self memoryCacheKeyForURL:url size:size page:page time:time];
+        NSString *key = [self thumbnailMemoryCacheKeyForURL:url size:size page:page time:time];
         
         if (self.isMemoryCachingEnabled) {
             retval = [self.memoryCache objectForKey:key];
@@ -322,7 +322,7 @@ static NSTimeInterval const kMERThumbnailManagerDefaultThumbnailTime = 1.0;
         RACTupleUnpack(NSURL *url, MERThumbnailKitImageClass *image, NSNumber *cacheType) = value;
         
         if (image) {
-            NSString *key = [self memoryCacheKeyForURL:url size:size page:page time:time];
+            NSString *key = [self thumbnailMemoryCacheKeyForURL:url size:size page:page time:time];
             NSURL *fileCacheURL = [self thumbnailFileCacheURLForMemoryCacheKey:key];
             MERThumbnailManagerCacheType cacheTypeValue = cacheType.integerValue;
             

@@ -125,7 +125,7 @@ typedef void(^MERThumbnailManagerDownloadCompletionBlock)(NSData *data, MERThumb
  @return The memory cache key for the provided _url_, _size_, _page_, and _time_
  @exception NSException Thrown if _url_ is nil
  */
-- (NSString *)memoryCacheKeyForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time;
+- (NSString *)thumbnailMemoryCacheKeyForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time;
 
 /**
  Calls `thumbnailForURL:size:page:time:`, passing _url_, `thumbnailSize`, `thumbnailPage`, and `thumbnailTime` respectively.
