@@ -20,11 +20,11 @@ The library supports the following UTIs:
 
 * **kUTTypeImage** (public.image)
 * **kUTTypeMovie** (public.movie)
-* kUTTypePDF (com.adobe.pdf)
+* **kUTTypePDF** (com.adobe.pdf)
 * kUTTypeRTF (public.rtf)
 * kUTTypeRTFD (com.apple.rtfd)
 * kUTTypePlainText (public.plain-text)
-* kUTTypeHTML (public.html)
+* **kUTTypeHTML** (public.html)
 
 Additionally, it supports the following file extensions:
 
