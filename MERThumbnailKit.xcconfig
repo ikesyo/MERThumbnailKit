@@ -6,6 +6,6 @@
 //  Copyright (c) 2014 Maestro, LLC. All rights reserved.
 //
 
-HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/MEFoundation" "${PODS_ROOT}/Headers/ReactiveCocoa" "${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa" "${PODS_ROOT}/Headers/libextobjc"
+HEADER_SEARCH_PATHS = "${PODS_ROOT}/Headers" "${PODS_ROOT}/Headers/MEFoundation" "${PODS_ROOT}/Headers/ReactiveCocoa" "${PODS_ROOT}/Headers/ReactiveCocoa/ReactiveCocoa" "${PODS_ROOT}/Headers/libextobjc" "${PODS_ROOT}/Headers/SVProgressHUD"
 OTHER_LDFLAGS = -ObjC
 PODS_ROOT = ${SRCROOT}/Pods

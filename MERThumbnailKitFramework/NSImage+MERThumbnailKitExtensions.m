@@ -15,6 +15,10 @@
 
 @implementation NSImage (MERThumbnailKitExtensions)
 
+- (BOOL)MER_hasAlpha {
+    return MERThumbnailKitCGImageHasAlpha([self CGImageForProposedRect:NULL context:NULL hints:nil]);
+}
+
 + (NSImage *)MER_thumbnailOfImage:(NSImage *)image size:(CGSize)size; {
     NSParameterAssert(image);
     

@@ -11,6 +11,8 @@
 #import <ReactiveCocoa/ReactiveCocoa.h>
 #import <libextobjc/EXTScope.h>
 #import <MEFoundation/MEFoundation.h>
+#import <SVProgressHUD/SVProgressHUD.h>
+#import <QuickLook/QuickLook.h>
 
 @interface MERCollectionViewCell : UICollectionViewCell
 @property (strong,nonatomic) UIImageView *imageView;
@@ -23,7 +25,7 @@
         return nil;
     
     [self setImageView:[[UIImageView alloc] initWithFrame:CGRectZero]];
-    [self.imageView setContentMode:UIViewContentModeScaleAspectFill];
+    [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [self.imageView setClipsToBounds:YES];
     [self.contentView addSubview:self.imageView];
     
@@ -38,10 +40,12 @@
 
 @end
 
-@interface MERViewController () <UICollectionViewDataSource,UICollectionViewDelegate>
+@interface MERViewController () <UICollectionViewDataSource,UICollectionViewDelegate,QLPreviewControllerDataSource,QLPreviewControllerDelegate>
 @property (strong,nonatomic) UICollectionView *collectionView;
 
 @property (copy,nonatomic) NSArray *urls;
+
+@property (strong,nonatomic) id<QLPreviewItem> previewItem;
 @end
 
 @implementation MERViewController
@@ -79,6 +83,7 @@
     [self.collectionView setBackgroundColor:[UIColor whiteColor]];
     [self.collectionView registerClass:[MERCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([MERCollectionViewCell class])];
     [self.collectionView setDataSource:self];
+    [self.collectionView setDelegate:self];
     [self.view addSubview:self.collectionView];
 }
 - (void)viewDidLayoutSubviews {
@@ -108,6 +113,50 @@
     }];
     
     return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    NSURL *url = self.urls[indexPath.row];
+    
+    if (!url.isFileURL) {
+        @weakify(self);
+        
+        [[[[[[MERThumbnailManager sharedManager] downloadFileWithURL:self.urls[indexPath.row] progress:^(NSURL *url, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite) {
+            [SVProgressHUD showProgress:(CGFloat)totalBytesWritten / (CGFloat)totalBytesExpectedToWrite];
+        }] deliverOn:[RACScheduler mainThreadScheduler]] initially:^{
+            [SVProgressHUD show];
+        }] finally:^{
+            [SVProgressHUD dismiss];
+        }] subscribeNext:^(RACTuple *value) {
+            @strongify(self);
+            
+            RACTupleUnpack(NSURL *url, NSURL *fileURL, NSNumber *cacheType) = value;
+            
+            MELog(@"%@ %@ %@",url,fileURL,cacheType);
+            
+            [self setPreviewItem:fileURL];
+            
+            QLPreviewController *viewController = [[QLPreviewController alloc] init];
+            
+            [viewController setDataSource:self];
+            [viewController setDelegate:self];
+            
+            [self presentViewController:viewController animated:YES completion:nil];
+        } error:^(NSError *error) {
+            MELogObject(error);
+        }];
+    }
+}
+
+- (NSInteger)numberOfPreviewItemsInPreviewController:(QLPreviewController *)controller {
+    return (self.previewItem) ? 1 : 0;
+}
+- (id<QLPreviewItem>)previewController:(QLPreviewController *)controller previewItemAtIndex:(NSInteger)index {
+    return self.previewItem;
+}
+
+- (void)previewControllerDidDismiss:(QLPreviewController *)controller {
+    [self setPreviewItem:nil];
 }
 
 @end

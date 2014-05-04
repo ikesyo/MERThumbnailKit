@@ -10,6 +10,8 @@
 
 @interface NSImage (MERThumbnailKitExtensions)
 
+@property (readonly,nonatomic) BOOL MER_hasAlpha;
+
 + (NSImage *)MER_thumbnailOfImage:(NSImage *)image size:(CGSize)size;
 
 - (NSImage *)MER_thumbnailOfSize:(CGSize)size;

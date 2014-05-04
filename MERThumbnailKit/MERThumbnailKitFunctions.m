@@ -16,6 +16,15 @@
 #error MERThumbnailKit requires ARC
 #endif
 
+BOOL MERThumbnailKitCGImageHasAlpha(CGImageRef imageRef) {
+    CGImageAlphaInfo alpha = CGImageGetAlphaInfo(imageRef);
+    
+    return (alpha == kCGImageAlphaFirst ||
+            alpha == kCGImageAlphaLast ||
+            alpha == kCGImageAlphaPremultipliedFirst ||
+            alpha == kCGImageAlphaPremultipliedLast);
+}
+
 CGImageRef MERThumbnailKitCreateCGImageThumbnailWithSize(CGImageRef imageRef, CGSize size) {
     NSCParameterAssert(imageRef);
     NSCParameterAssert(!CGSizeEqualToSize(size, CGSizeZero));

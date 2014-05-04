@@ -11,7 +11,7 @@
 
 #import <TargetConditionals.h>
 
-#import <MERThumbnailKit/MERThumbnailKitFunctions.h>
+#import <MERThumbnailKit/MERThumbnailKitCommon.h>
 #import <MERThumbnailKit/MERThumbnailManager.h>
 
 #if (TARGET_OS_IPHONE)

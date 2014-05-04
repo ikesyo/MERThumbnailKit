@@ -49,10 +49,9 @@
 		79B435F919132B8B00FB4832 /* UIImage+MERThumbnailKitExtensions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79B435F619132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.h */; };
 		79B435FC19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 79B435FA19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		79B435FD19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B435FB19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.m */; };
-		79B4360019132CBD00FB4832 /* MERThumbnailKitFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 79B435FE19132CBD00FB4832 /* MERThumbnailKitFunctions.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		79B4360019132CBD00FB4832 /* MERThumbnailKitFunctions.h in Headers */ = {isa = PBXBuildFile; fileRef = 79B435FE19132CBD00FB4832 /* MERThumbnailKitFunctions.h */; };
 		79B4360119132CBD00FB4832 /* MERThumbnailKitFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B435FF19132CBD00FB4832 /* MERThumbnailKitFunctions.m */; };
 		79B4360219132CBD00FB4832 /* MERThumbnailKitFunctions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B435FF19132CBD00FB4832 /* MERThumbnailKitFunctions.m */; };
-		79B4360319132D0400FB4832 /* MERThumbnailKitFunctions.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79B435FE19132CBD00FB4832 /* MERThumbnailKitFunctions.h */; };
 		79B43663191339B000FB4832 /* MERThumbnailKit.framework in Copy Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4350919130E2000FB4832 /* MERThumbnailKit.framework */; };
 		79B4366619133D3100FB4832 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4366519133D3100FB4832 /* AVFoundation.framework */; };
 		79B4366819133D3600FB4832 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79B4366719133D3600FB4832 /* Accelerate.framework */; };
@@ -62,6 +61,13 @@
 		79B4368A19137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B4368919137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m */; };
 		79B4368C1913913500FB4832 /* RemoteURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79B4368B1913913500FB4832 /* RemoteURLs.plist */; };
 		79B4368D1913913500FB4832 /* RemoteURLs.plist in Resources */ = {isa = PBXBuildFile; fileRef = 79B4368B1913913500FB4832 /* RemoteURLs.plist */; };
+		79B6595E1915FF1600D3B32F /* MERThumbnailKitCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B6595D1915FF1600D3B32F /* MERThumbnailKitCommon.m */; };
+		79B6595F1915FF8500D3B32F /* MERThumbnailKitCommon.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 79B6595C1915FF1600D3B32F /* MERThumbnailKitCommon.h */; };
+		79B659601915FFCE00D3B32F /* MERThumbnailKitCommon.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B6595D1915FF1600D3B32F /* MERThumbnailKitCommon.m */; };
+		79B659611916021700D3B32F /* MERThumbnailKitCommon.h in Headers */ = {isa = PBXBuildFile; fileRef = 79B6595C1915FF1600D3B32F /* MERThumbnailKitCommon.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		79B6596B1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.h in Headers */ = {isa = PBXBuildFile; fileRef = 79B659691916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.h */; };
+		79B6596C1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B6596A1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.m */; };
+		79B6596D1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B6596A1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -102,9 +108,9 @@
 			dstPath = "include/$(PRODUCT_NAME)";
 			dstSubfolderSpec = 16;
 			files = (
-				79B434E619130DEA00FB4832 /* MERThumbnailKit.h in CopyFiles */,
-				79B4360319132D0400FB4832 /* MERThumbnailKitFunctions.h in CopyFiles */,
 				79B435EF1913294C00FB4832 /* MERThumbnailManager.h in CopyFiles */,
+				79B6595F1915FF8500D3B32F /* MERThumbnailKitCommon.h in CopyFiles */,
+				79B434E619130DEA00FB4832 /* MERThumbnailKit.h in CopyFiles */,
 				79B435F919132B8B00FB4832 /* UIImage+MERThumbnailKitExtensions.h in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -182,6 +188,10 @@
 		79B4368819137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+MERThumbnailKitExtensions.h"; sourceTree = "<group>"; };
 		79B4368919137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+MERThumbnailKitExtensions.m"; sourceTree = "<group>"; };
 		79B4368B1913913500FB4832 /* RemoteURLs.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = RemoteURLs.plist; sourceTree = "<group>"; };
+		79B6595C1915FF1600D3B32F /* MERThumbnailKitCommon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MERThumbnailKitCommon.h; sourceTree = "<group>"; };
+		79B6595D1915FF1600D3B32F /* MERThumbnailKitCommon.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MERThumbnailKitCommon.m; sourceTree = "<group>"; };
+		79B659691916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSURLRequest+MERThumbnailKitExtensions.h"; sourceTree = "<group>"; };
+		79B6596A1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSURLRequest+MERThumbnailKitExtensions.m"; sourceTree = "<group>"; };
 		BD8AC61140764E40A10B186E /* libPods-osx.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-osx.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E5ED67B294AE4F6985C2D528 /* Pods-ios.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ios.xcconfig"; path = "Pods/Pods-ios.xcconfig"; sourceTree = "<group>"; };
 		F46C2A2EBEDB401C87B925EA /* libPods-ios.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ios.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -305,12 +315,16 @@
 				79B434E519130DEA00FB4832 /* MERThumbnailKit.h */,
 				79B435FE19132CBD00FB4832 /* MERThumbnailKitFunctions.h */,
 				79B435FF19132CBD00FB4832 /* MERThumbnailKitFunctions.m */,
+				79B6595C1915FF1600D3B32F /* MERThumbnailKitCommon.h */,
+				79B6595D1915FF1600D3B32F /* MERThumbnailKitCommon.m */,
 				79B43534191312AD00FB4832 /* MERThumbnailManager.h */,
 				79B43535191312AD00FB4832 /* MERThumbnailManager.m */,
-				79B4368819137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.h */,
-				79B4368919137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m */,
+				79B659691916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.h */,
+				79B6596A1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.m */,
 				79B435F619132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.h */,
 				79B435F719132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.m */,
+				79B4368819137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.h */,
+				79B4368919137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m */,
 				79B434E319130DE900FB4832 /* Supporting Files */,
 			);
 			path = MERThumbnailKit;
@@ -448,9 +462,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				79B43536191312AD00FB4832 /* MERThumbnailManager.h in Headers */,
-				79B4360019132CBD00FB4832 /* MERThumbnailKitFunctions.h in Headers */,
+				79B659611916021700D3B32F /* MERThumbnailKitCommon.h in Headers */,
 				79B435FC19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.h in Headers */,
 				79B435331913128900FB4832 /* MERThumbnailKit.h in Headers */,
+				79B4360019132CBD00FB4832 /* MERThumbnailKitFunctions.h in Headers */,
+				79B6596B1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -461,11 +477,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79B4350219130DEA00FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKit" */;
 			buildPhases = (
-				F177D145E5DB40F9A1646409 /* Check Pods Manifest.lock */,
 				79B434D919130DE900FB4832 /* Sources */,
 				79B434DA19130DE900FB4832 /* Frameworks */,
 				79B434DB19130DE900FB4832 /* CopyFiles */,
-				E93E17C77DCC4FCF89210190 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -498,12 +512,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79B4352C19130E2100FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitFramework" */;
 			buildPhases = (
-				274E3FD7627145DCBCA51EF2 /* Check Pods Manifest.lock */,
 				79B4350419130E2000FB4832 /* Sources */,
 				79B4350519130E2000FB4832 /* Frameworks */,
 				79B4350619130E2000FB4832 /* Headers */,
 				79B4350719130E2000FB4832 /* Resources */,
-				4A3FEF53D0DF4702AEFC70DE /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -536,11 +548,10 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79B435B3191328F000FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitDemoiOS" */;
 			buildPhases = (
-				73E7A3BC93CC4DB9A75BD302 /* Check Pods Manifest.lock */,
+				79B65963191610A600D3B32F /* Check Pods Manifest.lock */,
 				79B43582191328EF00FB4832 /* Sources */,
 				79B43583191328EF00FB4832 /* Frameworks */,
 				79B43584191328EF00FB4832 /* Resources */,
-				88031590929642899D26A6F2 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -556,12 +567,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 79B435E91913292800FB4832 /* Build configuration list for PBXNativeTarget "MERThumbnailKitDemoOSX" */;
 			buildPhases = (
-				2487FE1F87204C70914E6013 /* Check Pods Manifest.lock */,
+				79B65964191610EC00D3B32F /* Check Pods Manifest.lock */,
 				79B435BE1913292800FB4832 /* Sources */,
 				79B435BF1913292800FB4832 /* Frameworks */,
 				79B435C01913292800FB4832 /* Resources */,
 				79B4360419132E7300FB4832 /* Copy Frameworks */,
-				40EDD28886A24F4D84E851A3 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -666,7 +676,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2487FE1F87204C70914E6013 /* Check Pods Manifest.lock */ = {
+		79B65963191610A600D3B32F /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -678,10 +688,9 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\ncat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\nexit 1\nfi\n";
 		};
-		274E3FD7627145DCBCA51EF2 /* Check Pods Manifest.lock */ = {
+		79B65964191610EC00D3B32F /* Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -693,98 +702,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		40EDD28886A24F4D84E851A3 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-osx-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		4A3FEF53D0DF4702AEFC70DE /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-osx-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		73E7A3BC93CC4DB9A75BD302 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		88031590929642899D26A6F2 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-ios-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		E93E17C77DCC4FCF89210190 /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-ios-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F177D145E5DB40F9A1646409 /* Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Check Pods Manifest.lock";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\ncat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\nexit 1\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -794,7 +712,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				79B435F819132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.m in Sources */,
+				79B6595E1915FF1600D3B32F /* MERThumbnailKitCommon.m in Sources */,
 				79B43537191312AD00FB4832 /* MERThumbnailManager.m in Sources */,
+				79B6596C1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.m in Sources */,
 				79B4368A19137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m in Sources */,
 				79B4360119132CBD00FB4832 /* MERThumbnailKitFunctions.m in Sources */,
 			);
@@ -813,8 +733,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				79B43538191312AD00FB4832 /* MERThumbnailManager.m in Sources */,
+				79B6596D1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.m in Sources */,
 				79B435FD19132BF000FB4832 /* NSImage+MERThumbnailKitExtensions.m in Sources */,
 				79B4360219132CBD00FB4832 /* MERThumbnailKitFunctions.m in Sources */,
+				79B659601915FFCE00D3B32F /* MERThumbnailKitCommon.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

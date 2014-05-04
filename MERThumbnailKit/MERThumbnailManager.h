@@ -39,7 +39,7 @@ typedef NS_OPTIONS(NSInteger, MERThumbnailManagerCacheOptions) {
     MERThumbnailManagerCacheOptionsDefault = MERThumbnailManagerCacheOptionsAll
 };
 
-typedef void(^MERThumbnailManagerDownloadCompletionBlock)(NSData *data, MERThumbnailManagerCacheType cacheType, NSError *error);
+typedef void(^MERThumbnailManagerDownloadProgressBlock)(NSURL *url, int64_t totalBytesWritten, int64_t totalBytesExpectedToWrite);
 
 @class RACSignal;
 
@@ -68,9 +68,13 @@ typedef void(^MERThumbnailManagerDownloadCompletionBlock)(NSData *data, MERThumb
 @property (readonly,nonatomic,getter = isMemoryCachingEnabled) BOOL memoryCachingEnabled;
 
 /**
- Returns the directory url used for file caching.
+ Returns the directory url used for downloaded file caching.
  */
-@property (readonly,strong,nonatomic) NSURL *fileCacheDirectoryURL;
+@property (readonly,strong,nonatomic) NSURL *downloadedFileCacheDirectoryURL;
+/**
+ Returns the directory url used for thumbnail file caching.
+ */
+@property (readonly,strong,nonatomic) NSURL *thumbnailFileCacheDirectoryURL;
 
 /**
  Return the thumbnail size assigned to the receiver. This size is used for any method that does not contain an explicit _size_ parameter.
@@ -99,6 +103,10 @@ typedef void(^MERThumbnailManagerDownloadCompletionBlock)(NSData *data, MERThumb
 + (instancetype)sharedManager;
 
 /**
+ Clears the downloaded file cache.
+ */
+- (void)clearDownloadedFileCache;
+/**
  Clears the thumbnail file cache.
  */
 - (void)clearThumbnailFileCache;
@@ -108,24 +116,60 @@ typedef void(^MERThumbnailManagerDownloadCompletionBlock)(NSData *data, MERThumb
 - (void)clearThumbnailMemoryCache;
 
 /**
- Returns the file cache url for the provided memory cache _key_.
+ Returns the downloaded file cache key for the provided asset _url_.
  
- @param key The memory cache key
- @return The file cache url for _key_
- @exception NSException Thrown if _key_ is nil
+ @param url The url of the asset
+ @return The downloaded file cache key for _url_
+ @exception NSException Thrown if _url_ is nil
  */
-- (NSURL *)thumbnailFileCacheURLForMemoryCacheKey:(NSString *)key;
+- (NSString *)downloadedFileCacheKeyForURL:(NSURL *)url;
 /**
- Returns the memory cache key for the provided _url_, _size_, _page_, and _time_.
+ Returns the downloaded file cache url for the provided asset _url_.
+ 
+ @param key The file cache key
+ @return The downloaded file cache url for _url_
+ @exception NSException Thrown if _url_ is nil
+ */
+- (NSURL *)downloadedFileCacheURLForKey:(NSString *)key;
+/**
+ Returns the dowloaded file cache url for the provided asset _url_.
+ 
+ @param url The url of the asset
+ @return The downloaded file cache url for _url_
+ @exception NSException Thrown if _url_ is nil
+ */
+- (NSURL *)downloadedFileCacheURLForURL:(NSURL *)url;
+
+/**
+ Returns the thumbnail memory cache key for the provided _url_, _size_, _page_, and _time_.
  
  @param url The url of the asset
  @param size The size of the thumbnail
  @param page The page of the thumbnail
  @param time The time of the thumbnail
- @return The memory cache key for the provided _url_, _size_, _page_, and _time_
+ @return The thumbnail memory cache key for the provided _url_, _size_, _page_, and _time_
  @exception NSException Thrown if _url_ is nil
  */
 - (NSString *)thumbnailMemoryCacheKeyForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time;
+/**
+ Returns the thumbnail file cache url for the provided memory cache _key_.
+ 
+ @param key The memory cache key
+ @return The thumbnail file cache url for _key_
+ @exception NSException Thrown if _key_ is nil
+ */
+- (NSURL *)thumbnailFileCacheURLForMemoryCacheKey:(NSString *)key;
+/**
+ Returns the thumbnail file cache url for the provided asset _url_.
+ 
+ @param url The url of the asset
+ @param size The size of the thumbnail
+ @param page The page of the thumbnail
+ @param time The time of the thumbnail
+ @return The thumbnail file cache url for _url_
+ @exception NSException Thrown if _url_ is nil
+ */
+- (NSURL *)thumbnailFileCacheURLForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time;
 
 /**
  Calls `thumbnailForURL:size:page:time:`, passing _url_, `thumbnailSize`, `thumbnailPage`, and `thumbnailTime` respectively.
@@ -179,17 +223,15 @@ typedef void(^MERThumbnailManagerDownloadCompletionBlock)(NSData *data, MERThumb
  @exception NSException Thrown if _url_ is nil
  */
 - (RACSignal *)thumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time;
+
 /**
- Returns a signal that sends `next` with a `RACTuple` containing _url_, the thumbnail image, and the `MERThumbnailManagerCacheType` of the generated thumbnail, then `completes`. If the request cannot be completed, which is possible for remote urls, sends `error`.
+ Returns a signal that sends `next` with a `RACTuple` containing _url_, an `NSURL` instance representing the asset at _url_, and the `MERThumbnailManagerCacheType` describing the location of the asset. If the request cannot be completed, sends `error`.
  
  @param url The url of the asset
- @param size The size of the thumbnail
- @param page The page of the thumbnail
- @param time The time of the thumbnail
- @param downloadCompletion The block that is invoked when the full asset has finished downloading. If this parameter is nil, the library will attempt to generate the thumbnail without downloading the entire asset. The block takes three parameters, the _data_ of the downloaded asset, the `MERThumbnailManagerCacheType` of the downloaded asset, and an _error_ if the download could not be completed
+ @param progress A progress block that is called while downloading the asset
  @return The signal
- @exception NSException Thrown if _url_ is nil
+ @exception NSException Thrown if the _url_ is nil
  */
-- (RACSignal *)thumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time downloadCompletion:(MERThumbnailManagerDownloadCompletionBlock)downloadCompletion;
+- (RACSignal *)downloadFileWithURL:(NSURL *)url progress:(MERThumbnailManagerDownloadProgressBlock)progress;
 
 @end
