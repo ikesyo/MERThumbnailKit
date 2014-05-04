@@ -46,7 +46,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 #if (TARGET_OS_IPHONE)
 @interface MERThumbnailManager () <UIWebViewDelegate,NSCacheDelegate,NSURLSessionDownloadDelegate,NSURLSessionDataDelegate>
 #else
-@interface MERThumbnailManager () <NSCacheDelegate>
+@interface MERThumbnailManager () <NSCacheDelegate,NSURLSessionDownloadDelegate,NSURLSessionDataDelegate>
 #endif
 
 @property (readwrite,strong,nonatomic) NSURL *downloadedFileCacheDirectoryURL;
@@ -84,7 +84,10 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 - (RACSignal *)_remoteImageThumbnailForURL:(NSURL *)url size:(CGSize)size;
 - (RACSignal *)_remoteMovieThumbnailForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time;
 - (RACSignal *)_remotePdfThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page;
+
+#if (TARGET_OS_IPHONE)
 - (RACSignal *)_remoteThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time;
+#endif
 @end
 
 @implementation MERThumbnailManager
@@ -432,7 +435,12 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
                         [[self _remotePdfThumbnailForURL:url size:size page:page] subscribe:subscriber];
                     }
                     else {
+#if (TARGET_OS_IPHONE)
                         [[self _remoteThumbnailForURL:url size:size page:page time:time] subscribe:subscriber];
+#else
+                        [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
+                        [subscriber sendCompleted];
+#endif
                     }
                 }
             }
@@ -908,13 +916,13 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
         }];
     }];
 }
+#if (TARGET_OS_IPHONE)
 - (RACSignal *)_remoteThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time; {
     NSParameterAssert(url);
     
     @weakify(self);
     
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
-#if (TARGET_OS_IPHONE)
         @strongify(self);
         
         RACDelegateProxy *proxy = [[RACDelegateProxy alloc] initWithProtocol:@protocol(NSURLConnectionDataDelegate)];
@@ -950,13 +958,8 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
         return [RACDisposable disposableWithBlock:^{
             [connection cancel];
         }];
-#else
-        [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
-        [subscriber sendCompleted];
-        
-        return nil;
-#endif
     }];
 }
+#endif
 
 @end
