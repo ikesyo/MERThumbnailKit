@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "MERThumbnailKit"
-  spec.version = "2.1.0"
+  spec.version = "2.2.0"
   spec.authors = {"William Towe" => "willbur1984@gmail.com"}
   spec.license = "Commercial"
   spec.homepage = "https://github.com/MaestroElearning/MERThumbnailKit"
@@ -21,4 +21,5 @@ Pod::Spec.new do |spec|
   spec.source_files = "MERThumbnailKit", "MERThumbnailKitFramework"
   spec.ios.exclude_files = "MERThumbnailKitFramework"
   spec.osx.exclude_files = "MERThumbnailKit/UI*"
+  spec.private_header_files = "MERThumbnailKit/Private"
 end

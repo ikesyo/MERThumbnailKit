@@ -313,18 +313,13 @@
 			isa = PBXGroup;
 			children = (
 				79B434E519130DEA00FB4832 /* MERThumbnailKit.h */,
-				79B435FE19132CBD00FB4832 /* MERThumbnailKitFunctions.h */,
-				79B435FF19132CBD00FB4832 /* MERThumbnailKitFunctions.m */,
 				79B6595C1915FF1600D3B32F /* MERThumbnailKitCommon.h */,
 				79B6595D1915FF1600D3B32F /* MERThumbnailKitCommon.m */,
 				79B43534191312AD00FB4832 /* MERThumbnailManager.h */,
 				79B43535191312AD00FB4832 /* MERThumbnailManager.m */,
-				79B659691916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.h */,
-				79B6596A1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.m */,
 				79B435F619132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.h */,
 				79B435F719132AC500FB4832 /* UIImage+MERThumbnailKitExtensions.m */,
-				79B4368819137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.h */,
-				79B4368919137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m */,
+				79B6596E19161CDA00D3B32F /* Private */,
 				79B434E319130DE900FB4832 /* Supporting Files */,
 			);
 			path = MERThumbnailKit;
@@ -452,6 +447,19 @@
 				79B435CD1913292800FB4832 /* Credits.rtf */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		79B6596E19161CDA00D3B32F /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				79B435FE19132CBD00FB4832 /* MERThumbnailKitFunctions.h */,
+				79B435FF19132CBD00FB4832 /* MERThumbnailKitFunctions.m */,
+				79B659691916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.h */,
+				79B6596A1916166C00D3B32F /* NSURLRequest+MERThumbnailKitExtensions.m */,
+				79B4368819137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.h */,
+				79B4368919137E0000FB4832 /* UIWebView+MERThumbnailKitExtensions.m */,
+			);
+			path = Private;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
