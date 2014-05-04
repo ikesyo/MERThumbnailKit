@@ -105,8 +105,8 @@
      subscribeNext:^(RACTuple *value) {
          @strongify(cell);
          
-         RACTupleUnpack(NSURL *url, UIImage *image, NSNumber *cacheType) = value;
-         
+         RACTupleUnpack(__unused NSURL *url, UIImage *image, NSNumber *cacheType) = value;
+        
          MELog(@"%@ %@",url,cacheType);
          
          [cell.imageView setImage:image];

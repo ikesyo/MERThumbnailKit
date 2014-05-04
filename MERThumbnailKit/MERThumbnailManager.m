@@ -62,8 +62,12 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 
 @property (strong,nonatomic) NSURLSession *urlSession;
 
+@property (strong,nonatomic) NSOperationQueue *remoteThumbnailUrlConnectionDelegateOperationQueue;
+
 - (void)_cacheImageToFile:(MERThumbnailKitImageClass *)image url:(NSURL *)url;
 - (void)_cacheImageToMemory:(MERThumbnailKitImageClass *)image key:(NSString *)key;
+
+- (MERThumbnailKitImageClass *)_imageFromCGPDFDocument:(CGPDFDocumentRef)documentRef size:(CGSize)size page:(NSInteger)page;
 
 - (RACSignal *)_imageThumbnailForURL:(NSURL *)url size:(CGSize)size;
 - (RACSignal *)_movieThumbnailForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time;
@@ -79,6 +83,8 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 
 - (RACSignal *)_remoteImageThumbnailForURL:(NSURL *)url size:(CGSize)size;
 - (RACSignal *)_remoteMovieThumbnailForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time;
+- (RACSignal *)_remotePdfThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page;
+- (RACSignal *)_remoteThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time;
 @end
 
 @implementation MERThumbnailManager
@@ -132,6 +138,10 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 #endif
     
     [self setUrlSession:[NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration ephemeralSessionConfiguration] delegate:self delegateQueue:nil]];
+    
+    [self setRemoteThumbnailUrlConnectionDelegateOperationQueue:[[NSOperationQueue alloc] init]];
+    [self.remoteThumbnailUrlConnectionDelegateOperationQueue setName:[NSString stringWithFormat:@"%@.%p",MERThumbnailKitBundleIdentifier,self]];
+    [self.remoteThumbnailUrlConnectionDelegateOperationQueue setMaxConcurrentOperationCount:[NSProcessInfo processInfo].activeProcessorCount];
     
 #if (TARGET_OS_IPHONE)
     @weakify(self);
@@ -190,16 +200,37 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 #pragma mark UIWebViewDelegate
 
 #if (TARGET_OS_IPHONE)
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    id<RACSubscriber> subscriber = webView.MER_subscriber;
+- (void)webViewDidStartLoad:(UIWebView *)webView {
+    NSInteger count = webView.MER_concurrentRequestCount;
     
-    [subscriber sendNext:RACTuplePack(webView.request.URL,nil,@(MERThumbnailManagerCacheTypeNone))];
+    [webView setMER_concurrentRequestCount:++count];
+}
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
+    NSInteger count = webView.MER_concurrentRequestCount;
+    
+    [webView setMER_concurrentRequestCount:--count];
+    
+    if (count > 0)
+        return;
+    
+    id<RACSubscriber> subscriber = webView.MER_subscriber;
+    NSURL *url = webView.MER_originalURL;
+    
+    [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
     [subscriber sendCompleted];
+    
+    [webView setMER_subscriber:nil];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    id<RACSubscriber> subscriber = webView.MER_subscriber;
+    NSInteger count = webView.MER_concurrentRequestCount;
     
-    NSURL *url = webView.request.URL;
+    [webView setMER_concurrentRequestCount:--count];
+    
+    if (count > 0)
+        return;
+    
+    id<RACSubscriber> subscriber = webView.MER_subscriber;
+    NSURL *url = webView.MER_originalURL;
     CGSize size = CGSizeMake(CGRectGetWidth(webView.frame), CGRectGetHeight(webView.frame));
     
     @weakify(self);
@@ -215,17 +246,19 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
         
         UIGraphicsEndImageContext();
         
+        MEDispatchMainSync(^{
+            [webView setMER_subscriber:nil];
+            [webView setDelegate:nil];
+            [webView stopLoading];
+            [webView removeFromSuperview];
+        });
+        
         dispatch_semaphore_signal(self.webViewThumbnailSemaphore);
         
         UIImage *retval = [image MER_thumbnailOfSize:self.thumbnailSize];
         
         [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
         [subscriber sendCompleted];
-        
-        MEDispatchMainSync(^{
-            [webView setDelegate:nil];
-            [webView removeFromSuperview];
-        });
     });
 }
 #endif
@@ -257,7 +290,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 - (NSString *)downloadedFileCacheKeyForURL:(NSURL *)url; {
     NSParameterAssert(url);
     
-    return [url.absoluteString.ME_MD5String stringByAppendingPathExtension:url.lastPathComponent.pathExtension];
+    return url.absoluteString.ME_MD5String;
 }
 - (NSURL *)downloadedFileCacheURLForKey:(NSString *)key; {
     NSParameterAssert(key);
@@ -274,9 +307,9 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     NSParameterAssert(url);
     
 #if (TARGET_OS_IPHONE)
-    return [[NSString stringWithFormat:@"%@%@%@%@",url.absoluteString.ME_MD5String,NSStringFromCGSize(size),@(page),@(time)] stringByAppendingPathExtension:url.lastPathComponent.pathExtension];
+    return [NSString stringWithFormat:@"%@%@%@",url.absoluteString.ME_MD5String,NSStringFromCGSize(size),@(page)];
 #else
-    return [[NSString stringWithFormat:@"%@%@%@%@",url.absoluteString.ME_MD5String,NSStringFromSize(NSSizeFromCGSize(size)),@(page),@(time)] stringByAppendingPathExtension:url.lastPathComponent.pathExtension];
+    return [NSString stringWithFormat:@"%@%@%@",url.absoluteString.ME_MD5String,NSStringFromSize(NSSizeFromCGSize(size)),@(page)];
 #endif
 }
 - (NSURL *)thumbnailFileCacheURLForMemoryCacheKey:(NSString *)key; {
@@ -312,7 +345,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
         
         MERThumbnailKitImageClass *retval = nil;
         NSString *key = [self thumbnailMemoryCacheKeyForURL:url size:size page:page time:time];
-        
+
         if (self.isMemoryCachingEnabled) {
             retval = [self.memoryCache objectForKey:key];
             
@@ -325,10 +358,10 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
         if (!retval) {
             if (self.isFileCachingEnabled) {
                 NSURL *thumbnailFileCacheURL = [self thumbnailFileCacheURLForMemoryCacheKey:key];
-
+                
                 if ([thumbnailFileCacheURL checkResourceIsReachableAndReturnError:NULL]) {
                     retval = [[MERThumbnailKitImageClass alloc] initWithContentsOfFile:thumbnailFileCacheURL.path];
-                    
+
                     if (retval) {
                         [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeFile))];
                         [subscriber sendCompleted];
@@ -388,16 +421,22 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
                 }
                 else {
                     NSString *uti = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (__bridge CFStringRef)url.lastPathComponent.pathExtension, NULL);
-                    
+
                     if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeImage)) {
                         [[self _remoteImageThumbnailForURL:url size:size] subscribe:subscriber];
                     }
                     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeMovie)) {
                         [[self _remoteMovieThumbnailForURL:url size:size time:time] subscribe:subscriber];
                     }
+                    else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePDF)) {
+                        [[self _remotePdfThumbnailForURL:url size:size page:page] subscribe:subscriber];
+                    }
+                    else if ([url.host hasSuffix:@"com"]) {
+                        
+                        [[self _webViewThumbnailForURL:url size:size] subscribe:subscriber];
+                    }
                     else {
-                        [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
-                        [subscriber sendCompleted];
+                        [[self _remoteThumbnailForURL:url size:size page:page time:time] subscribe:subscriber];
                     }
                 }
             }
@@ -413,7 +452,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
             NSString *key = [self thumbnailMemoryCacheKeyForURL:url size:size page:page time:time];
             NSURL *thumbnailFileCacheURL = [self thumbnailFileCacheURLForMemoryCacheKey:key];
             MERThumbnailManagerCacheType cacheTypeValue = cacheType.integerValue;
-            
+
             switch (cacheTypeValue) {
                 case MERThumbnailManagerCacheTypeNone:
                     if (self.isFileCachingEnabled)
@@ -501,6 +540,49 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     
     [self.memoryCache setObject:image forKey:key cost:(image.size.width * image.size.height)];
 }
+
+- (MERThumbnailKitImageClass *)_imageFromCGPDFDocument:(CGPDFDocumentRef)documentRef size:(CGSize)size page:(NSInteger)page; {
+    NSParameterAssert(documentRef);
+    
+    size_t numberOfPages = CGPDFDocumentGetNumberOfPages(documentRef);
+    size_t pageNumber = MEBoundedValue(page, kMERThumbnailManagerDefaultThumbnailPage, numberOfPages);
+    CGPDFPageRef pageRef = CGPDFDocumentGetPage(documentRef, pageNumber);
+    CGSize pageSize = CGPDFPageGetBoxRect(pageRef, kCGPDFMediaBox).size;
+    
+#if (TARGET_OS_IPHONE)
+    UIGraphicsBeginImageContextWithOptions(pageSize, NO, 0);
+    
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    
+    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+    CGContextTranslateCTM(context, 0, pageSize.height);
+    CGContextScaleCTM(context, 1, -1);
+    CGContextDrawPDFPage(context, pageRef);
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    UIImage *retval = [image MER_thumbnailOfSize:size];
+#else
+    CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
+    CGContextRef context = CGBitmapContextCreate(NULL, pageSize.width, pageSize.height, 8, 0, colorSpaceRef, (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
+    
+    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
+    CGContextDrawPDFPage(context, pageRef);
+    
+    CGImageRef sourceImageRef = CGBitmapContextCreateImage(context);
+    CGImageRef imageRef = MERThumbnailKitCreateCGImageThumbnailWithSize(sourceImageRef, size);
+    NSImage *retval = [[NSImage alloc] initWithCGImage:imageRef size:NSZeroSize];
+    
+    CGContextRelease(context);
+    CGColorSpaceRelease(colorSpaceRef);
+    CGImageRelease(sourceImageRef);
+    CGImageRelease(imageRef);
+#endif
+    
+    return retval;
+}
 #pragma mark Signals
 - (RACSignal *)_imageThumbnailForURL:(NSURL *)url size:(CGSize)size; {
     NSParameterAssert(url);
@@ -548,42 +630,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         CGPDFDocumentRef documentRef = CGPDFDocumentCreateWithURL((__bridge CFURLRef)url);
-        size_t numberOfPages = CGPDFDocumentGetNumberOfPages(documentRef);
-        size_t pageNumber = MEBoundedValue(page, kMERThumbnailManagerDefaultThumbnailPage, numberOfPages);
-        CGPDFPageRef pageRef = CGPDFDocumentGetPage(documentRef, pageNumber);
-        CGSize pageSize = CGPDFPageGetBoxRect(pageRef, kCGPDFMediaBox).size;
-        
-#if (TARGET_OS_IPHONE)
-        UIGraphicsBeginImageContextWithOptions(pageSize, NO, 0);
-        
-        CGContextRef context = UIGraphicsGetCurrentContext();
-        
-        CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
-        CGContextTranslateCTM(context, 0, pageSize.height);
-        CGContextScaleCTM(context, 1, -1);
-        CGContextDrawPDFPage(context, pageRef);
-        
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        
-        UIGraphicsEndImageContext();
-        
-        UIImage *retval = [image MER_thumbnailOfSize:size];
-#else
-        CGColorSpaceRef colorSpaceRef = CGColorSpaceCreateDeviceRGB();
-        CGContextRef context = CGBitmapContextCreate(NULL, pageSize.width, pageSize.height, 8, 0, colorSpaceRef, (CGBitmapInfo)kCGImageAlphaPremultipliedLast);
-        
-        CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
-        CGContextDrawPDFPage(context, pageRef);
-        
-        CGImageRef sourceImageRef = CGBitmapContextCreateImage(context);
-        CGImageRef imageRef = MERThumbnailKitCreateCGImageThumbnailWithSize(sourceImageRef, size);
-        NSImage *retval = [[NSImage alloc] initWithCGImage:imageRef size:NSZeroSize];
-        
-        CGContextRelease(context);
-        CGColorSpaceRelease(colorSpaceRef);
-        CGImageRelease(sourceImageRef);
-        CGImageRelease(imageRef);
-#endif
+        MERThumbnailKitImageClass *retval = [self _imageFromCGPDFDocument:documentRef size:size page:page];
         
         CGPDFDocumentRelease(documentRef);
         
@@ -724,6 +771,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
                 [webView setScalesPageToFit:YES];
                 [webView setDelegate:self];
                 [webView setMER_subscriber:subscriber];
+                [webView setMER_originalURL:url];
                 
                 [window insertSubview:webView atIndex:0];
                 
@@ -760,7 +808,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
         
-        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:[NSURLRequest requestWithURL:url] completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
             @strongify(self);
             
             if (error) {
@@ -769,6 +817,8 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
             else {
                 dispatch_async(self.fileCacheQueue, ^{
                     NSURL *downloadedFileCacheURL = [self downloadedFileCacheURLForURL:url];
+                    
+                    [[NSFileManager defaultManager] removeItemAtURL:downloadedFileCacheURL error:NULL];
                     
                     NSError *outError;
                     if (![data writeToURL:downloadedFileCacheURL options:0 error:&outError])
@@ -820,6 +870,93 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
         
         return [RACDisposable disposableWithBlock:^{
             [assetImageGenerator cancelAllCGImageGeneration];
+        }];
+    }];
+}
+- (RACSignal *)_remotePdfThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page; {
+    NSParameterAssert(url);
+    
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithURL:url completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+            if (error) {
+                [subscriber sendError:error];
+            }
+            else {
+                dispatch_async(self.fileCacheQueue, ^{
+                    NSURL *downloadedFileCacheURL = [self downloadedFileCacheURLForURL:url];
+                    
+                    [[NSFileManager defaultManager] removeItemAtURL:downloadedFileCacheURL error:NULL];
+                    
+                    NSError *outError;
+                    if (![data writeToURL:downloadedFileCacheURL options:0 error:&outError])
+                        MELogObject(outError);
+                });
+                
+                CGDataProviderRef dataProviderRef = CGDataProviderCreateWithCFData((__bridge CFDataRef)data);
+                CGPDFDocumentRef documentRef = CGPDFDocumentCreateWithProvider(dataProviderRef);
+                MERThumbnailKitImageClass *image = [self _imageFromCGPDFDocument:documentRef size:size page:page];
+                MERThumbnailKitImageClass *retval = [image MER_thumbnailOfSize:size];
+                
+                CGPDFDocumentRelease(documentRef);
+                CGDataProviderRelease(dataProviderRef);
+                
+                [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
+                [subscriber sendCompleted];
+            }
+        }];
+        
+        [task resume];
+        
+        return [RACDisposable disposableWithBlock:^{
+            [task cancel];
+        }];
+    }];
+}
+- (RACSignal *)_remoteThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page time:(NSTimeInterval)time; {
+    NSParameterAssert(url);
+    
+    @weakify(self);
+    
+    return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+        @strongify(self);
+        
+        RACDelegateProxy *proxy = [[RACDelegateProxy alloc] initWithProtocol:@protocol(NSURLConnectionDataDelegate)];
+        
+        [[proxy signalForSelector:@selector(connection:didReceiveResponse:)] subscribeNext:^(RACTuple *value) {
+            @strongify(self);
+            
+            RACTupleUnpack(NSURLConnection *connection, NSURLResponse *response) = value;
+            NSString *uti = (__bridge_transfer NSString *)UTTypeCreatePreferredIdentifierForTag(kUTTagClassMIMEType, (__bridge CFStringRef)response.MIMEType, NULL);
+            
+            [connection cancel];
+            
+#if (TARGET_OS_IPHONE)
+            if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeHTML)) {
+                [[self _webViewThumbnailForURL:url size:size] subscribe:subscriber];
+            }
+            else {
+                [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
+                [subscriber sendCompleted];
+            }
+#else
+            [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
+            [subscriber sendCompleted];
+#endif
+        }];
+        
+        [[proxy signalForSelector:@selector(connection:didFailWithError:)] subscribeNext:^(RACTuple *value) {
+            NSError *error = value.second;
+
+            [subscriber sendError:error];
+        }];
+        
+        NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:[NSURLRequest requestWithURL:url] delegate:proxy startImmediately:NO];
+        
+        [connection setDelegateQueue:self.remoteThumbnailUrlConnectionDelegateOperationQueue];
+        [connection start];
+        
+        return [RACDisposable disposableWithBlock:^{
+            [connection cancel];
         }];
     }];
 }
