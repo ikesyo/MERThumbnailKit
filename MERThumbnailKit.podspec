@@ -1,6 +1,6 @@
 Pod::Spec.new do |spec|
   spec.name = "MERThumbnailKit"
-  spec.version = "2.2.0"
+  spec.version = "2.2.1"
   spec.authors = {"William Towe" => "willbur1984@gmail.com"}
   spec.license = "Commercial"
   spec.homepage = "https://github.com/MaestroElearning/MERThumbnailKit"
