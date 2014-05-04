@@ -431,10 +431,6 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
                     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePDF)) {
                         [[self _remotePdfThumbnailForURL:url size:size page:page] subscribe:subscriber];
                     }
-                    else if ([url.host hasSuffix:@"com"]) {
-                        
-                        [[self _webViewThumbnailForURL:url size:size] subscribe:subscriber];
-                    }
                     else {
                         [[self _remoteThumbnailForURL:url size:size page:page time:time] subscribe:subscriber];
                     }
@@ -918,6 +914,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     @weakify(self);
     
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
+#if (TARGET_OS_IPHONE)
         @strongify(self);
         
         RACDelegateProxy *proxy = [[RACDelegateProxy alloc] initWithProtocol:@protocol(NSURLConnectionDataDelegate)];
@@ -930,7 +927,6 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
             
             [connection cancel];
             
-#if (TARGET_OS_IPHONE)
             if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypeHTML)) {
                 [[self _webViewThumbnailForURL:url size:size] subscribe:subscriber];
             }
@@ -938,10 +934,6 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
                 [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
                 [subscriber sendCompleted];
             }
-#else
-            [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
-            [subscriber sendCompleted];
-#endif
         }];
         
         [[proxy signalForSelector:@selector(connection:didFailWithError:)] subscribeNext:^(RACTuple *value) {
@@ -958,6 +950,12 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
         return [RACDisposable disposableWithBlock:^{
             [connection cancel];
         }];
+#else
+        [subscriber sendNext:RACTuplePack(url,nil,@(MERThumbnailManagerCacheTypeNone))];
+        [subscriber sendCompleted];
+        
+        return nil;
+#endif
     }];
 }
 
