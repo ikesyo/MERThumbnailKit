@@ -4,6 +4,8 @@ A library for generating thumbnails from urls, both local and remote. Built on t
 
 Use the `thumbnailForURL:size:page:time:` method and its variants to generate thumbnails for a given url.
 
+The library can also download files and cache them locally. See the `downloadFileWithURL:progress:` method for more information.
+
 ###Documentation
 
 The headers are documented. Read them.
