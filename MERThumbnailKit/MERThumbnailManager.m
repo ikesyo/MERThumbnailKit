@@ -290,7 +290,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 - (NSString *)downloadedFileCacheKeyForURL:(NSURL *)url; {
     NSParameterAssert(url);
     
-    return url.absoluteString.ME_MD5String;
+    return [url.absoluteString.ME_MD5String stringByAppendingPathExtension:url.lastPathComponent.pathExtension];
 }
 - (NSURL *)downloadedFileCacheURLForKey:(NSString *)key; {
     NSParameterAssert(key);
