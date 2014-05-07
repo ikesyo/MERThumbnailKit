@@ -15,5 +15,6 @@
 @property (assign,nonatomic) id<RACSubscriber> MER_subscriber;
 @property (strong,nonatomic) NSURL *MER_originalURL;
 @property (assign,nonatomic) NSInteger MER_concurrentRequestCount;
+@property (assign,nonatomic) BOOL MER_hasInjectedJavascript;
 
 @end

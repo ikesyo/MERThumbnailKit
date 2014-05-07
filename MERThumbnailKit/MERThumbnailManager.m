@@ -69,6 +69,10 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 
 - (MERThumbnailKitImageClass *)_imageFromCGPDFDocument:(CGPDFDocumentRef)documentRef size:(CGSize)size page:(NSInteger)page;
 
+#if (TARGET_OS_IPHONE)
+- (void)_generateThumbnailFromWebView:(UIWebView *)webView;
+#endif
+
 - (RACSignal *)_imageThumbnailForURL:(NSURL *)url size:(CGSize)size;
 - (RACSignal *)_movieThumbnailForURL:(NSURL *)url size:(CGSize)size time:(NSTimeInterval)time;
 - (RACSignal *)_pdfThumbnailForURL:(NSURL *)url size:(CGSize)size page:(NSInteger)page;
@@ -100,7 +104,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     if (!(self = [super init]))
         return nil;
     
-    [self setCacheOptions:MERThumbnailManagerCacheOptionsDefault];
+//    [self setCacheOptions:MERThumbnailManagerCacheOptionsDefault];
     
     NSURL *cachesDirectoryURL = [[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask].lastObject;
     NSURL *fileCacheDirectoryURL = [cachesDirectoryURL URLByAppendingPathComponent:MERThumbnailKitBundleIdentifier isDirectory:YES];
@@ -211,6 +215,8 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     return YES;
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView {
+    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_generateThumbnailFromWebView:) object:webView];
+    
     NSInteger count = webView.MER_concurrentRequestCount;
     
     [webView setMER_concurrentRequestCount:++count];
@@ -231,6 +237,9 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     
     [webView setMER_subscriber:nil];
     [webView setMER_originalURL:nil];
+    [webView setDelegate:nil];
+    [webView stopLoading];
+    [webView removeFromSuperview];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     NSInteger count = webView.MER_concurrentRequestCount;
@@ -239,38 +248,13 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     
     if (count > 0)
         return;
-    
-    id<RACSubscriber> subscriber = webView.MER_subscriber;
+
     NSURL *url = webView.MER_originalURL;
-    CGSize size = CGSizeMake(CGRectGetWidth(webView.frame), CGRectGetHeight(webView.frame));
     
-    @weakify(self);
-    
-    MEDispatchDefaultAsync(^{
-        @strongify(self);
-        
-        UIGraphicsBeginImageContext(size);
-        
-        [webView.layer renderInContext:UIGraphicsGetCurrentContext()];
-        
-        UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
-        
-        UIGraphicsEndImageContext();
-        
-        MEDispatchMainSync(^{
-            [webView setMER_subscriber:nil];
-            [webView setDelegate:nil];
-            [webView stopLoading];
-            [webView removeFromSuperview];
-        });
-        
-        dispatch_semaphore_signal(self.webViewThumbnailSemaphore);
-        
-        UIImage *retval = [image MER_thumbnailOfSize:self.thumbnailSize];
-        
-        [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
-        [subscriber sendCompleted];
-    });
+    if (url.isFileURL)
+        [self _generateThumbnailFromWebView:webView];
+    else
+        [self performSelector:@selector(_generateThumbnailFromWebView:) withObject:webView afterDelay:0.05];
 }
 #endif
 
@@ -595,6 +579,43 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     
     return retval;
 }
+#if (TARGET_OS_IPHONE)
+- (void)_generateThumbnailFromWebView:(UIWebView *)webView; {
+    NSParameterAssert(webView);
+    
+    [webView setDelegate:nil];
+    [webView stopLoading];
+    
+    id<RACSubscriber> subscriber = webView.MER_subscriber;
+    NSURL *url = webView.MER_originalURL;
+    CGSize size = CGSizeMake(CGRectGetWidth(webView.frame), CGRectGetHeight(webView.frame));
+    
+    UIGraphicsBeginImageContext(size);
+    
+    [webView.layer renderInContext:UIGraphicsGetCurrentContext()];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    [webView setMER_subscriber:nil];
+    [webView removeFromSuperview];
+    
+    dispatch_semaphore_signal(self.webViewThumbnailSemaphore);
+    
+    @weakify(self);
+    
+    MEDispatchDefaultAsync(^{
+        @strongify(self);
+        
+        UIImage *retval = [image MER_thumbnailOfSize:self.thumbnailSize];
+        
+        [subscriber sendNext:RACTuplePack(url,retval,@(MERThumbnailManagerCacheTypeNone))];
+        [subscriber sendCompleted];
+    });
+}
+#endif
+
 #pragma mark Signals
 - (RACSignal *)_imageThumbnailForURL:(NSURL *)url size:(CGSize)size; {
     NSParameterAssert(url);

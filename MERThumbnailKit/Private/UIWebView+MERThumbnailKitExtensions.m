@@ -43,4 +43,14 @@ static void const *kMER_concurrentRequestCountKey = &kMER_concurrentRequestCount
     objc_setAssociatedObject(self, kMER_concurrentRequestCountKey, @(MER_concurrentRequestCount), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+static void const *kMER_hasInjectedJavascriptKey = &kMER_hasInjectedJavascriptKey;
+
+@dynamic MER_hasInjectedJavascript;
+- (BOOL)MER_hasInjectedJavascript {
+    return [objc_getAssociatedObject(self, kMER_hasInjectedJavascriptKey) boolValue];
+}
+- (void)setMER_hasInjectedJavascript:(BOOL)MER_hasInjectedJavascript {
+    objc_setAssociatedObject(self, kMER_hasInjectedJavascriptKey, @(MER_hasInjectedJavascript), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
 @end
