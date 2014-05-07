@@ -92,6 +92,10 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 
 @implementation MERThumbnailManager
 #pragma mark *** Subclass Overrides ***
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (id)init {
     if (!(self = [super init]))
         return nil;
