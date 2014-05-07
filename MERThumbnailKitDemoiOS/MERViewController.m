@@ -76,7 +76,7 @@
     
     [layout setMinimumInteritemSpacing:8];
     [layout setMinimumLineSpacing:8];
-    [layout setItemSize:CGSizeMake(100, 100)];
+    [layout setItemSize:([UIDevice currentDevice].userInterfaceIdiom == UIUserInterfaceIdiomPad) ? CGSizeMake(150, 150) : CGSizeMake(100, 100)];
     [layout setSectionInset:UIEdgeInsetsMake(8, 8, 8, 8)];
     
     [self setCollectionView:[[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:layout]];
