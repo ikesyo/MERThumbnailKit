@@ -203,6 +203,9 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 #pragma mark UIWebViewDelegate
 
 #if (TARGET_OS_IPHONE)
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    return YES;
+}
 - (void)webViewDidStartLoad:(UIWebView *)webView {
     NSInteger count = webView.MER_concurrentRequestCount;
     
@@ -223,6 +226,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     [subscriber sendCompleted];
     
     [webView setMER_subscriber:nil];
+    [webView setMER_originalURL:nil];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
     NSInteger count = webView.MER_concurrentRequestCount;
