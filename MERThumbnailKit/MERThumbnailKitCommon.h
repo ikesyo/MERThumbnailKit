@@ -16,6 +16,9 @@ extern const struct MERThumbnailKitVersion {
     NSInteger patch;
 } MERThumbnailKitVersion;
 
+extern NSString *const MERThumbnailKitResourcesBundleName;
+extern NSBundle *MERThumbnailKitResourcesBundle();
+
 @interface MERThumbnailKitCommon : NSObject
 
 + (NSString *)versionString;

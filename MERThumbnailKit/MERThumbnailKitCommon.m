@@ -10,14 +10,17 @@
 #import <MEFoundation/MEFoundation.h>
 
 NSString *const MERThumbnailKitBundleIdentifier = @"com.maestro.merthumbnailkit";
-NSString *const MERThumbnailKitThumbnailsDirectoryName = @"thumbnails";
-NSString *const MERThumbnailKitDownloadsDirectoryName = @"downloads";
 
 const struct MERThumbnailKitVersion MERThumbnailKitVersion = {
     .major = 2,
     .minor = 2,
-    .patch = 0
+    .patch = 3
 };
+
+NSString *const MERThumbnailKitResourcesBundleName = @"MERThumbnailKitResources.bundle";
+NSBundle *MERThumbnailKitResourcesBundle() {
+    return [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:MERThumbnailKitResourcesBundleName.stringByDeletingPathExtension withExtension:MERThumbnailKitResourcesBundleName.pathExtension]];
+}
 
 @implementation MERThumbnailKitCommon
 

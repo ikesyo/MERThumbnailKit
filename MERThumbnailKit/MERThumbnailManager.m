@@ -104,7 +104,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     if (!(self = [super init]))
         return nil;
     
-//    [self setCacheOptions:MERThumbnailManagerCacheOptionsDefault];
+    [self setCacheOptions:MERThumbnailManagerCacheOptionsDefault];
     
     NSURL *cachesDirectoryURL = [[NSFileManager defaultManager] URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask].lastObject;
     NSURL *fileCacheDirectoryURL = [cachesDirectoryURL URLByAppendingPathComponent:MERThumbnailKitBundleIdentifier isDirectory:YES];
@@ -212,11 +212,13 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
 
 #if (TARGET_OS_IPHONE)
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
+    if ([request.URL.absoluteString rangeOfString:@"orgmaestromerthumbnailkit:ready"].length > 0) {
+        [self performSelector:@selector(_generateThumbnailFromWebView:) withObject:webView afterDelay:0.0];
+        return NO;
+    }
     return YES;
 }
 - (void)webViewDidStartLoad:(UIWebView *)webView {
-    [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(_generateThumbnailFromWebView:) object:webView];
-    
     NSInteger count = webView.MER_concurrentRequestCount;
     
     [webView setMER_concurrentRequestCount:++count];
@@ -228,7 +230,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     
     if (count > 0)
         return;
-    
+
     id<RACSubscriber> subscriber = webView.MER_subscriber;
     NSURL *url = webView.MER_originalURL;
     
@@ -242,19 +244,14 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     [webView removeFromSuperview];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSInteger count = webView.MER_concurrentRequestCount;
-    
-    [webView setMER_concurrentRequestCount:--count];
-    
-    if (count > 0)
-        return;
-
     NSURL *url = webView.MER_originalURL;
     
-    if (url.isFileURL)
+    if (url.isFileURL) {
         [self _generateThumbnailFromWebView:webView];
-    else
-        [self performSelector:@selector(_generateThumbnailFromWebView:) withObject:webView afterDelay:0.05];
+    }
+    else {
+        [webView stringByEvaluatingJavaScriptFromString:[NSString stringWithContentsOfURL:[MERThumbnailKitResourcesBundle() URLForResource:@"webview_script" withExtension:@"js"] encoding:NSUTF8StringEncoding error:NULL]];
+    }
 }
 #endif
 
@@ -426,6 +423,9 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
                     else if (UTTypeConformsTo((__bridge CFStringRef)uti, kUTTypePDF)) {
                         [[self _remotePdfThumbnailForURL:url size:size page:page] subscribe:subscriber];
                     }
+//                    else if ([url.scheme hasPrefix:@"http"] || [url.scheme hasPrefix:@"https"]) {
+//                        [[self _webViewThumbnailForURL:url size:size] subscribe:subscriber];
+//                    }
                     else {
 #if (TARGET_OS_IPHONE)
                         [[self _remoteThumbnailForURL:url size:size page:page time:time] subscribe:subscriber];
@@ -791,10 +791,10 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
         
         dispatch_async(self.webViewThumbnailQueue, ^{
             @strongify(self);
-            
+
             dispatch_semaphore_wait(self.webViewThumbnailSemaphore, DISPATCH_TIME_FOREVER);
             
-            MEDispatchMainSync(^{
+            MEDispatchMainAsync(^{
                 @strongify(self);
                 
                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -953,7 +953,7 @@ static NSString *const kMERThumbnailManagerThumbnailFileCacheDirectoryName = @"t
     
     return [RACSignal createSignal:^RACDisposable *(id<RACSubscriber> subscriber) {
         @strongify(self);
-        
+
         RACDelegateProxy *proxy = [[RACDelegateProxy alloc] initWithProtocol:@protocol(NSURLConnectionDataDelegate)];
         
         [[proxy signalForSelector:@selector(connection:didReceiveResponse:)] subscribeNext:^(RACTuple *value) {
