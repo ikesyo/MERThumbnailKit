@@ -13,19 +13,34 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ The bundle identifier for the library.
+ */
 extern NSString *const MERThumbnailKitBundleIdentifier;
 
+/**
+ The version of library (e.g. 2.2.3).
+ */
 extern const struct MERThumbnailKitVersion {
     NSInteger major;
     NSInteger minor;
     NSInteger patch;
 } MERThumbnailKitVersion;
 
+/**
+ The name of the library resources bundle.
+ */
 extern NSString *const MERThumbnailKitResourcesBundleName;
+/**
+ Returns the `NSBundle` instance containing the resources for the library.
+ */
 extern NSBundle *MERThumbnailKitResourcesBundle();
 
 @interface MERThumbnailKitCommon : NSObject
 
+/**
+ Returns the version string of the library (e.g. "com.maestro.merthumbnailkit 2.2.3").
+ */
 + (NSString *)versionString;
 
 @end

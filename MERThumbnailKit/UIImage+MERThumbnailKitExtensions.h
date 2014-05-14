@@ -15,10 +15,26 @@
 
 @interface UIImage (MERThumbnailKitExtensions)
 
+/**
+ Returns whether the receiver has an alpha channel.
+ */
 @property (readonly,nonatomic) BOOL MER_hasAlpha;
 
+/**
+ Returns a thumbnail of the receiver of the specified size.
+ 
+ @param image The image to create a thumbnail of
+ @param size The size of the thumbnail. The size of the resulting thumbnail will always be scaled to fit within the size of the original image
+ @return The thumbnail image
+ */
 + (UIImage *)MER_thumbnailOfImage:(UIImage *)image size:(CGSize)size;
 
+/**
+ Calls `[UIImage MER_thumbnailOfImage:size:]`, passing `self` and _size_ respectively.
+ 
+ @param size The size of thumbnail
+ @return The thumbnail image
+ */
 - (UIImage *)MER_thumbnailOfSize:(CGSize)size;
 
 @end
