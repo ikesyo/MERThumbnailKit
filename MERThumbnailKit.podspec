@@ -4,7 +4,7 @@ Pod::Spec.new do |spec|
   spec.authors = {"William Towe" => "willbur1984@gmail.com"}
   spec.license = {:type => "MIT", :file => "LICENSE.txt"}
   spec.homepage = "https://github.com/MaestroElearning/MERThumbnailKit"
-  spec.source = {:git => "git@github.com:MaestroElearning/MERThumbnailKit.git", :tag => spec.version.to_s}
+  spec.source = {:git => "https://github.com/MaestroElearning/MERThumbnailKit.git", :tag => spec.version.to_s}
   spec.summary = "A framework for generating thumbnails of urls, both local and remote. Compatible with iOS/OSX, 7.0+/10.9+."
   
   spec.ios.deployment_target = "7.0"
