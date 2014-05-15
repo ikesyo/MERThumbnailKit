@@ -13,7 +13,6 @@ Pod::Spec.new do |spec|
   spec.dependency "MEFoundation", "~> 1.0.0"
   spec.dependency "ReactiveCocoa", "~> 2.3.0"
   spec.dependency "libextobjc/EXTScope", "~> 0.4.0"
-  spec.dependency "ReactiveFoundation", "~> 2.3.0"
   spec.requires_arc = true
   spec.frameworks = "Foundation", "Accelerate", "AVFoundation"
   spec.ios.frameworks = "UIKit", "MobileCoreServices"
